@@ -66,10 +66,11 @@ box-shadow: -5px 4px 14px 0px rgba(115,115,115,1);
 }
 #logoindex
 {
-	width:520px;
+	text-align: center;
+    width: 100%;
 	height:100px;
-	background:url(../images/logo.png) no-repeat;
-	background-size: 80px 60px;
+	/*background:url(../images/logo.png) no-repeat;
+	background-size: 550px auto;*/
 	float:left;
 	margin:20px;
 }
@@ -368,3 +369,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
 	bottom: -1px;
 }
 *:focus  {  outline: none; }
+
+.titulo{
+	font-size: 38px;	
+}
+
+

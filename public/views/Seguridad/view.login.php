@@ -21,6 +21,8 @@
 
 <div id="temafondo">
 		<div id="logoindex">
+		<div class="titulo">Sistema Control de Pr&aacute;cticas</div>
+		<div id="logo"><img src="<?php echo PATH_IMAGES; ?>/logo.png" height="50px"></div>
 		</div>
         <div id="logosombra">
 		</div>
@@ -110,26 +112,26 @@
 								},
 								fields: {			
 									username: {
-										message: 'El Usuario no es válido',
+										message: 'El Usuario no es vÃ¡lido',
 										validators: {
 													notEmpty: {
-														message: 'El Usuario no puede ser vacío.'
+														message: 'El Usuario no puede ser vacÃ­o.'
 													},					
 													regexp: {
-														regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9-_ \.]+$/,
-														message: 'Ingrese un Usuario válido.'
+														regexp: /^[a-zA-ZÃ¡Ã©Ã­Ã³ÃºÃ�Ã‰Ã�Ã“ÃšÃ±Ã‘0-9-_ \.]+$/,
+														message: 'Ingrese un Usuario vÃ¡lido.'
 													}
 												}
 											},	
 									password: {
-										message: 'La Contraseña no es válida',
+										message: 'La ContraseÃ±a no es vÃ¡lida',
 										validators: {
 											notEmpty: {
-												message: 'La Contraseña no puede ser vacía.'
+												message: 'La ContraseÃ±a no puede ser vacÃ­a.'
 											},					
 											regexp: {
-												regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9-_ \.]+$/,
-												message: 'Ingrese una Contraseña válida.'
+												regexp: /^[a-zA-ZÃ¡Ã©Ã­Ã³ÃºÃ�Ã‰Ã�Ã“ÃšÃ±Ã‘0-9-_ \.]+$/,
+												message: 'Ingrese una ContraseÃ±a vÃ¡lida.'
 											}
 										}
 									},
