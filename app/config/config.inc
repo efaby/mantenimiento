@@ -1,13 +1,13 @@
 <?php 	
 	define('HOSTNAME_DATABASE', 'localhost');
 	define('USERNAME', 'root');
-	define('PASSWORD', 'sistemas');
+	define('PASSWORD', '123456');
 	define('DATABASE', 'mantenimiento'); 	 
 	define('URL_BASE', '/mantenimiento/');
 	define('PATH_MODELS', PATH_ROOT."/app/models");
 	define('PATH_CONTROLLERS', PATH_ROOT."/app/controllers");
 	define('PATH_VIEWS', PATH_ROOT."/public/views");
-	define('PATH_BASE', "/comedor");	
+	define('PATH_BASE', "/mantenimiento");	
 	define('PATH_CSS', PATH_BASE."/public/web/css");
 	define('PATH_JS', PATH_BASE."/public/web/js");
 	define('PATH_IMAGES', PATH_BASE."/public/web/images");

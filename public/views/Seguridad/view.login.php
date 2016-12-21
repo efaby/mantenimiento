@@ -17,29 +17,67 @@
 
 <body>
 
-<div class="container">
-        <div class="card card-container">  
-        <p id="profile-name" class="profile-name-card">Sistema de Gestión de Confrontas</p>          
-            <img id="profile-img" class="profile-img-card" src="<?php echo PATH_IMAGES.'/ejercito.jpg'?>" />            
-             <div class="alert alert-danger fade in alert-dismissable" style="display: none; padding: 6px;" id="mensaje">
-				<span id="mensajeValidacion"></span>
-			</div>             
-             <?php $url = $_SERVER["REQUEST_URI"];?>
-             <form action="<?php echo (strpos($url, '/Seguridad/listar/'))?'../validar/':'Seguridad/validar/';?>" id="frmLogin" method="post" class="form-signin">
-            <div class="form-group"> 
-                <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Usuario" >
-             </div>
-             <div class="form-group"> 
-                <input type="password" id="contrasena" name="contrasena" class="form-control" placeholder="Contraseña" >                
-             </div>
-                <br>
-                
-                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" id="btnSubmit">
-                                <i class="fa fa-sign-in "></i>&nbsp;Ingresar</button>
-            </form><!-- /form -->
-          
-        </div><!-- /card-container -->
-    </div><!-- /container -->
+<div id="contenedor">
+
+<div id="temafondo">
+		<div id="logoindex">
+		</div>
+        <div id="logosombra">
+		</div>
+        <div id="formsombra">
+        </div>
+	</div>
+	
+	<!--WRAPPER-->
+	<div id="wrapper">
+		<!--SLIDE-IN ICONS-->
+    	<div class="user-icon"></div>
+    	<div class="pass-icon"></div>
+    	<!--END SLIDE-IN ICONS-->
+<!--LOGIN FORM-->
+<form  id="frmLogin" name="frmLogin" class="login-form form-signin" action="<?php echo (strpos($url, '/Seguridad/listar/'))?'../validar/':'Seguridad/validar/';?>" method="POST">
+
+
+	<!--HEADER-->
+    <div class="header">
+    <!--TITLE--><h1>Autentificaci&oacute;n</h1><!--END TITLE-->
+    <!--DESCRIPTION--><span>Ingrese su usuario, contrase&ntilde;a y tipo de usuario en el siguiente formulario.</span><!--END DESCRIPTION-->
+   
+	</div>
+    <!--END HEADER-->
+	<!--CONTENT-->
+    <div class="content">
+    
+    <div class="form-group"> 
+		<input name="username" id="username" type="text" placeholder="NOMBRE DE USUARIO" class=" input username"/>
+	</div>
+	<div class="form-group">
+    	<input name="password" id="password" type="password" placeholder="CONTRASE&Ntilde;A" class="input password"/>
+	</div>
+	<div class="form-group">
+		<select class="input selectTipo"  style="width:240px;" name="tipusuario" required>
+		<option value=NULL>TIPO DE USUARIO</option>
+		
+		</select>
+	</div>
+    </div>
+    <!--END CONTENT-->    
+    <!--FOOTER-->
+    <div class="footer">
+    <!--LOGIN BUTTON--><input type="submit" name="submit" value="INGRESAR" class="btn-primary btn" style="float: right" /><!--END LOGIN BUTTON-->
+    </div>
+    <!--END FOOTER-->
+
+</form>
+<!--END LOGIN FORM-->
+
+</div>
+<!--END WRAPPER-->
+
+
+</div>
+
+       
     
     <script src="<?php echo PATH_JS; ?>/jquery.min.js" type="text/javascript"></script>
     
@@ -48,14 +86,30 @@
 	<script src="<?php echo PATH_JS; ?>/currentList.js"></script>
 	<link href="<?php echo PATH_CSS; ?>/bootstrapValidator.min.css" rel="stylesheet"> 
     <script type="text/javascript">
+
 						$(document).ready(function(){
+
+							$(".username").focus(function() {
+					    		$(".user-icon").css("left","-48px");
+					    	});
+					    	$(".username").blur(function() {
+					    		$(".user-icon").css("left","0px");
+					    	});
+					    	
+					    	$(".password").focus(function() {
+					    		$(".pass-icon").css("left","-48px");
+					    	});
+					    	$(".password").blur(function() {
+					    		$(".pass-icon").css("left","0px");
+					    	});
+							
 							$('#frmLogin').formValidation({
 						    	message: 'This value is not valid',
 								feedbackIcons: {
 									validating: 'glyphicon glyphicon-refresh'
 								},
 								fields: {			
-									usuario: {
+									username: {
 										message: 'El Usuario no es válido',
 										validators: {
 													notEmpty: {
@@ -67,7 +121,7 @@
 													}
 												}
 											},	
-									contrasena: {
+									password: {
 										message: 'La Contraseña no es válida',
 										validators: {
 											notEmpty: {
