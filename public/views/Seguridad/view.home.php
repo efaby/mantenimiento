@@ -16,7 +16,7 @@
 		<?php endif;?>
 <div class="row">
 <div style="text-align: center;">
-<img src="<?php echo PATH_IMAGES.'/home.png'?>" style="width: 80%;" />
+
 </div>
 	
 	</div>

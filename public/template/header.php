@@ -1,118 +1,119 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title><?php echo $title; ?></title>
-    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <!-- bootstrap 3.0.2 -->
-    <link href="<?php echo PATH_CSS; ?>/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo PATH_CSS; ?>/jquery-ui.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo PATH_CSS; ?>/google-fonts.css" rel="stylesheet" type="text/css" />
-    <!-- font Awesome -->
-    <link href="<?php echo PATH_CSS; ?>/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <!-- Theme style -->
-    <link href="<?php echo PATH_CSS; ?>/style.css" rel="stylesheet" type="text/css" />
-     <link rel="shortcut icon" type="image/x-icon" href="<?php echo PATH_IMAGES.'/favicon.ico'?>" />
-      </head>
-      <body class="skin-black">        
-         <div class="navbar navbar-inverse set-radius-zero">
-        <div class="container">
-            <div class="navbar-header" style="width: 100%">  
-             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>              
-                <a class="navbar-brand" href="index.html">
-                    <img src="<?php echo PATH_IMAGES.'/ejercito.jpg'?>" width="70px"/>
-                </a>
-                <h1 style="padding-top: 15px;">Sistema de Gestión de Confrontas</h1>
-            </div>            
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo PATH_IMAGES.'/favicon.ico'?>" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Startmin - Bootstrap Admin Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="<?php echo PATH_CSS; ?>/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="<?php echo PATH_CSS; ?>/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="<?php echo PATH_CSS; ?>/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="<?php echo PATH_CSS; ?>/startmin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="<?php echo PATH_CSS; ?>/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="<?php echo PATH_CSS; ?>/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Sistema Control de Practicas</a>
+            <div id="logo"><img src="<?php echo PATH_IMAGES; ?>/logo1.png" height="50px"></div>
         </div>
-    </div>
-        
-    <section class="menu-section">
-        <div class="container">
-            <div class="row">
-               <?php $url = $_SERVER["REQUEST_URI"];?>
-                    <div class="navbar-collapse collapse ">
-                        <ul id="menu-top" class="nav navbar-nav">
-                            <li class="<?php echo (strpos($url, '/Seguridad/inicio/'))?'menu-top-active':'';?>"><a href="../../Seguridad/inicio/">Inicio</a></li>
-                            <?php if($_SESSION['SESSION_USER']->tipo==1):?>
-                            	<li class="<?php echo (strpos($url, '/Usuario/listar/'))?'menu-top-active':'';?>"><a href="../../Usuario/listar/">Usuarios</a></li>
+
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+
+        <!-- Top Navigation: Left Menu -->
+       
+
+        <!-- Top Navigation: Right Menu -->
+        <ul class="nav navbar-right navbar-top-links">
+            
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i> secondtruth <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <!-- Sidebar -->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+
+                <ul class="nav" id="side-menu">
+                    <li class="sidebar-search">
+                        <div class="input-group custom-search-form">
                             
-	                            <li class="dropdown <?php echo ((strpos($url, '/Unidad/'))||(strpos($url, '/Tipo/'))||(strpos($url, '/TipoNovedad/'))||(strpos($url, '/Grado/')))?'menu-top-active':'';?>">
-	                            	<a data-submenu="" data-toggle="dropdown" tabindex="0" aria-expanded="false">Catálogos
-	                            		<span class="caret"></span>
-	                            	</a>
-	                            	<ul class="dropdown-menu">
-									     <li class="sub-menu <?php echo (strpos($url, '/Unidad/listar/'))?'menu-top-active':'';?>"><a href="../../Unidad/listar/">Unidades</a></li>
-									     <li class="sub-menu <?php echo (strpos($url, '/Tipo/listar/'))?'menu-top-active':'';?>"><a href="../../Tipo/listar/">Tipos de Personal</a></li>
-									     <li class="sub-menu <?php echo (strpos($url, '/TipoNovedad/listar/'))?'menu-top-active':'';?>"><a href="../../TipoNovedad/listar/">Tipos de Novedades</a></li>
-									     <li class="sub-menu <?php echo (strpos($url, '/Grado/listar/'))?'menu-top-active':'';?>"><a href="../../Grado/listar/">Grados de Personal</a></li>
-									</ul>
-	                            </li>
-	                            
-	                            <li class="<?php echo (strpos($url, '/Parametro/listar/'))?'menu-top-active':'';?>"><a href="../../Parametro/editar/">Configuración</a></li>
-                            <?php endif;?>
-                            <?php if(($_SESSION['SESSION_USER']->tipo==2)||($_SESSION['SESSION_USER']->tipo==3)):?>
-                            	<li class="<?php echo (strpos($url, '/Persona/listar/'))?'menu-top-active':'';?>"><a href="../../Persona/listar/">Personal</a></li>
-                            <?php endif;?>
-                            <?php if($_SESSION['SESSION_USER']->tipo==2):?>	
-                            	<li class="<?php echo (strpos($url, '/Novedad/listar/'))?'menu-top-active':'';?>"><a href="../../Novedad/listar/">Novedad</a></li>
-                            	<li class="<?php echo (strpos($url, '/Confronta/listar/'))?'menu-top-active':'';?>"><a href="../../Confronta/listar/">Confronta</a></li>
-                            	<li class="<?php echo (strpos($url, '/Unidad/configurar/'))?'menu-top-active':'';?>"><a href="../../Unidad/configurar/">Unidad</a></li>
-                            	<li class="dropdown <?php echo ((strpos($url, '/Consumo/')))?'menu-top-active':'';?>">
-	                            	<a data-submenu="" data-toggle="dropdown" tabindex="0" aria-expanded="false">Consumos
-	                            		<span class="caret"></span>
-	                            	</a>
-	                            	<ul class="dropdown-menu">
-									     <li class="sub-menu <?php echo (strpos($url, '/Consumo/individual/'))?'menu-top-active':'';?>"><a href="../../Consumo/individual/">Individual</a></li>
-									     <li class="sub-menu <?php echo (strpos($url, '/Consumo/listado/'))?'menu-top-active':'';?>"><a href="../../Consumo/listado/">Listado</a></li>
-									    
-									</ul>
-	                            </li>
-                            	<?php endif;?>
-							<?php if($_SESSION['SESSION_USER']->tipo==3):?>
-                            	<li class="<?php echo (strpos($url, '/Confronta/consolidado/'))?'menu-top-active':'';?>"><a href="../../Confronta/consolidado/">Consolidado</a></li>
-                            	<li class="<?php echo (strpos($url, '/Confronta/reporteConsolidado/'))?'menu-top-active':'';?>"><a href="../../Confronta/reporteConsolidado/">Reporte</a></li>
-                            <?php endif;?>
-                            <?php if($_SESSION['SESSION_USER']->tipo==4):?>
-                            	<li class="<?php echo (strpos($url, '/ExtraConfronta/listar/'))?'menu-top-active':'';?>"><a href="../../ExtraConfronta/listar/">Extra Confronta</a></li>
-                            	<li class="<?php echo (strpos($url, '/Confronta/consolidado/'))?'menu-top-active':'';?>"><a href="../../Confronta/consolidado/">Consolidado</a></li>
-                            	<li class="<?php echo (strpos($url, '/Confronta/reporteConsolidado/'))?'menu-top-active':'';?>"><a href="../../Confronta/reporteConsolidado/">Reporte</a></li>
-                            <?php endif;?>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">Second Level Item</a>
+                            </li>
+                            <li>
+                                <a href="#">Third Level <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="#">Third Level Item</a>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
-                        
-                        <div class="navbar-right">
-                    <ul class="nav navbar-nav" id="menu-top">                         
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-user"></i>
-                                <span><?php echo $_SESSION['SESSION_USER']->usuario; ?><i class="caret"></i></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
-                                <li class="sub-menu">
-                                        <a href="../../Seguridad/cambiarContrasena/">                                        
-                                            Cambiar Contraseña
-                                        </a>                                        
-                                        </li>
-                                        <li class="sub-menu">
-                                            <a href="../../Seguridad/cerrarSesion/"><i class="fa fa-sign-out fa-fw pull-right"></i> Cerrar Sesión</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>                
-                        
-                    </div>               
+                    </li>
+                </ul>
 
             </div>
         </div>
-    </section>
-                                <!-- Main content -->
-                <section class="content">
-    <div class="content-wrapper">
-        <div class="container">
+    </nav>
+
+    <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+
             <div class="row">
-		
+
+

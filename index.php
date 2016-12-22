@@ -7,10 +7,13 @@ session_start();
 if(isset($_GET['action'])){
 	$redirect = ($_GET['action']!='')?$_GET['action']:"listar";
 }
+
 if(!isset($app)){
 	$app = 'Seguridad';
 	$redirect = "login";
 }
+
+/*
 $urls = unserialize(PUBLIC_URLS);
 if (!isset($_SESSION['SESSION_USER'])){	
 	if(!in_array($app.$redirect, $urls)){
@@ -24,7 +27,7 @@ if (!isset($_SESSION['SESSION_USER'])){
 		$redirect = "error403";
 	}
 }
-	
+	*/
 
 require_once(PATH_CONTROLLERS."/".$app."Controller.php");
 $controllerName = $app."Controller";
