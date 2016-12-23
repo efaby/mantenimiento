@@ -5,14 +5,12 @@ class UsuarioModel {
 
 	private $pattern = "------";
 	
-	public function getlistadoUsuario($usuario){
+	public function getlistadoUsuario(){		
 		$model = new BaseModel();	
-		$sql = "select u.*, n.abreviatura as unidad, t.nombre, p.nombres, p.apellidos from usuario as u
-				inner join tipo_usuario as t on t.id = u.tipo_usuario_id
-				inner join persona as p on p.id = u.persona_id
-				left join unidad as n on n.id = u.unidad_id
-				where u.activo = 1 and u.id <> ?";		
-		return $model->execSql($sql, array($usuario),true);
+		$sql = "select u.*, t.nombre as tipo_usuario_nombre from usuario as u
+				inner join tipo_usuario t on u.tipo_usuario_id= t.id		
+				where u.activo = 1";		
+		return $model->execSql($sql, array(),true);
 	}	
 	
 	public function getUsuario()
@@ -20,19 +18,18 @@ class UsuarioModel {
 		$usuario = $_GET['id'];
 		$model = new BaseModel();		
 		if($usuario > 0){
-			$sql = "select u.*, p.identificacion, p.nombres, p.apellidos from usuario as u
-					inner join persona as p on p.id = u.persona_id
+			$sql = "select u.*, t.nombre as tipo_usuario_nombre from usuario as u
+					inner join tipo_usuario t on u.tipo_usuario_id= t.id
 					where u.id = ?";
 			$result = $model->execSql($sql, array($usuario));
 			$result->password = $result->password1 = $this->pattern;
-			$result->nombres = $result->nombres ." ". $result->apellidos;
+			$result->identificacion = $result->cedula;
 		} else {
-			$result = (object) array('id'=>0,'persona_id'=>0,'unidad_id'=>0,'usuario'=>'', 'password'=>'', 'password1'=>'','identificacion' =>'','nombres'=>'','tipo_usuario_id'=>0);			
+			$result = (object) array('id'=>0,'password'=>'', 'password1'=>'','identificacion' =>'','nombres'=>'','apellidos'=>'','tipo_usuario_id'=>0,'email'=>'');			
 		}
 		
 		return $result;
 	}
-	
 	
 	public function saveUsuario($usuario){
 		if((($usuario['id']>0) && ($usuario['password']!=$this->pattern))||($usuario['id']==0)){
@@ -45,16 +42,20 @@ class UsuarioModel {
 	}
 	
 	public function delUsuario(){
-		$unidad = $_GET['id'];
+		$usuario = $_GET['id'];
 		$sql = "update usuario set activo = 0 where id = ?";
 		$model = new BaseModel();
-		$result = $model->execSql($sql, array($unidad),false,true);
+		$result = $model->execSql($sql, array($usuario),false,true);
 	}
 
 	public function getCatalogo($tabla){
 		$model = new BaseModel();
 		return $model->getCatalogo($tabla);
+	}	
+	
+	public function getUsuarioPorCedula($cedula){
+		$model =  new BaseModel();
+		$sql = "select * from usuario where cedula = ? ";
+		return $model->execSql($sql, array($cedula));
 	}
-	
-	
 }

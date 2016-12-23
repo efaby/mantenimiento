@@ -8,7 +8,7 @@ class UsuarioController {
 	
 	public function listar() {
 		$model = new UsuarioModel();
-		$datos = $model->getlistadoUsuario($_SESSION['SESSION_USER']->id);
+		$datos = $model->getlistadoUsuario();
 		$message = "";
 		require_once PATH_VIEWS."/Usuario/view.list.php";
 	}
@@ -16,20 +16,20 @@ class UsuarioController {
 	public function editar(){
 		$model = new UsuarioModel();
 		$item = $model->getUsuario();	
-		$tipos = $model->getCatalogo('tipo_usuario');
-		$unidades = $model->getCatalogo('unidad');
+		$tipos = $model->getCatalogo('tipo_usuario');		
 		$message = "";
 		require_once PATH_VIEWS."/Usuario/view.form.php";
 	}
 	
-	public function guardar() {
-		
+	public function guardar() {		
 		$usuario ['id'] = $_POST ['id'];
-		$usuario ['persona_id'] = $_POST ['persona_id'];
 		$usuario ['tipo_usuario_id'] = $_POST ['tipo_usuario_id'];
-		$usuario ['usuario'] = $_POST ['usuario'];
-		$usuario ['password'] = $_POST ['password'];
-		$usuario ['unidad_id'] = $_POST ['unidad_id'];
+		$usuario ['cedula'] = $_POST ['identificacion'];		
+		$usuario ['nombres'] = $_POST ['nombres'];
+		$usuario ['apellidos'] = $_POST ['apellidos'];
+		$usuario ['password'] = $_POST ['password'];		
+		$usuario ['email'] = $_POST ['email'];
+		$usuario ['activo'] = 1;
 		
 		$model = new UsuarioModel();
 		try {
@@ -52,10 +52,10 @@ class UsuarioController {
 		header ( "Location: ../listar/" );
 	}
 	
-	public function getPersona() {
+	public function getUsuarioByIde() {
 		$cedula = $_GET ['identificacion'];
-		$model = new PersonaModel();
-		$persona = $model->getPersonaPorCedula($cedula);		
+		$model = new UsuarioModel();
+		$persona = $model->getusuarioPorCedula($cedula);	
 		echo json_encode ($persona);
 	}
 	

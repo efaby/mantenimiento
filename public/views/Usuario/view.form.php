@@ -8,42 +8,23 @@
 			<option value="<?php echo $dato->id;?>"  <?php if($item->tipo_usuario_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
 		<?php }?>
 		</select>
-
 	</div>
 	<div class="form-group col-sm-6">
 		<label class="control-label">Identificación</label> <input type='text'
 			name='identificacion' class='form-control'
 			value="<?php echo $item->identificacion; ?>" id="identificacion">
-
+	</div>	
 	</div>
-	
-	</div>
-	
-	
 	<div class="form-group col-sm-6">
-		<label class="control-label">Persona</label> <input type='text'
-			name='nombres' class='form-control' readonly="readonly"
+		<label class="control-label">Nombres</label> <input type='text'
+			name='nombres' class='form-control' 
 			value="<?php echo $item->nombres; ?>" id="nombres">
-
 	</div>
-	<div class="form-group  col-sm-6">
-		<label class="control-label">Unidad</label>
-		<select class='form-control' name="unidad_id" id="unidad">
-			<option value="" >Seleccione</option>
-		<?php foreach ($unidades as $dato) { ?>
-			<option value="<?php echo $dato->id;?>"  <?php if($item->unidad_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
-		<?php }?>
-		</select>
-
+	<div class="form-group col-sm-6">
+		<label class="control-label">Apellidos</label> <input type='text'
+			name='apellidos' class='form-control' 
+			value="<?php echo $item->apellidos; ?>" id="apellidos">
 	</div>
-	<div class="form-group col-sm-12">
-		<label class="control-label">Nombre de Usuario</label> <input type='text'
-			name='usuario' class='form-control'
-			value="<?php echo $item->usuario; ?>" id="usuario">
-
-	</div>
-	
-
 	<div class="form-group col-sm-6">
 		<label class="control-label">Contraseña</label>
 		<input type="password"
@@ -58,9 +39,13 @@
 			value="<?php echo $item->password1; ?>">
 
 	</div>
+		<div class="form-group col-sm-12">
+		<label class="control-label">Email</label> <input type='text'
+			name='email' class='form-control'
+			value="<?php echo $item->email; ?>" id="email">
+	</div>	
 	<div class="form-group">
-	<input type='hidden' name='id' class='form-control' value="<?php echo $item->id; ?>">
-	<input type='hidden' name='persona_id' id='persona_id' class='form-control' value="<?php echo $item->persona_id; ?>">
+		<input type='hidden' name='id' class='form-control' value="<?php echo $item->id; ?>">		
 		<button type="submit" class="btn btn-success boton" id="boton">Guardar</button>
 	</div>
 
@@ -75,29 +60,15 @@ $(document).ready(function() {
 	    	jQuery.ajax({
 		        type: "GET",
 		        dataType: "json",
-		        url: "../getPersona/",
+		        url: "../getUsuarioByIde/",
 		        data: {
 		        	"identificacion": ci
 		        },
 		        success:function(data) {
-		        	jQuery("#nombres").val('');
-		        	jQuery("#usuario").val('');
-		        	jQuery("#unidad").val('');
-		        	jQuery("#persona_id").val(0);
-			        if(data){
-			        	jQuery("#nombres").val(data.nombres + ' ' + data.apellidos);
-			        	jQuery("#usuario").val(data.identificacion);
-			        	jQuery("#unidad").val(data.unidad_id);
-			        	jQuery("#boton").removeClass('disabled');
-			        	jQuery("#persona_id").val(data.id);
-			        	$('#frmUsuario').formValidation('revalidateField', 'unidad_id');
-			        	$('#frmUsuario').formValidation('revalidateField', 'usuario');
-			        	
-			        } else {
-						alert("La persona no exite por favor regístrelo en la sección Personal");
-						jQuery("#boton").addClass('disabled');
-			        }
-		        	
+		        	if(data){
+		        		alert("El usuario con está identificación ya existe por favor ingrese otra");
+						jQuery("#boton").addClass('disabled');		        	
+			        }		        	
 		        }
 		    });
 	    }
@@ -124,30 +95,28 @@ $(document).ready(function() {
 							}
 						}
 					},
-			
-			usuario: {
-				message: 'El Usuario no es válido',
-				validators: {
-					notEmpty: {
-						message: 'El Usuario no puede ser vacío.'
-					},					
-					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9_ ,-\.]+$/,
-						message: 'Ingrese un Usuario válido.'
-					}
-				}
-			},			
+
+			nombres: {
+						message: 'El Nombre no es válido',
+						validators: {
+									notEmpty: {
+										message: 'El Nombre no puede ser vacío.'
+									}
+								}
+							},
+			apellidos: {
+						message: 'El Apellido no es válido',
+						validators: {
+										notEmpty: {
+										message: 'El Apellido no puede ser vacío.'
+									}
+								}
+						},
+					
 			tipo_usuario_id: {
 				validators: {
 					notEmpty: {
 						message: 'Seleccione un Tipo de Usuario'
-					}
-				}
-			},
-			unidad_id: {
-				validators: {
-					notEmpty: {
-						message: 'Seleccione una Unidad'
 					}
 				}
 			},
@@ -159,8 +128,8 @@ $(document).ready(function() {
 						message: 'La Contraseña no puede ser vacía.'
 					},					
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9-_ \.]+$/,
-						message: 'Ingrese una Contraseña válida.'
+						regexp: /^[a-zA-ZÃ¡Ã©Ã­Ã³ÃºÃ�Ã‰Ã�Ã“ÃšÃ±Ã‘0-9-_ \.]+$/,
+						message: 'Ingrese una Contraseña válido.'
 					}
 				}
 			},
@@ -172,6 +141,15 @@ $(document).ready(function() {
 					identical: {
 						field: 'password',
 						message: 'La contraseña debe ser la misma'
+					}
+				}
+			},
+			email: {
+				message: 'El email no es válida',
+				validators: {
+					regexp: {
+						regexp: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+						message: 'Ingrese un email válido.'
 					}
 				}
 			},

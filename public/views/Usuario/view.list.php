@@ -26,18 +26,18 @@
 	    	<th>Nombre</th>
 	    	<th>Usuario</th>
 		    <th>Tipo</th>
-		    <th>Unidad</th>		   
+		    <th>Email</th>		   
 		    <th style="text-align: center;">Acciones</th>
 	    </tr>
     </thead>
     <tbody>
     	<?php foreach ($datos as $item) {
     		echo "<tr><td>".$item->nombres." ".$item->apellidos."</td>";
-    		echo "<td>".$item->usuario."</td>";
-    		echo "<td>".$item->nombre."</td>";
-    		echo "<td>".$item->unidad." </td>";    		
+    		echo "<td>".$item->cedula."</td>";
+    		echo "<td>".$item->tipo_usuario_nombre."</td>";
+    		echo "<td>".$item->email." </td>";    		
     		echo "<td align='center'><a href='javascript: loadModal(".$item->id.")' class='btn btn-warning btn-sm' title='Editar' ><i class='fa fa-pencil'></i></a>
-					  <a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a></td>";
+					  <a href='javascript:if(confirm(\"Est\u00e1 seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a></td>";
     	}?>
     </tbody>
     </table>
@@ -50,7 +50,6 @@
 				<a class="close" data-dismiss="modal">×</a>
 				<h3>Usuario</h3>
 			</div>
-
 			<div class="modal-body"></div>
 
 		</div>
