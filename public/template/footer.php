@@ -9,6 +9,7 @@
 
 <!-- jQuery -->
 <script src="<?php echo PATH_JS; ?>/jquery.min.js"></script>
+ <script src="<?php echo PATH_JS; ?>/jquery-ui.min.js" type="text/javascript"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="<?php echo PATH_JS; ?>/bootstrap.min.js"></script>
