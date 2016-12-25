@@ -162,13 +162,6 @@ $(document).ready(function() {
 					}
 				}
 			},
-			activo_fisico_id: {
-				validators: {
-					notEmpty: {
-						message: 'Seleccione un Activo Físico'
-					}
-				}
-			},
 			url: {
 				validators: {
 					notEmpty: {
@@ -194,7 +187,7 @@ $(document).ready(function() {
 });
 </script>
 <style>
-#frmItem .col-sm-6, #frmItem .col-sm-12 {
+.col-sm-6, .col-sm-12 {
 	padding-right: 0px;
 	padding-left: 0px;
 }
