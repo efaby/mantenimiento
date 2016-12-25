@@ -1,8 +1,8 @@
 <?php
 class File {
-	public function download($nombre){
+	public function download($nombre,$folder){
 	
-		$path = PATH_FILES.$nombre;
+		$path = PATH_FILES.$folder.'/'.$nombre;
 		$type = '';
 
 		if (is_file($path)) {
@@ -27,19 +27,19 @@ class File {
 		}
 	}
 	
-	public function uploadFile($prefix){
+	public function uploadFile($prefix,$folder){
 		$key = 'url';
 
 		if(isset($_POST['fileName'])){
 			
 			if($_FILES['url1']['name']!=''){
 				$key = 'url1';
-				unlink(PATH_FILES.$_POST['fileName']);
+				unlink(PATH_FILES.$folder.'/'.$_POST['fileName']);
 			} else {
 				return $_POST['fileName'];
 			}					
 		}			
-		return $this->uploadFileToServer($prefix, $key,PATH_FILES);	
+		return $this->uploadFileToServer($prefix, $key,PATH_FILES.$folder.'/');	
 	}
 	
 	
