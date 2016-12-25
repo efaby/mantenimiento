@@ -15,3 +15,9 @@ $(document).ready(function(){
 		var url = '../eliminar/' + id;
 		location.href = url;
 	}
+	
+	function loadModalAction(id,action){
+		$('.modal-body').load('../'+action+'/' + id,function(result){
+		    $('#'+action).modal({show:true});
+		});
+	}

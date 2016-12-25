@@ -134,7 +134,7 @@ $(document).ready(function() {
 							},												
 									regexp: {
 										regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.]+$/,
-										message: 'Ingrese ua Causa válida.'
+										message: 'Ingrese una Causa válida.'
 									}
 								}
 							},
@@ -143,7 +143,7 @@ $(document).ready(function() {
 								validators: {												
 											regexp: {
 												regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.]+$/,
-												message: 'Ingrese ua Solución válida.'
+												message: 'Ingrese una Solución válida.'
 											}
 										}
 									},

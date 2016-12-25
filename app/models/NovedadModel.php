@@ -3,27 +3,27 @@ require_once(PATH_MODELS."/BaseModel.php");
 
 class NovedadModel {
 
-	public function getlistadoNovedad(){
+	public function getlistadoNovedad($usuario){
 		$model = new BaseModel();	
 		$sql = "select n.*, a.nombre as maquina, l.nombre as laboratorio from novedad as n
 				inner join activo_fisico as a on a.id =  n.activo_fisico_id
 				inner join lab_activo as la on la.activo_fisico_id = a.id
-				inner join laboratorio as l on l.id = la.laboratorio_id";	
+				inner join laboratorio as l on l.id = la.laboratorio_id
+				where (tecnico_asigna = ".$usuario." or 0 = ".$usuario.")";	
 		return $model->execSql($sql, array(),true);
 	}	
 	
-	public function getParalelo()
+	public function getNovedad()
 	{
-		$paralelo = $_GET['id'];
+		$novedad = $_GET['id'];
 		$model = new BaseModel();		
-		if($paralelo > 0){
-			$sql = "select * from paralelo where eliminado = 0 and id = ?";
-			$result = $model->execSql($sql, array($paralelo));				
-		} else {
-			$result = (object) array('id'=>0,'nombre'=>'','fecha_inicio'=>'','fecha_fin'=>'', 'lab_docente_id' =>0);			
-		}
-		
-		return $result;
+		$sql = "select n.*, a.nombre as maquina, l.nombre as laboratorio from novedad as n
+				inner join activo_fisico as a on a.id =  n.activo_fisico_id
+				inner join lab_activo as la on la.activo_fisico_id = a.id
+				inner join laboratorio as l on l.id = la.laboratorio_id 
+				where n.id = ?";
+		return $model->execSql($sql, array($novedad));				
+
 	}
 	
 	
@@ -32,6 +32,7 @@ class NovedadModel {
 		$model = new BaseModel();
 		return $model->saveDatos($novedad,'novedad');
 	}
+
 	
 	public function delParalelo(){
 		$paralelo = $_GET['id'];
@@ -51,6 +52,12 @@ class NovedadModel {
 		$sql = "select a.id, a.nombre from activo_fisico as a
 				inner join lab_activo as la on la.activo_fisico_id = a.id
 				where la.laboratorio_id = ".$laboratorio;
+		return $model->execSql($sql, array(),true);
+	}
+	
+	public function getTecnicos(){
+		$model = new BaseModel();
+		$sql = "select u.id, u.nombres, u.apellidos from usuario as u where u.tipo_usuario_id = 2";
 		return $model->execSql($sql, array(),true);
 	}
 }

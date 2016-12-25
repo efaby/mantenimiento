@@ -35,23 +35,40 @@
     		echo "<td>".$item->maquina."</td>";    		
     		echo "<td>".$usuario."</td>";
     		echo "<td>".substr ( $item->problema , 0 ,20 )."</td>";
+    		$tecnico = ($item->tecnico_asigna > 0)?'disabled':'';
+    		$repara = ($item->tecnico_repara > 0)?'disabled':'';
     		echo "<td align='center'>
 				
 				<a href='../ver/".$item->id."' class='btn btn-info btn-sm' title='Ver Problema' ><i class='fa fa-info-circle '></i></a>
-				<a href='javascript: loadModal(".$item->id.")' class='btn btn-warning btn-sm' title='Asignar Técnico' ><i class='fa fa-user'></i></a>
-				<a href='javascript: loadModal(".$item->id.")' class='btn btn-warning btn-sm' title='Atender' ><i class='fa fa-edit'></i></a>
+				<a href='javascript: loadModalAction(".$item->id.",\"asignar\")' class='btn btn-warning btn-sm ".$tecnico."' title='Asignar Técnico' ><i class='fa fa-user'></i></a>
+				<a href='javascript: loadModalAction(".$item->id.",\"reparar\")' class='btn btn-warning btn-sm ".$repara."' title='Atender' ><i class='fa fa-edit'></i></a>
 				</td>";
     	}?>
     </tbody>
     </table>
 </div>
-<div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog"
+<div class="modal fade" id="asignar" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" style="width: 400px;">
+	<div class="modal-dialog" style="width: 700px;">
 		<div class="modal-content">
 			<div class="modal-header">
 				<a class="close" data-dismiss="modal">×</a>
-				<h3>Novedad</h3>
+				<h3>Asignar Tecnico</h3>
+			</div>
+
+			<div class="modal-body"></div>
+
+		</div>
+
+	</div>
+</div>
+<div class="modal fade" id="reparar" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="width: 700px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a class="close" data-dismiss="modal">×</a>
+				<h3>Reparar Novedad</h3>
 			</div>
 
 			<div class="modal-body"></div>

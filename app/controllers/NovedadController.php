@@ -11,8 +11,8 @@ class NovedadController {
 		require_once PATH_VIEWS."/Novedad/view.ingreso.php";
 	}
 	
-	public function guardar() {
-	
+	public function guardar() {	
+		
 		$novedad ['problema'] = $_POST ['problema'];
 		$novedad ['causa'] = $_POST ['causa'];
 		$novedad ['solucion'] = $_POST ['solucion'];
@@ -47,31 +47,66 @@ class NovedadController {
 	
 	
 	public function listar() {
-		$model = new NovedadModel();		
-		$datos = $model->getlistadoNovedad();
+		$model = new NovedadModel();	
+		$usuario = 0; // Docente preguntar si es supervisor o tecnico pra lstar de acuerdo a ello
+		$datos = $model->getlistadoNovedad($usuario);
 		$message = "";
 		require_once PATH_VIEWS."/Novedad/view.list.php";
 	}
 	
-	public function editar(){
-		$model = new NovedadModel();
-		$docente = 3; // Docente
-		$item = $model->getNovedad();			
-		$message = "";
-		require_once PATH_VIEWS."/Novedad/view.form.php";
+	public function asignar(){
+		$model = new NovedadModel();		
+		$item = $model->getNovedad();	
+		$tecnicos = $model->getTecnicos();		
+		require_once PATH_VIEWS."/Novedad/view.formAsignar.php";
 	}
 	
+	public function guardarAsignar() {
 	
+		$novedad ['id'] = $_POST ['id'];
+		$novedad ['tecnico_asigna'] = $_POST ['usuario_id'];
+		$novedad ['supervisor_id'] = 1; // supervisor
 	
-	public function eliminar() {
-		$model = new ParaleloModel();
+		$model = new NovedadModel();
 		try {
-			$datos = $model->delParalelo();
-			$_SESSION ['message'] = "Datos eliminados correctamente.";
+			$datos = $model->saveNovedad( $novedad );
+			$_SESSION ['message'] = "Datos almacenados correctamente.";
+			//email
+				
 		} catch ( Exception $e ) {
 			$_SESSION ['message'] = $e->getMessage ();
 		}
 		header ( "Location: ../listar/" );
 	}
+	
+	public function reparar(){
+		$model = new NovedadModel();
+		$item = $model->getNovedad();	
+		$tecnicos = $model->getTecnicos();
+		require_once PATH_VIEWS."/Novedad/view.formReparar.php";
+	}
+	
+	public function guardarReparar() {
+	
+		print('llego');
+		exit();
+		$novedad ['id'] = $_POST ['id'];
+		$novedad ['proceso'] = $_POST ['proceso'];
+		$novedad ['elementos'] = $_POST ['elementos'];
+		$novedad ['observacion'] = $_POST ['observacion'];
+		$novedad ['tecnico_repara'] = 2; // tecnico repara
+	
+		$model = new NovedadModel();
+		try {
+			$datos = $model->saveNovedad( $novedad );
+			$_SESSION ['message'] = "Datos almacenados correctamente.";
+			//email
+	
+		} catch ( Exception $e ) {
+			$_SESSION ['message'] = $e->getMessage ();
+		}
+		header ( "Location: ../listar/" );
+	}
+	
 	
 }
