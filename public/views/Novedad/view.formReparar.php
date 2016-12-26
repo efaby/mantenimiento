@@ -27,20 +27,27 @@
 		</div>
 	</div>
 	
-	<div class="form-group  col-sm-12">
-		<label class="control-label">Asignar Tecnico</label>
-		<select class='form-control' name="usuario_id" id="usuario_id">
-			<option value="" >Seleccione</option>
-		<?php foreach ($tecnicos as $dato) { ?>
-			<option value="<?php echo $dato->id;?>" ><?php echo $dato->nombres.' '.$dato->apellidos;?></option>
-		<?php }?>
-		</select>
-
+	<div class="form-group col-sm-12">	
+		<label class="control-label">Proceso</label>
+		<textarea name='proceso' id='proceso' class='form-control' ></textarea>	
+			
 	</div>
 	
+	<div class="form-group col-sm-12">	
+		<label class="control-label">Elementos</label>
+		<textarea name='elementos' id='elementos' class='form-control' ></textarea>		
+			
+	</div>
+	
+	<div class="form-group col-sm-12">	
+		<label class="control-label">Observacion</label>
+		<textarea name='observacion' id='observacion' class='form-control' ></textarea>	
+		
+	</div>
+		
 	<div class="form-group">
 	<input type='hidden' name='id' class='form-control' value="<?php echo $item->id; ?>">
-		<button type="submit" class="btn btn-success">Guardar</button>
+		<button type="submit" class="btn btn-success" id="saveReparar">Guardar</button>
 	</div>
 
 </form>
@@ -56,13 +63,40 @@ $(document).ready(function() {
 			validating: 'glyphicon glyphicon-refresh'
 		},
 		fields: {			
-			usuario_id: {
-				validators: {
+			proceso: {
+				message: 'El Proceso no es válido',
+				validators: {	
 					notEmpty: {
-						message: 'Seleccione un Tecnico'
-					}
-				}
-			},
+						message: 'El Proceso no puede ser vacío.'
+					},												
+							regexp: {
+								regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.]+$/,
+								message: 'Ingrese un proceso válido.'
+							}
+						}
+					},	
+					elementos: {
+						message: 'Los Elementos no son válidos',
+						validators: {	
+							notEmpty: {
+								message: 'La Causa no puede ser vacía.'
+							},												
+									regexp: {
+										regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.]+$/,
+										message: 'Ingrese los Elementos válidos.'
+									}
+								}
+							},
+							observacion: {
+								message: 'La observación no es válido',
+								validators: {												
+											regexp: {
+												regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.]+$/,
+												message: 'Ingrese una Observación válida.'
+											}
+										}
+									},
+
 			
 		}
 	});

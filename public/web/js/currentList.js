@@ -18,6 +18,10 @@ $(document).ready(function(){
 	
 	function loadModalAction(id,action){
 		$('.modal-body').load('../'+action+'/' + id,function(result){
-		    $('#'+action).modal({show:true});
+			$('#titles').html('Asignar Tecnico');
+			if(action=='reparar'){
+				$('#titles').html('Reparar Novedad');
+			}
+		    $('#atenderNovedad').modal({show:true});
 		});
 	}
