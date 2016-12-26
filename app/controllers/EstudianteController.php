@@ -15,8 +15,7 @@ class EstudianteController {
 	
 	public function editar(){
 		$model = new EstudianteModel();
-		$item = $model->getEstudiante();
-		
+		$item = $model->getEstudiante();		
 		$docente = 3; // Docente		
 		$paralelos = $model->getParalelo($docente);		
 		$message = "";
@@ -57,10 +56,17 @@ class EstudianteController {
 	}
 	
 	public function getEstudianteByIde() {
+		$cedula = $_GET ['identificacion'];		
+		$model = new EstudianteModel();
+		$persona = $model->getEstudiantePorCedula($cedula);
+		echo json_encode ($persona);
+	}
+	
+	public function getExistEstudiante() {
 		$cedula = $_GET ['identificacion'];
 		$paralelo_id = $_GET ['paralelo_id'];
 		$model = new EstudianteModel();
-		$persona = $model->getEstudiantePorCedula($cedula, $paralelo_id);
+		$persona = $model->getExistEstudiante($cedula, $paralelo_id);
 		echo json_encode ($persona);
 	}
 }

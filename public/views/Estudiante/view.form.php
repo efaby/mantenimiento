@@ -43,17 +43,41 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
-	$('#identificacion').keyup(function(){
+	$('#identificacion').change(function(){
 	    var ci = jQuery("#identificacion").val();
 	    var paralelo_id = jQuery("#paralelo_id").val();
 	    if(ci.length == 10){
 	    	jQuery.ajax({
 		        type: "GET",
 		        dataType: "json",
-		        url: "../getEstudianteByIde/",
+		        url: "../getExistEstudiante/",
 		        data: {
 		        	"identificacion": ci,
 		        	"paralelo_id":paralelo_id
+		        },
+		        success:function(data) {
+		        	if(data){
+		        		alert("El estudiante ya esta registrado en ese paralelo.");
+						jQuery("#boton").addClass('disabled');				
+			        }
+		        	else{
+		        			jQuery("#boton").removeClass('disabled');
+			        	}			    			           	
+		        }
+		    });
+	    }
+	});
+	
+	$('#identificacion').keyup(function(){
+	    var ci = jQuery("#identificacion").val();
+	    if(ci.length == 10){
+	    	jQuery.ajax({
+		        type: "GET",
+		        dataType: "json",
+		        url: "../getEstudianteByIde/",
+		        data: {
+		        	"identificacion": ci
+		        	
 		        },
 		        success:function(data) {
 		        	jQuery("#codigo").val('');
@@ -64,18 +88,39 @@ $(document).ready(function() {
 			        	jQuery("#codigo").val(data.codigo);
 			        	jQuery("#nombres").val(data.nombres);
 			        	jQuery("#apellidos").val(data.apellidos);
-			        	jQuery("#email").val(data.unidad_id);
+			        	jQuery("#email").val(data.email);
 			        	jQuery("#id").val(data.id);
 			        	$('#frmEstudiante').formValidation('revalidateField', 'estudiante');			        	
 			        }
-			        
-			    	alert("El estudiante ya esta registrado en ese paralelo.");
-					jQuery("#boton").addClass('disabled');									       
-		           	
 		        }
 		    });
 	    }
 	});
+
+	$('#paralelo_id').change(function(){
+	    var ci = jQuery("#identificacion").val();
+	    var paralelo_id = jQuery("#paralelo_id").val();
+	    if(ci.length == 10){
+	    	jQuery.ajax({
+		        type: "GET",
+		        dataType: "json",
+		        url: "../getExistEstudiante/",
+		        data: {
+		        	"identificacion": ci,
+		        	"paralelo_id":paralelo_id
+		        },
+		        success:function(data) {
+		        	if(data){
+		        		alert("El estudiante ya esta registrado en ese paralelo.");
+						jQuery("#boton").addClass('disabled');				
+			        }
+		        	else{
+		        			jQuery("#boton").removeClass('disabled');
+			        	}			    			           	
+		        }
+		    });
+	    }
+	});	
 
 		
     $('#frmEstudiante').formValidation({

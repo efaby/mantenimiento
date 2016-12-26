@@ -7,7 +7,7 @@ class EstudianteModel {
 	
 	public function getlistadoEstudiante(){		
 		$model = new BaseModel();	
-		$sql = "select u.id,u.cedula, u.nombres, u.apellidos,u.email, e.codigo, p.nombre as paralelo
+		$sql = "select u.id,u.cedula, u.nombres, u.apellidos,u.email, e.codigo, e.id as id_estudiante,p.nombre as paralelo
 				from usuario as u
 				inner join estudiante e on e.usuario_id = u.id
         		inner join matricula m on m.estudiante_id = e.id
@@ -61,13 +61,22 @@ class EstudianteModel {
 		return $model->getCatalogo($tabla);
 	}	
 	
-	public function getEstudiantePorCedula($cedula, $paralelo){
+	public function getEstudiantePorCedula($cedula){
 		$model =  new BaseModel();
 		$sql = "select e.*, u.*
 				from estudiante e
 				inner join usuario u on e.usuario_id=u.id
-        		inner join matricula m on m.estudiante_id=e.id
-				where tipo_usuario_id =4 and cedula =? and paralelo_id=?";
+        		where tipo_usuario_id = 4 and cedula =?";
+		return $model->execSql($sql, array($cedula));
+	}
+	
+	public function getExistEstudiante($cedula, $paralelo){
+		$model =  new BaseModel();
+		$sql = "select e.*, u.*
+				from estudiante e
+				inner join usuario u on e.usuario_id=u.id
+				inner join matricula m on m.estudiante_id=e.id
+				where tipo_usuario_id = 4 and cedula =? and paralelo_id=?";
 		return $model->execSql($sql, array($cedula, $paralelo));
 	}
 	

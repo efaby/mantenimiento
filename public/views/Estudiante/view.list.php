@@ -39,7 +39,7 @@
     		echo "<td>".$item->email."</td>";    		
     		echo "<td>".$item->paralelo."</td>"; 
     		echo "<td align='center'><a href='javascript: loadModal(".$item->id.")' class='btn btn-warning btn-sm' title='Editar' ><i class='fa fa-pencil'></i></a>
-					  <a href='javascript:if(confirm(\"Est\u00e1 seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a></td></tr>";      	
+					  <a href='javascript:if(confirm(\"Est\u00e1 seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id_estudiante.");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a></td></tr>";      	
     	}?>
     </tbody>
     </table>
