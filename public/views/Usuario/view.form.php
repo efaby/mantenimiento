@@ -92,10 +92,53 @@ $(document).ready(function() {
 							regexp: {
 								regexp: /^(?:\+)?\d{10,13}$/,
 								message: 'Ingrese un Número de Identificación válido.'
-							}
+							},
+							callback: {
+				                message: 'El Número de Identificación no es válido.',
+                 				callback: function (value, validator, $field) {
+						    var cedula = value;
+						    try {
+						        array = cedula.split("");
+						    }
+						    catch (e) {
+						        //array = null;
+						    }
+						    num = array.length;
+						    if (num === 10) {
+						        total = 0;
+						        digito = (array[9] * 1);
+						        for (i = 0; i < (num - 1); i++) {
+						            mult = 0;
+						            if ((i % 2) !== 0) {
+						                total = total + (array[i] * 1);
+						            } else {
+						                mult = array[i] * 2;
+						                if (mult > 9)
+						                    total = total + (mult - 9);
+						                else
+						                    total = total + mult;
+						            }
+						        }
+						        decena = total / 10;
+						        decena = Math.floor(decena);
+						        decena = (decena + 1) * 10;
+						        final = (decena - total);
+						        if ((final === 10 && digito === 0) || (final === digito)) {
+						
+						            return true;
+						        } else {
+						
+						            return false;
+						        }
+						    } else {
+						
+						        return false;
+						    }
 						}
-					},
-
+						}
+				}
+			},
+						
 			nombres: {
 						message: 'El Nombre no es válido',
 						validators: {

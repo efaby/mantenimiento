@@ -1,10 +1,10 @@
-<?php $title = "Usuarios";?>
+<?php $title = "Estudiantes";?>
 <?php include_once PATH_TEMPLATE.'/header.php';?>
 
 <!-- Main row -->
 <div class="row">
 	<div class="col-lg-12">
-    	<h1 class="page-header">Usuarios</h1>
+    	<h1 class="page-header">Estudiantes</h1>
    	</div>
 </div>
 <?php if (isset($_SESSION['message'])&& ($_SESSION['message'] != '')):?>
@@ -17,27 +17,29 @@
 <div class="row">
 	<div class="col-lg-12">
 		<button class="btn btn-primary" id="modalOpen">
-			<i class="glyphicon glyphicon-plus"></i> Nuevo
+			<i class="glyphicon glyphicon-plus"></i>Nuevo
 		</button>
 	</div>
 	<table class="table table-striped table-bordered table-hover" id="dataTables-example">
     <thead>
 	    <tr>
+	    	<th>Código</th>
+	    	<th>Identificación</th>	
 	    	<th>Nombre</th>
-	    	<th>Usuario</th>
-		    <th>Tipo</th>
-		    <th>Email</th>		   
+	    	<th>Email</th>
+	    	<th>Paralelo</th>		   
 		    <th style="text-align: center;">Acciones</th>
 	    </tr>
     </thead>
     <tbody>
     	<?php foreach ($datos as $item) {
-    		echo "<tr><td>".$item->nombres." ".$item->apellidos."</td>";
+    		echo "<tr><td>".$item->codigo."</td>";
     		echo "<td>".$item->cedula."</td>";
-    		echo "<td>".$item->tipo_usuario_nombre."</td>";
-    		echo "<td>".$item->email." </td>";    		
+    		echo "<td>".$item->nombres." ".$item->apellidos."</td>";
+    		echo "<td>".$item->email."</td>";    		
+    		echo "<td>".$item->paralelo."</td>"; 
     		echo "<td align='center'><a href='javascript: loadModal(".$item->id.")' class='btn btn-warning btn-sm' title='Editar' ><i class='fa fa-pencil'></i></a>
-					  <a href='javascript:if(confirm(\"Est\u00e1 seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a></td>";
+					  <a href='javascript:if(confirm(\"Est\u00e1 seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a></td></tr>";      	
     	}?>
     </tbody>
     </table>
@@ -48,7 +50,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<a class="close" data-dismiss="modal">×</a>
-				<h3>Usuario</h3>
+				<h3>Estudiante</h3>
 			</div>			
 			<div class="modal-body"></div>
 
@@ -64,7 +66,5 @@
 <script src="<?php echo PATH_JS; ?>/bootstrap.js"></script>
 <script src="<?php echo PATH_JS; ?>/currentList.js"></script>
 <link href="<?php echo PATH_CSS; ?>/bootstrapValidator.min.css" rel="stylesheet">
-
-
 </body>
 </html>

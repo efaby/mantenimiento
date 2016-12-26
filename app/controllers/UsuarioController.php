@@ -1,6 +1,5 @@
 <?php
 require_once (PATH_MODELS . "/UsuarioModel.php");
-require_once (PATH_MODELS . "/PersonaModel.php");
 
 
 

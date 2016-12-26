@@ -42,7 +42,7 @@ class BaseModel
 	}
 	
 	public function getCatalogo($tabla){
-		$sql = "Select * from ".$tabla." where activo = 1";
+		$sql = "Select * from ".$tabla;
 		return $this->execSql($sql, array(),true);
 	}
 	
@@ -68,7 +68,6 @@ class BaseModel
 			$sql = 'Update '.$tabla. ' set '.$values.' where id = ?';
 			$usuarioData[] = $id;
 		}
-
 		return $this->execSql($sql, $usuarioData,false,true);
 	}
 	
