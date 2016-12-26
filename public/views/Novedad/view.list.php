@@ -4,7 +4,7 @@
 <!-- Main row -->
 <div class="row">
 	<div class="col-lg-12">
-    	<h1 class="page-header">Prácticas</h1>
+    	<h1 class="page-header">Novedades</h1>
    	</div>
 </div>
 <?php if (isset($_SESSION['message'])&& ($_SESSION['message'] != '')):?>
@@ -47,28 +47,14 @@
     </tbody>
     </table>
 </div>
-<div class="modal fade" id="asignar" tabindex="-1" role="dialog"
+
+<div class="modal fade" id="atenderNovedad" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog" style="width: 700px;">
 		<div class="modal-content">
 			<div class="modal-header">
 				<a class="close" data-dismiss="modal">×</a>
-				<h3>Asignar Tecnico</h3>
-			</div>
-
-			<div class="modal-body"></div>
-
-		</div>
-
-	</div>
-</div>
-<div class="modal fade" id="reparar" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" style="width: 700px;">
-		<div class="modal-content">
-			<div class="modal-header">
-				<a class="close" data-dismiss="modal">×</a>
-				<h3>Reparar Novedad</h3>
+				<h3 id="titles"></h3>
 			</div>
 
 			<div class="modal-body"></div>

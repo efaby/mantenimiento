@@ -1,4 +1,4 @@
-<form id="frmItem" method="post" action="../guardarAsignar/" enctype="multipart/form-data">
+<form id="frmItem1" method="post" action="../guardarAsignar/" enctype="multipart/form-data">
 
 
 	<div class="form-group  col-sm-12">
@@ -40,7 +40,7 @@
 	
 	<div class="form-group">
 	<input type='hidden' name='id' class='form-control' value="<?php echo $item->id; ?>">
-		<button type="submit" class="btn btn-success">Guardar</button>
+		<button type="submit" class="btn btn-success" id="saveAsignar">Guardar</button>
 	</div>
 
 </form>
@@ -48,7 +48,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
-    $('#frmItem').formValidation({
+    $('#frmItem1').formValidation({
     	message: 'This value is not valid',
 		feedbackIcons: {
 			valid: 'glyphicon glyphicon-ok',

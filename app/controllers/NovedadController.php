@@ -87,13 +87,11 @@ class NovedadController {
 	}
 	
 	public function guardarReparar() {
-	
-		print('llego');
-		exit();
+
 		$novedad ['id'] = $_POST ['id'];
 		$novedad ['proceso'] = $_POST ['proceso'];
 		$novedad ['elementos'] = $_POST ['elementos'];
-		$novedad ['observacion'] = $_POST ['observacion'];
+		$novedad ['observaciones'] = $_POST ['observacion'];
 		$novedad ['tecnico_repara'] = 2; // tecnico repara
 	
 		$model = new NovedadModel();
