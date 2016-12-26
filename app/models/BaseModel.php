@@ -41,8 +41,8 @@ class BaseModel
 		return $result;
 	}
 	
-	public function getCatalogo($tabla){
-		$sql = "Select * from ".$tabla;
+	public function getCatalogo($tabla,$where=null){
+		$sql = "Select * from ".$tabla.$where;	
 		return $this->execSql($sql, array(),true);
 	}
 	

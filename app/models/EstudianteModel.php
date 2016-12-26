@@ -12,7 +12,7 @@ class EstudianteModel {
 				inner join estudiante e on e.usuario_id = u.id
         		inner join matricula m on m.estudiante_id = e.id
         		inner join paralelo p on p.id = m.paralelo_id
-				where u.activo = 1";		
+				where e.eliminado = 0";		
 		return $model->execSql($sql, array(),true);
 	}	
 	
@@ -51,7 +51,7 @@ class EstudianteModel {
 	
 	public function delEstudiante(){
 		$estudiante = $_GET['id'];
-		$sql = "update usuario set activo = 0 where id = ?";
+		$sql = "update estudiante set eliminado = 1 where id = ?";
 		$model = new BaseModel();
 		$result = $model->execSql($sql, array($estudiante),false,true);
 	}

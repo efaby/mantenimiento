@@ -9,7 +9,7 @@ class UsuarioModel {
 		$model = new BaseModel();	
 		$sql = "select u.*, t.nombre as tipo_usuario_nombre from usuario as u
 				inner join tipo_usuario t on u.tipo_usuario_id= t.id		
-				where u.activo = 1";		
+				where u.eliminado = 0 and tipo_usuario_id !=4";		
 		return $model->execSql($sql, array(),true);
 	}	
 	
@@ -48,9 +48,9 @@ class UsuarioModel {
 		$result = $model->execSql($sql, array($usuario),false,true);
 	}
 
-	public function getCatalogo($tabla){
-		$model = new BaseModel();
-		return $model->getCatalogo($tabla);
+	public function getCatalogo($tabla, $where=null){
+		$model = new BaseModel();	
+		return $model->getCatalogo($tabla, $where);
 	}	
 	
 	public function getUsuarioPorCedula($cedula){

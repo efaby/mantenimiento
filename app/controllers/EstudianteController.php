@@ -46,7 +46,7 @@ class EstudianteController {
 	}
 	
 	public function eliminar() {
-		$model = new UsuarioModel();
+		$model = new EstudianteModel();
 		try {
 			$datos = $model->delEstudiante();
 			$_SESSION ['message'] = "Datos eliminados correctamente.";

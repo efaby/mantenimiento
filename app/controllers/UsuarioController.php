@@ -15,7 +15,8 @@ class UsuarioController {
 	public function editar(){
 		$model = new UsuarioModel();
 		$item = $model->getUsuario();	
-		$tipos = $model->getCatalogo('tipo_usuario');		
+		$where=	" where id <> 4";
+		$tipos = $model->getCatalogo('tipo_usuario', $where);		
 		$message = "";
 		require_once PATH_VIEWS."/Usuario/view.form.php";
 	}
