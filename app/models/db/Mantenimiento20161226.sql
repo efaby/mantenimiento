@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 5.7.9, for linux-glibc2.5 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `mantenimiento` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `mantenimiento`;
+-- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
 --
 -- Host: localhost    Database: mantenimiento
 -- ------------------------------------------------------
--- Server version	5.5.53-0ubuntu0.14.04.1
+-- Server version	5.7.16-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -24,37 +26,39 @@ DROP TABLE IF EXISTS `activo_fisico`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `activo_fisico` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `codigo` varchar(45) NOT NULL,
-  `inventario` varchar(45) DEFAULT NULL,
-  `num_manual_fabricante` varchar(45) DEFAULT NULL,
-  `seccion` varchar(90) DEFAULT NULL,
-  `marca_maquina` varchar(45) DEFAULT NULL,
-  `modelo_maquina` varchar(45) DEFAULT NULL,
-  `serie_maquina` varchar(45) DEFAULT NULL,
-  `color` varchar(45) DEFAULT NULL,
-  `pais_origen` varchar(45) DEFAULT NULL,
-  `capacidad` varchar(45) DEFAULT NULL,
+  `codigo` varchar(64) NOT NULL,
+  `inventario` varchar(64) DEFAULT NULL,
+  `num_manual_fabricante` varchar(64) DEFAULT NULL,
+  `seccion` varchar(128) DEFAULT NULL,
+  `marca_maquina` varchar(64) DEFAULT NULL,
+  `modelo_maquina` varchar(64) DEFAULT NULL,
+  `serie_maquina` varchar(64) DEFAULT NULL,
+  `color` varchar(64) DEFAULT NULL,
+  `pais_origen` varchar(64) DEFAULT NULL,
+  `capacidad` varchar(64) DEFAULT NULL,
   `caracteristicas` text,
-  `marca_motor` varchar(45) DEFAULT NULL,
-  `num_fases` varchar(45) DEFAULT NULL,
-  `voltaje_motor` varchar(45) DEFAULT NULL,
-  `amperios_motor` varchar(45) DEFAULT NULL,
+  `marca_motor` varchar(64) DEFAULT NULL,
+  `num_fases` varchar(64) DEFAULT NULL,
+  `voltaje_motor` varchar(64) DEFAULT NULL,
+  `amperios_motor` varchar(64) DEFAULT NULL,
   `imagen_maquina_url` varchar(256) NOT NULL,
   `tipo_motor_id` int(11) NOT NULL,
   `partes_maquina_id` int(11) NOT NULL,
-  `tipo_he` varchar(45) DEFAULT NULL,
-  `rpm` varchar(45) DEFAULT NULL,
-  `hz` varchar(45) DEFAULT NULL,
-  `kw` varchar(45) DEFAULT NULL,
+  `tipo_he` varchar(64) DEFAULT NULL,
+  `rpm` varchar(64) DEFAULT NULL,
+  `hz` varchar(64) DEFAULT NULL,
+  `kw` varchar(64) DEFAULT NULL,
   `nomenglatura_url` varchar(256) DEFAULT NULL,
   `funcion` text,
   `diagram_proceso_url` varchar(256) DEFAULT NULL,
+  `nombre` varchar(1024) NOT NULL,
+  `alias` varchar(512) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_activo_fisico_tipo_motor1` (`tipo_motor_id`),
   KEY `fk_activo_fisico_partes_maquina1` (`partes_maquina_id`),
   CONSTRAINT `fk_activo_fisico_partes_maquina1` FOREIGN KEY (`partes_maquina_id`) REFERENCES `partes_maquina` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_activo_fisico_tipo_motor1` FOREIGN KEY (`tipo_motor_id`) REFERENCES `tipo_motor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,6 +67,7 @@ CREATE TABLE `activo_fisico` (
 
 LOCK TABLES `activo_fisico` WRITE;
 /*!40000 ALTER TABLE `activo_fisico` DISABLE KEYS */;
+INSERT INTO `activo_fisico` VALUES (1,'001',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'/images',1,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'maquina 1','');
 /*!40000 ALTER TABLE `activo_fisico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,6 +82,7 @@ CREATE TABLE `activo_plan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `plan_mantenimiento_id` int(11) NOT NULL,
   `activo_fisico_id` int(11) NOT NULL,
+  `horas_operacion` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fk_activo_plan_plan_mantenimiento1` (`plan_mantenimiento_id`),
   KEY `fk_activo_plan_activo_fisico1` (`activo_fisico_id`),
@@ -132,10 +138,11 @@ CREATE TABLE `estudiante` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo` varchar(45) NOT NULL,
   `usuario_id` int(11) NOT NULL,
+  `eliminado` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fk_estudiante_usuario1` (`usuario_id`),
   CONSTRAINT `fk_estudiante_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -144,6 +151,7 @@ CREATE TABLE `estudiante` (
 
 LOCK TABLES `estudiante` WRITE;
 /*!40000 ALTER TABLE `estudiante` DISABLE KEYS */;
+INSERT INTO `estudiante` VALUES (9,'sdsd',25,0),(12,'sdsd',26,0),(13,'sdsd',27,0);
 /*!40000 ALTER TABLE `estudiante` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,7 +206,7 @@ CREATE TABLE `lab_activo` (
   KEY `fk_lab_activo_laboratorio1` (`laboratorio_id`),
   CONSTRAINT `fk_lab_activo_activo_fisico1` FOREIGN KEY (`activo_fisico_id`) REFERENCES `activo_fisico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_lab_activo_laboratorio1` FOREIGN KEY (`laboratorio_id`) REFERENCES `laboratorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,6 +215,7 @@ CREATE TABLE `lab_activo` (
 
 LOCK TABLES `lab_activo` WRITE;
 /*!40000 ALTER TABLE `lab_activo` DISABLE KEYS */;
+INSERT INTO `lab_activo` VALUES (1,1,1,'3');
 /*!40000 ALTER TABLE `lab_activo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,6 +263,7 @@ CREATE TABLE `laboratorio` (
   `objetivos` text NOT NULL,
   `generalidades` text NOT NULL,
   `seguridad` text NOT NULL,
+  `eliminado` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -264,7 +274,7 @@ CREATE TABLE `laboratorio` (
 
 LOCK TABLES `laboratorio` WRITE;
 /*!40000 ALTER TABLE `laboratorio` DISABLE KEYS */;
-INSERT INTO `laboratorio` VALUES (1,'001','Laboratorio 1','introduccion','objetivos','generalidades','seguriodad');
+INSERT INTO `laboratorio` VALUES (1,'001','Laboratorio 1','introduccion','objetivos','generalidades','seguriodad',0);
 /*!40000 ALTER TABLE `laboratorio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -282,9 +292,11 @@ CREATE TABLE `matricula` (
   PRIMARY KEY (`id`),
   KEY `fk_matricula_estudiante1` (`estudiante_id`),
   KEY `fk_matricula_paralelo1` (`paralelo_id`),
-  CONSTRAINT `fk_matricula_estudiante1` FOREIGN KEY (`estudiante_id`) REFERENCES `estudiante` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_matricula_paralelo1` FOREIGN KEY (`paralelo_id`) REFERENCES `paralelo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `fk_matricula_estudiante` (`estudiante_id`),
+  KEY `fk_matricula_paralelo` (`paralelo_id`),
+  CONSTRAINT `fk_matricula_estudiante` FOREIGN KEY (`estudiante_id`) REFERENCES `estudiante` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_matricula_paralelo` FOREIGN KEY (`paralelo_id`) REFERENCES `paralelo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,6 +305,7 @@ CREATE TABLE `matricula` (
 
 LOCK TABLES `matricula` WRITE;
 /*!40000 ALTER TABLE `matricula` DISABLE KEYS */;
+INSERT INTO `matricula` VALUES (14,9,1),(15,12,1),(16,13,2);
 /*!40000 ALTER TABLE `matricula` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -397,7 +410,7 @@ CREATE TABLE `partes_maquina` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(256) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -406,6 +419,7 @@ CREATE TABLE `partes_maquina` (
 
 LOCK TABLES `partes_maquina` WRITE;
 /*!40000 ALTER TABLE `partes_maquina` DISABLE KEYS */;
+INSERT INTO `partes_maquina` VALUES (1,'parte1');
 /*!40000 ALTER TABLE `partes_maquina` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -419,12 +433,15 @@ DROP TABLE IF EXISTS `plan_mantenimiento`;
 CREATE TABLE `plan_mantenimiento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tiempo_ejecucion` int(11) NOT NULL,
-  `estado_maquina` int(11) NOT NULL,
-  `herramientas` varchar(256) DEFAULT NULL,
-  `materiales` varchar(256) DEFAULT NULL,
-  `equipo` varchar(256) DEFAULT NULL,
-  `procedimiento` text,
-  `observaciones` varchar(1024) DEFAULT NULL,
+  `estado_maquina` tinyint(4) NOT NULL,
+  `herramientas` varchar(256) NOT NULL,
+  `materiales` varchar(256) NOT NULL,
+  `equipo` varchar(256) NOT NULL,
+  `procedimiento` text NOT NULL,
+  `observaciones` varchar(2048) NOT NULL,
+  `tarea` varchar(1024) NOT NULL,
+  `frecuencia_horas` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -448,14 +465,17 @@ DROP TABLE IF EXISTS `practica`;
 CREATE TABLE `practica` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(128) NOT NULL,
-  `fecha_inicio` datetime NOT NULL,
-  `fecha_fin` datetime NOT NULL,
+  `fecha` date NOT NULL,
   `tiempo_duracion` int(11) NOT NULL,
   `activo_fisico_id` int(11) NOT NULL,
   `url` varchar(512) NOT NULL,
+  `eliminado` tinyint(4) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `hora_inicio` time NOT NULL,
+  `hora_fin` time NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_practicas_activo_fisico1` (`activo_fisico_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -464,6 +484,7 @@ CREATE TABLE `practica` (
 
 LOCK TABLES `practica` WRITE;
 /*!40000 ALTER TABLE `practica` DISABLE KEYS */;
+INSERT INTO `practica` VALUES (1,'practica','2016-12-25',0,1,'lab170061769.',0,0,'00:00:00','00:00:00'),(2,'practica 1','2016-12-25',3,1,'lab49451839.pdf',0,3,'00:00:00','00:00:00'),(3,'prectica','2016-12-25',4,1,'lab1098347432.pdf',0,3,'00:00:00','00:00:00');
 /*!40000 ALTER TABLE `practica` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -531,12 +552,12 @@ CREATE TABLE `usuario` (
   `apellidos` varchar(128) NOT NULL,
   `password` varchar(45) NOT NULL,
   `email` varchar(256) NOT NULL,
-  `activo` tinyint(4) DEFAULT NULL,
+  `eliminado` tinyint(4) DEFAULT '0',
   `tipo_usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_usuario_tipo_usuario1` (`tipo_usuario_id`),
   CONSTRAINT `fk_usuario_tipo_usuario1` FOREIGN KEY (`tipo_usuario_id`) REFERENCES `tipo_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -545,7 +566,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'1234566789','Jane ale','Concha','202cb962ac59075b964b07152d234b70','lajane2020@hotmail.com',1,1),(2,'3222222222','ga','wej','202cb962ac59075b964b07152d234b70','lajane2020@hotmail.com',0,2),(3,'0603108770','wewe','wew','202cb962ac59075b964b07152d234b70','lajane2020@hotmail.com',0,3),(4,'0603108770','sdsd','sdd','202cb962ac59075b964b07152d234b70','sdds',1,1);
+INSERT INTO `usuario` VALUES (1,'1234566789','Jane ale','Concha','202cb962ac59075b964b07152d234b70','lajane2020@hotmail.com',1,1),(2,'3222222222','ga','wej','202cb962ac59075b964b07152d234b70','lajane2020@hotmail.com',0,2),(3,'0603108770','wewe','wew','202cb962ac59075b964b07152d234b70','lajane2020@hotmail.com',0,3),(4,'0603108770','sdsd','sdd','202cb962ac59075b964b07152d234b70','sdds',1,1),(6,'0600034201','2323','2323','0600034201','lajane2020@hotmail.com',1,4),(7,'0602567802','dsd','sdsd','0602567802','lajane2020@hotmail.com',1,4),(25,'0600034201','sdsd','Perez','0600034201','lajane2020@hotmail.com',1,4),(26,'0600034201','sdsd','Perez','0600034201','lajane2020@hotmail.com',1,4),(27,'0600034201','sdsd','Perez','0600034201','lajane2020@hotmail.com',1,4);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -558,4 +579,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-24 13:18:22
+-- Dump completed on 2016-12-26 15:37:20
