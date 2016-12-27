@@ -79,7 +79,7 @@
         <!-- Sidebar -->
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
-
+				<?php $url = $_SERVER["REQUEST_URI"];?>
                 <ul class="nav" id="side-menu">
                     <li class="sidebar-search">
                         <div class="input-group custom-search-form">
@@ -87,8 +87,33 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        <a href="#" class="active"><i class="fa fa-dashboard fa-fw"></i>Inicio</a>
                     </li>
+                    <li>
+                        <a href="../../Usuario/listar/" class="active"><i class="fa fa-user fa-fw"></i>Usuarios</a>
+                    </li>
+                    <li>
+                        <a href="../../Paralelo/listar/" class="active"><i class="fa fa-link fa-fw"></i>Paralelos</a>
+                    </li>
+                    <li>
+                        <a href="../../Estudiante/listar/" class="active"><i class="fa fa-users fa-fw"></i>Estudiantes</a>
+                    </li>
+                    <li>
+                        <a href="../../Laboratorio/listar/" class="active"><i class="fa fa-table fa-fw"></i>Laboratorios</a>
+                    </li>
+                    <li>
+                        <a href="../../Practica/listar/" class="active"><i class="fa fa-tasks fa-fw"></i>Practicas</a>
+                    </li>
+                     <li>
+                        <a href="../../Novedad/listar/" class="active"><i class="fa fa-book fa-fw"></i>Novedades</a>
+                    </li>
+                     <li>
+                        <a href="../../Novedad/ingreso/" class="active"><i class="fa fa-edit fa-fw"></i>Ingreso Novedad</a>
+                    </li>
+                    <li>
+                        <a href="../../Plan/listar/" class="active"><i class="fa fa-wrench fa-fw"></i>Planes Mantenimiento</a>
+                    </li>
+                     
                     <li>
                         <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">

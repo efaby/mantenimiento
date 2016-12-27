@@ -289,7 +289,9 @@ $(document).ready(function() {
 </script>
 <style>
 
-
+.bootstrap-timepicker-widget {
+	z-index: 1 !important;
+}
 
 #frmItem .col-sm-6, #frmItem .col-sm-12 {
 	padding-right: 0px;
