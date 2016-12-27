@@ -51,18 +51,6 @@ class LaboratorioController {
 		header ( "Location: ../listar/" );
 	}
 	
-	public function loadActivoFisico(){
-		$opcion = $_POST ['opcion'];
-		$model = new PracticaModel();
-		$maquinas = $model->getMaquinas($opcion);
-		$html ='<option value="" >Seleccione</option>';
-		foreach ($maquinas as $dato) {
-			$html .='<option value="'.$dato->id.'" >'.$dato->nombre.'</option>';
-		}
-		$html .='</select>';
-		echo $html;
-	}
-	
 	private function dataready($data) {
 		$data = trim($data);
 		$data = stripslashes($data);

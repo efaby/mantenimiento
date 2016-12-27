@@ -4,7 +4,7 @@
 <!-- Main row -->
 <div class="row">
 	<div class="col-lg-12">
-    	<h1 class="page-header">Laboratorios</h1>
+    	<h1 class="page-header">Plan Mantenimiento</h1>
    	</div>
 </div>
 
@@ -15,59 +15,71 @@
 
 	<div class="form-group  col-sm-12">
 	<div class="form-group  col-sm-6">
-		<label class="control-label">Nombre</label>
+		<label class="control-label">Tarea</label>
 		<input type='text'
-			name='nombre' class='form-control'
-			value="<?php echo $item->nombre; ?>">
+			name='tarea' class='form-control'
+			value="<?php echo $item->tarea; ?>">
 	</div>
 	</div>
 	<div class="form-group  col-sm-12">
 	<div class="form-group  col-sm-6">
-		<label class="control-label">Codigo</label>
+		<label class="control-label">Tiempo Ejecucion</label>
 		<input type='text'
-			name='codigo' class='form-control'
-			value="<?php echo $item->codigo; ?>">
+			name='tiempo_ejecucion' class='form-control'
+			value="<?php echo $item->tiempo_ejecucion; ?>">
 	</div>
 	</div>
 	
 	<div class="form-group  col-sm-12">
 	<div class="form-group  col-sm-6">
-		<label class="control-label">Introduccion</label>
-	 <textarea name="introduccion" id="introduccion" rows="10" cols="80">
-                <?php echo $item->introduccion; ?>
-            </textarea>
-	</div>
-	</div>	
-	
-	<div class="form-group  col-sm-12">
-	<div class="form-group  col-sm-6">
-		<label class="control-label">Objetivos</label>
-	 <textarea name="objetivos" id="objetivos" rows="10" cols="80">
-                <?php echo $item->objetivos; ?>
-            </textarea>
-	</div>
-	</div>
-	<div class="form-group  col-sm-12">
-	<div class="form-group  col-sm-6">
-		<label class="control-label">Generalidades</label>
-	 <textarea name="generalidades" id="generalidades" rows="10" cols="80">
-                <?php echo $item->generalidades; ?>
-            </textarea>
+		<label class="control-label">Estado Maquina</label>
+		<div>
+		<label> <input type="radio" name="estado_maquina" value="0" <?php echo ($item->estado_maquina === 0)?'checked':''; ?>>Apagada</label>
+		 <label> <input type="radio" name="estado_maquina"value="1" <?php echo ($item->estado_maquina == 1)?'checked':''; ?>> Encendida</label>
+</div>
 	</div>
 	</div>
 	
+	<div class="form-group col-sm-12">	
+	<div class="form-group  col-sm-6">
+		<label class="control-label">Herramientas</label>
+		<textarea name='herramientas' id='herramientas' class='form-control' ><?php echo $item->herramientas; ?></textarea>	
+	</div>		
+	</div>
+	<div class="form-group col-sm-12">	
+	<div class="form-group  col-sm-6">
+		<label class="control-label">Materiales</label>
+		<textarea name='materiales' id='materiales' class='form-control' ><?php echo $item->materiales; ?></textarea>	
+	</div>		
+	</div>
+	<div class="form-group col-sm-12">	
+	<div class="form-group  col-sm-6">
+		<label class="control-label">Equipos</label>
+		<textarea name='equipo' id='equipo' class='form-control' ><?php echo $item->equipo; ?></textarea>	
+	</div>		
+	</div>
+		
 	<div class="form-group  col-sm-12">
 	<div class="form-group  col-sm-6">
-		<label class="control-label">Seguridad</label>
-	 <textarea name="seguridad" id="seguridad" rows="10" cols="80">
-               <?php echo $item->seguridad; ?>
+		<label class="control-label">Procedimiento</label>
+	 <textarea name="procedimiento" id="procedimiento" rows="10" cols="80">
+                <?php echo $item->procedimiento; ?>
             </textarea>
 	</div>
 	</div>
+	<div class="form-group  col-sm-12">
+	<div class="form-group  col-sm-6">
+		<label class="control-label">Observaciones</label>
+	 <textarea name="observaciones" id="observaciones" rows="10" cols="80">
+                <?php echo $item->observaciones; ?>
+            </textarea>
+	</div>
+	</div>
+
 	
 	<div class="form-group  col-sm-12">
 	<div class="form-group  col-sm-6">
-		<label class="control-label">Docente</label>
+		<label class="control-label">Asignar Tecnico</label>
 		<select class='form-control' name="usuario_id" id="usuario_id">
 			<option value="" >Seleccione</option>
 		<?php foreach ($tecnicos as $dato) { ?>
@@ -113,37 +125,84 @@ $(document).ready(function() {
 			validating: 'glyphicon glyphicon-refresh'
 		},
 		fields: {			
-			nombre: {
-				message: 'El nombre no es válido',
+			tarea: {
+				message: 'La Tarea no es válida',
 				validators: {
 					notEmpty: {
-						message: 'El Nombre no puede ser vacío.'
+						message: 'La Tarea no puede ser vacía.'
 					},					
 					regexp: {
 						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.]+$/,
-						message: 'Ingrese un Nombre válido.'
+						message: 'Ingrese una La Tarea válida.'
 					}
 				}
 			},
-			codigo: {
-				message: 'El Codigo no es válido',
+			estado_maquina: {
+                validators: {
+                    notEmpty: {
+                        message: 'El Estado de la Maquina no puede ser vacio.'
+                    }
+                }
+            },
+			tiempo_ejecucion: {
+				message: 'El Tiempo de Ejecucion no es válido',
 				validators: {
 					notEmpty: {
-						message: 'El Codigo no puede ser vacío.'
+						message: 'El Tiempo de Ejecucion no puede ser vacío.'
 					},					
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-]+$/,
-						message: 'Ingrese un Codigo válido.'
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-\:]+$/,
+						message: 'Ingrese un Tiempo de Ejecucion válido.'
 					}
 				}
 			},
-			introduccion: {
+
+			herramientas: {
+				message: 'Las Herramientas no son válidas.',
+				validators: {	
+					notEmpty: {
+						message: 'Las Herramientas no pueden ser vacías.'
+					},											
+							regexp: {
+								regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-]+$/,
+								message: 'Ingrese unas Herramientas válidas.'
+							}
+						}
+					},
+
+					materiales: {
+						message: 'Los Materiales no son válidos.',
+						validators: {	
+							notEmpty: {
+								message: 'Los Materiales no pueden ser vacíos.'
+							},											
+									regexp: {
+										regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-]+$/,
+										message: 'Ingrese unos Materiales válidos.'
+									}
+								}
+							},
+
+							equipo: {
+								message: 'El Equipo no es válido.',
+								validators: {	
+									notEmpty: {
+										message: 'El Equipo no puede ser vacío.'
+									},											
+											regexp: {
+												regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-]+$/,
+												message: 'Ingrese un Equipo válido.'
+											}
+										}
+									},
+					
+			procedimiento: {
                 validators: {
                     notEmpty: {
-                        message: 'La Introduccion no puede ser vacia.'
+                        message: 'El Procedimiento no puede ser vacio.'
                     },
                     callback: {
-                        message: 'La introduccion no puede ser menos de 200 caracteres.',
+                        message: 'El Procedimiento no puede ser menos de 200 caracteres.',
                         callback: function(value, validator, $field) {
                             if (value === '') {
                                 return true;
@@ -157,13 +216,13 @@ $(document).ready(function() {
                     }
                 }
             },
-            objetivos: {
+            observaciones: {
                 validators: {
                     notEmpty: {
-                        message: 'Los Objetivos no pueden ser vacios.'
+                        message: 'Las Observaciones no pueden ser vacias.'
                     },
                     callback: {
-                        message: 'Los Objetivos no pueden ser menos de 200 caracteres.',
+                        message: 'Las Observaciones no pueden ser menos de 200 caracteres.',
                         callback: function(value, validator, $field) {
                             if (value === '') {
                                 return true;
@@ -177,57 +236,18 @@ $(document).ready(function() {
                     }
                 }
             },
-            generalidades: {
-                validators: {
-                    notEmpty: {
-                        message: 'Las Generalidades no pueden ser vacias.'
-                    },
-                    callback: {
-                        message: 'Las Generalidades no pueden ser menos de 200 caracteres.',
-                        callback: function(value, validator, $field) {
-                            if (value === '') {
-                                return true;
-                            }
-                            // Get the plain text without HTML
-                            var div  = $('<div/>').html(value).get(0),
-                                text = div.textContent || div.innerText;
-
-                            return text.length <= 200;
-                        }
-                    }
-                }
-            },	
-            seguridad: {
-                validators: {
-                    notEmpty: {
-                        message: 'La Seguridad no puede ser vacia.'
-                    },
-                    callback: {
-                        message: 'La Seguridiad no puede ser menos de 200 caracteres.',
-                        callback: function(value, validator, $field) {
-                            if (value === '') {
-                                return true;
-                            }
-                            // Get the plain text without HTML
-                            var div  = $('<div/>').html(value).get(0),
-                                text = div.textContent || div.innerText;
-
-                            return text.length <= 200;
-                        }
-                    }
-                }
-            },				
+            
 			usuario_id: {
 				validators: {
 					notEmpty: {
-						message: 'Seleccione un Docente'
+						message: 'Seleccione un Tecnico'
 					}
 				}
 			},
 			
 			
 		}
-	}).find('[name="introduccion"], [name="objetivos"], [name="generalidades"], [name="seguridad"]')
+	}).find('[name="procedimiento"], [name="observaciones"]')
     .each(function() {
         $(this)
             // Attach an editor to field

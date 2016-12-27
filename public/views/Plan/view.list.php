@@ -4,7 +4,7 @@
 <!-- Main row -->
 <div class="row">
 	<div class="col-lg-12">
-    	<h1 class="page-header">Laboratorios</h1>
+    	<h1 class="page-header">Planes Mantenimiento</h1>
    	</div>
 </div>
 <?php if (isset($_SESSION['message'])&& ($_SESSION['message'] != '')):?>
@@ -24,18 +24,21 @@
     <thead>
 	    <tr>
 	    	<th>ID</th>
-		    <th>Codigo</th>
-		    <th>Laboratorio</th>
-		    <th>Docente</th>		    
+		    <th>Tarea</th>
+		    <th>Tiempo Ejecucion</th>
+		    <th>Tecnico Asignado</th>		
+		    <th>Estado Maquina</th>		     
 		    <th style="text-align: center; width: 20%">Acciones</th>
 	    </tr>
     </thead>
     <tbody>
     	<?php foreach ($datos as $item) {
+    		$estado = ($item->estado_maquina)?'Encendida':'Apagada';
     		echo "<tr><td>".$item->id."</td>";
-    		echo "<td>".$item->codigo."</td>";
-    		echo "<td>".$item->nombre."</td>";  		
-    		echo "<td>".$item->nombres." ".$item->apellidos."</td>";    
+    		echo "<td>".$item->tarea."</td>";
+    		echo "<td>".$item->tiempo_ejecucion."</td>";  		
+    		echo "<td>".$item->nombres." ".$item->apellidos."</td>";   
+    		echo "<td>".$estado."</td>";
     		echo "<td align='center'>
 				<a href='../editar/".$item->id."' class='btn btn-warning btn-sm' title='Editar' ><i class='fa fa-pencil'></i></a>
 				<a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a></td>";
