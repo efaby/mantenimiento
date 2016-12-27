@@ -29,10 +29,11 @@ class PracticaController {
 		
 		$practica ['id'] = $_POST ['id'];
 		$practica ['nombre'] = $_POST ['nombre'];
-		$practica ['fecha_inicio'] = $_POST ['fecha_inicio'];
-		$practica ['fecha_fin'] = $_POST ['fecha_fin'];
+		$practica ['fecha'] = $_POST ['fecha'];
+		$practica ['hora_inicio'] = $_POST ['hora_inicio'];
+		$practica ['hora_fin'] = $_POST ['hora_fin'];
 		$practica ['tiempo_duracion'] = $_POST ['tiempo_duracion'];
-		$practica ['activo_fisico_id'] = $_POST ['activo_fisico_id'];	
+		$practica ['lab_activo_id'] = $_POST ['lab_activo_id'];	
 		$practica ['url'] = $this->uploadFile('lab','laboratorios');
 		$practica ['usuario_id'] = 3; // Docente
 		$model = new PracticaModel();
@@ -76,6 +77,23 @@ class PracticaController {
 		$nombre = $_GET['id'];
 		$upload = new File();
 		return $upload->download($nombre,'laboratorios');
+	}
+	
+	public function verificar(){
+		$hora_inicio = $_POST ['hora_inicio'];
+		$hora_fin = $_POST ['hora_fin'];
+		$activo = $_POST ['lab_activo_id'];
+		$fecha = $_POST ['fecha'];
+		$id = $_POST ['id'];
+		$model = new PracticaModel();
+		$labs = $model->getLabs($hora_inicio,$hora_fin,$fecha,$activo,$id);
+		$labsCount = true;
+		if($labs[0]->numero>0){
+			$labsCount = false;
+		}
+		echo json_encode(array(
+		    'valid' => $labsCount,
+		));
 	}
 	
 }

@@ -40,8 +40,8 @@
     		echo "<td>".$item->laboratorio."</td>";
     		echo "<td>".$item->maquina."</td>";    
     		echo "<td>".$item->fecha."</td>";
-    		echo "<td>".$item->hora_inicio."</td>";
-    		echo "<td>".$item->hora_fin."</td>";
+    		echo "<td>".date('G:i',strtotime($item->hora_inicio))."</td>";
+    		echo "<td>".date('G:i',strtotime($item->hora_fin))."</td>";
     		echo "<td align='center'><a href='javascript: loadModal(".$item->id.")' class='btn btn-warning btn-sm' title='Editar' ><i class='fa fa-pencil'></i></a>
 					  <a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a></td>";
     	}?>
@@ -50,7 +50,7 @@
 </div>
 <div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" style="width: 400px;">
+	<div class="modal-dialog" style="width: 450px;">
 		<div class="modal-content">
 			<div class="modal-header">
 				<a class="close" data-dismiss="modal">×</a>
@@ -73,5 +73,8 @@
 <script src="<?php echo PATH_JS; ?>/currentList.js"></script>
 <script src="<?php echo PATH_JS; ?>/bootstrap-timepicker.js"></script>
 <link href="<?php echo PATH_CSS; ?>/bootstrapValidator.min.css" rel="stylesheet">
+<link href="<?php echo PATH_CSS; ?>/bootstrap-timepicker.css" rel="stylesheet">
+
+
 </body>
 </html>

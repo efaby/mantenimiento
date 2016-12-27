@@ -16,10 +16,10 @@
 	</div>
 	<div class="form-group  col-sm-12">
 		<label class="control-label">Activo Físico</label>
-		<select class='form-control' name="activo_fisico_id" id="activo_fisico_id">
+		<select class='form-control' name="lab_activo_id" id="lab_activo_id">
 			<option value="" >Seleccione</option>
 		<?php foreach ($maquinas as $dato) { ?>
-			<option value="<?php echo $dato->id;?>"  <?php if($item->activo_fisico_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
+			<option value="<?php echo $dato->id;?>"  <?php if($item->lab_activo_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
 		<?php }?>
 		</select>
 
@@ -35,14 +35,10 @@
 	
 	<div class="form-group  col-sm-12">
 		<label class="control-label">Hora Inicio</label>
-		<input name='hora_inicio' id="hora_inicio" type="text" class="form-control input-small"
+		<input name='hora_inicio' id="hora_inicio" class="form-control input-small"
 		 value="<?php echo $item->hora_inicio; ?>">	
 			
-		<!--<input dropdown="model.options.dropdown" scrollbar="model.options.scrollbar"
-		 dynamic="model.options.dynamic" interval="model.options.interval" 
-		 max-time="model.options.maxTime" min-time="model.options.minTime" start-time="model.options.startTime" 
-		 time-format="model.options.timeFormat" default-time="model.options.defaultTime" 
-		 time-string="model.timeString" time="model.time" jt-timepicker="" class="timepicker text-center"> -->
+		
 	</div>
 	
 	<div class="form-group  col-sm-12">
@@ -52,6 +48,15 @@
 			value="<?php echo $item->hora_fin; ?>">
 
 	</div>
+	
+	<div class="form-group  col-sm-12">
+		<label class="control-label">Tiempo de duración (Horas)</label>
+		<input type='text'
+			name='tiempo_duracion' class='form-control'
+			value="<?php echo $item->tiempo_duracion; ?>">
+
+	</div>
+
 	<div class="form-group col-sm-12">
 		<label class="control-label">Respado Digital</label> 
 		
@@ -72,29 +77,14 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	$('#hora_inicio').timepicker({
+        showMeridian: false
+    });	
 
-	/*$('#hora_inicio').timepicker({
-	    timeFormat: 'H:mm',
-	    interval: 10,
-	    minTime: '7:00',
-	    maxTime: '22:00',
-	    defaultTime: '7',
-	    startTime: '7:00',
-	    dynamic: true,
-	    dropdown: true,
-	    scrollbar: true,
-	    parentEl: '#dispatch_modal'
-	});*/
-
-	 $('#hora_inicio').timepicker({
-		 minuteStep: 1,
-         secondStep: 5,
-         showInputs: true,
-         template: 'dropdown',
-         modalBackdrop: true,
-         showSeconds: true,
-         showMeridian: false
-     });	
+	$('#hora_fin').timepicker({
+        showMeridian: false
+    });	
+	 
 
 	jQuery( "#fecha" ).datepicker({  
 		dateFormat: "yy-mm-dd",
@@ -110,11 +100,12 @@ $(document).ready(function() {
         $("#laboratorio_id option:selected").each(function () {
          opcion=$(this).val();
          $.post("../loadActivoFisico/", { opcion: opcion }, function(data){
-         $("#activo_fisico_id").html(data);
+         $("#lab_activo_id").html(data);
          });            
      });
 	});
 
+	
     $('#frmItem').formValidation({
     	message: 'This value is not valid',
 		feedbackIcons: {
@@ -167,7 +158,7 @@ $(document).ready(function() {
 					}
 				}
 			},
-			activo_fisico_id: {
+			lab_activo_id: {
 				validators: {
 					notEmpty: {
 						message: 'Seleccione un Activo Físico'
@@ -192,16 +183,113 @@ $(document).ready(function() {
 	                    message: 'Seleccione un archivo válido. (pdf)'
 	                }
 				}
-			}	
+			},
+
+			hora_inicio: {
+                verbose: false,
+                validators: {
+                	remote: {
+                        url: '../verificar/',
+                        // Send { username: 'its value', email: 'its value' } to the back-end
+                        data: function(validator, $field, value) {
+                            return {
+                                hora_inicio: validator.getFieldElements('hora_inicio').val(),
+                                hora_fin: validator.getFieldElements('hora_fin').val(),
+                                lab_activo_id: validator.getFieldElements('lab_activo_id').val(),
+                                fecha: validator.getFieldElements('fecha').val(),
+                                id: validator.getFieldElements('id').val()
+                            };
+                        },
+                        message: 'Ya existe una practica en este horario.',
+                        type: 'POST'
+                    },
+                    notEmpty: {
+                        message: 'La Hora Inicio no puede ser vacío.'
+                    },
+                    regexp: {
+                        regexp: /^(([01]\d)|(2[0-3])):([0-5]\d)$/,
+                        message: 'Ingrese una hora de inicio válida.'
+                    },
+                    callback: {
+                        message: 'La hora de inicio debe ser menor a la hora fin.',
+                        callback: function(value, validator, $field) {
+                            var endTime = validator.getFieldElements('hora_fin').val();
+                            
+                            var startHour    = parseInt(value.split(':')[0], 10),
+                                startMinutes = parseInt(value.split(':')[1], 10),
+                                endHour      = parseInt(endTime.split(':')[0], 10),
+                                endMinutes   = parseInt(endTime.split(':')[1], 10);
+
+                            if (startHour < endHour || (startHour == endHour && startMinutes < endMinutes)) {
+                                // The end time is also valid
+                                // So, we need to update its status
+                                validator.updateStatus('hora_fin', validator.STATUS_VALID, 'callback');
+                                return true;
+                            }
+
+                            return false;
+                        }
+                    },
+                    
+                }
+            },
+            hora_fin: {
+                verbose: false,
+                validators: {
+                	remote: {
+                        url: '../verificar/',
+                        // Send { username: 'its value', email: 'its value' } to the back-end
+                        data: function(validator, $field, value) {
+                            return {
+                                hora_inicio: validator.getFieldElements('hora_inicio').val(),
+                                hora_fin: validator.getFieldElements('hora_fin').val(),
+                                lab_activo_id: validator.getFieldElements('lab_activo_id').val(),
+                                fecha: validator.getFieldElements('fecha').val(),
+                                id: validator.getFieldElements('id').val()
+                            };
+                        },
+                        message: 'Ya existe una practica en este horario.',
+                        type: 'POST'
+                    },
+                    notEmpty: {
+                        message: 'La Hora Fin no puede ser vacío.'
+                    },
+                    regexp: {
+                        regexp: /^(([01]\d)|(2[0-3])):([0-5]\d)$/,
+                        message: 'Ingrese una Hora Fin válida.'
+                    },
+                    callback: {
+                        message: 'La hora fin debe ser mayor a la hora inicio',
+                        callback: function(value, validator, $field) {
+                            var startTime = validator.getFieldElements('hora_inicio').val();
+                           
+                            var startHour    = parseInt(startTime.split(':')[0], 10),
+                                startMinutes = parseInt(startTime.split(':')[1], 10),
+                                endHour      = parseInt(value.split(':')[0], 10),
+                                endMinutes   = parseInt(value.split(':')[1], 10);
+
+                            if (endHour > startHour || (endHour == startHour && endMinutes > startMinutes)) {
+                                // The start time is also valid
+                                // So, we need to update its status
+                                validator.updateStatus('hora_inicio', validator.STATUS_VALID, 'callback');
+                                return true;
+                            }
+
+                            return false;
+                        }
+                    }
+                }
+            }
+
+				
 			
 		}
 	});
 });
 </script>
 <style>
-.bootstrap-timepicker-widget.dropdown-menu {
-    z-index: 1050!important;
-}
+
+
 
 #frmItem .col-sm-6, #frmItem .col-sm-12 {
 	padding-right: 0px;
