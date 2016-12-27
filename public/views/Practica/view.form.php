@@ -1,14 +1,10 @@
 <form id="frmItem" method="post" action="../guardar/" enctype="multipart/form-data">
-
-
 	<div class="form-group  col-sm-12">
 		<label class="control-label">Nombre</label>
 		<input type='text'
 			name='nombre' class='form-control'
 			value="<?php echo $item->nombre; ?>">
-
 	</div>
-	
 	<div class="form-group  col-sm-12">
 		<label class="control-label">Laboratorio</label>
 		<select class='form-control' name="lab_docente_id" id="laboratorio_id">
@@ -17,7 +13,6 @@
 			<option value="<?php echo $dato->id;?>"  <?php if($item->laboratorio_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
 		<?php }?>
 		</select>
-
 	</div>
 	<div class="form-group  col-sm-12">
 		<label class="control-label">Activo Físico</label>
@@ -31,26 +26,30 @@
 	</div>	
 	
 	<div class="form-group  col-sm-12">
-		<label class="control-label">Fecha Inicio</label>
+		<label class="control-label">Fecha de Práctica</label>
 		<input type='text'
-			name='fecha_inicio' id='fecha_inicio' class='form-control'
-			value="<?php echo $item->fecha_inicio; ?>">
+			name='fecha' id='fecha' class='form-control'
+			value="<?php echo $item->fecha; ?>">
 
 	</div>
 	
 	<div class="form-group  col-sm-12">
-		<label class="control-label">Fecha Fin</label>
-		<input type='text'
-			name='fecha_fin' id='fecha_fin' class='form-control'
-			value="<?php echo $item->fecha_fin; ?>">
-
+		<label class="control-label">Hora Inicio</label>
+		<input name='hora_inicio' id="hora_inicio" type="text" class="form-control input-small"
+		 value="<?php echo $item->hora_inicio; ?>">	
+			
+		<!--<input dropdown="model.options.dropdown" scrollbar="model.options.scrollbar"
+		 dynamic="model.options.dynamic" interval="model.options.interval" 
+		 max-time="model.options.maxTime" min-time="model.options.minTime" start-time="model.options.startTime" 
+		 time-format="model.options.timeFormat" default-time="model.options.defaultTime" 
+		 time-string="model.timeString" time="model.time" jt-timepicker="" class="timepicker text-center"> -->
 	</div>
 	
 	<div class="form-group  col-sm-12">
-		<label class="control-label">Tiempo de duración (Horas)</label>
+		<label class="control-label">Hora Fin</label>
 		<input type='text'
-			name='tiempo_duracion' class='form-control'
-			value="<?php echo $item->tiempo_duracion; ?>">
+			name='hora_fin' id='hora_fin' class='form-control'
+			value="<?php echo $item->hora_fin; ?>">
 
 	</div>
 	<div class="form-group col-sm-12">
@@ -74,22 +73,39 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
-	jQuery( "#fecha_inicio" ).datepicker({  
-		dateFormat: "yy-mm-dd",
-		onClose: function( selectedDate ) {
-	        $( "#fecha_fin" ).datepicker( "option", "minDate", selectedDate );
-	        $('#frmItem').formValidation('revalidateField', 'fecha_inicio');
-	      }  		
-	});
-    
-	jQuery( "#fecha_fin" ).datepicker({  
-		dateFormat: "yy-mm-dd",
-		onClose: function( selectedDate ) {
-	        $( "#fecha_inicio" ).datepicker( "option", "maxDate", selectedDate );
-	        $('#frmItem').formValidation('revalidateField', 'fecha_fin');
-	      }  		
-	});
+	/*$('#hora_inicio').timepicker({
+	    timeFormat: 'H:mm',
+	    interval: 10,
+	    minTime: '7:00',
+	    maxTime: '22:00',
+	    defaultTime: '7',
+	    startTime: '7:00',
+	    dynamic: true,
+	    dropdown: true,
+	    scrollbar: true,
+	    parentEl: '#dispatch_modal'
+	});*/
 
+	 $('#hora_inicio').timepicker({
+		 minuteStep: 1,
+         secondStep: 5,
+         showInputs: true,
+         template: 'dropdown',
+         modalBackdrop: true,
+         showSeconds: true,
+         showMeridian: false
+     });	
+
+	jQuery( "#fecha" ).datepicker({  
+		dateFormat: "yy-mm-dd",
+		minDate: new Date(),
+		onClose: function(selectedDate) {
+	        $( "#datepicker" ).datepicker( "option", "minDate", selectedDate );
+	        $('#frmItem').formValidation('revalidateField', 'fecha');
+	      }  		
+	});
+	
+	
 	$("#laboratorio_id").change(function () {
         $("#laboratorio_id option:selected").each(function () {
          opcion=$(this).val();
@@ -131,10 +147,10 @@ $(document).ready(function() {
 					}
 				}
 			},
-			fecha_inicio: {
+			fecha: {
 				 validators: {
 					 notEmpty: {
-						 message: 'La fecha de inicio es requerida y no puede ser vacia'
+						 message: 'La fecha de práctica es requerida y no puede ser vacía'
 					 },
 					 date:{	 
 						    format: 'YYYY-MM-DD',
@@ -142,19 +158,8 @@ $(document).ready(function() {
 					 },
 					 							 
 				 }
-			 },
-			 
-	        fecha_fin: {
-	        	 validators: {
-					 notEmpty: {
-						 message: 'La fecha de fin es requerida y no puede ser vacia'
-					 },
-					 date: {
-						 format: 'YYYY-MM-DD',
-		                 message: 'La fecha de fin no es válida.'
-					 }							 
-				 }
-	        },
+			 },		 
+	        
 			lab_docente_id: {
 				validators: {
 					notEmpty: {
@@ -194,6 +199,10 @@ $(document).ready(function() {
 });
 </script>
 <style>
+.bootstrap-timepicker-widget.dropdown-menu {
+    z-index: 1050!important;
+}
+
 #frmItem .col-sm-6, #frmItem .col-sm-12 {
 	padding-right: 0px;
 	padding-left: 0px;

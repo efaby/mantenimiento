@@ -26,8 +26,10 @@
 	    	<th>ID</th>
 		    <th>Nombre</th>
 		    <th>Laboratorio</th>
-		    <th>Maquina</th>	
-		    <th>Fecha</th>	    
+		    <th>Máquina</th>	
+		    <th>Fecha de Práctica</th>
+		    <th>Hora de Inicio</th>	 	    
+		    <th>Hora de Fin</th>
 		    <th style="text-align: center; width: 20%">Acciones</th>
 	    </tr>
     </thead>
@@ -36,8 +38,10 @@
     		echo "<tr><td>".$item->id."</td>";
     		echo "<td>".$item->nombre."</td>";
     		echo "<td>".$item->laboratorio."</td>";
-    		echo "<td>".$item->maquina."</td>";    		
-    		echo "<td>".$item->fecha_inicio." - ".$item->fecha_fin."</td>";    
+    		echo "<td>".$item->maquina."</td>";    
+    		echo "<td>".$item->fecha."</td>";
+    		echo "<td>".$item->hora_inicio."</td>";
+    		echo "<td>".$item->hora_fin."</td>";
     		echo "<td align='center'><a href='javascript: loadModal(".$item->id.")' class='btn btn-warning btn-sm' title='Editar' ><i class='fa fa-pencil'></i></a>
 					  <a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a></td>";
     	}?>
@@ -67,8 +71,7 @@
 <script src="<?php echo PATH_JS; ?>/formValidation.js"></script>
 <script src="<?php echo PATH_JS; ?>/bootstrap.js"></script>
 <script src="<?php echo PATH_JS; ?>/currentList.js"></script>
+<script src="<?php echo PATH_JS; ?>/bootstrap-timepicker.js"></script>
 <link href="<?php echo PATH_CSS; ?>/bootstrapValidator.min.css" rel="stylesheet">
-
-
 </body>
 </html>

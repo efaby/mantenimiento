@@ -22,7 +22,7 @@ class PracticaModel {
 					inner join lab_activo as la on la.activo_fisico_id = p.activo_fisico_id where eliminado = 0 and p.id = ?";
 			$result = $model->execSql($sql, array($practica));				
 		} else {
-			$result = (object) array('id'=>0,'nombre'=>'','fecha_inicio'=>'','fecha_fin'=>'', 'activo_fisico_id' =>0, 'laboratorio_id' =>0, 'tiempo_duracion'=>'','url' => '');			
+			$result = (object) array('id'=>0,'nombre'=>'','fecha'=>'','hora_inicio'=>'','hora_fin'=>'', 'activo_fisico_id' =>0, 'laboratorio_id' =>0,'url' => '');			
 		}
 		
 		return $result;
