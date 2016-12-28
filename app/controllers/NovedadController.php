@@ -81,8 +81,7 @@ class NovedadController {
 	
 	public function reparar(){
 		$model = new NovedadModel();
-		$item = $model->getNovedad();	
-		$tecnicos = $model->getTecnicos();
+		$item = $model->getNovedad();			
 		require_once PATH_VIEWS."/Novedad/view.formReparar.php";
 	}
 	
@@ -106,5 +105,9 @@ class NovedadController {
 		header ( "Location: ../listar/" );
 	}
 	
-	
+	public function ver(){
+		$model = new NovedadModel();
+		$item = $model->getNovedad();
+		require_once PATH_VIEWS."/Novedad/view.ver.php";
+	}
 }

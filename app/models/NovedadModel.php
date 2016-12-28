@@ -5,10 +5,12 @@ class NovedadModel {
 
 	public function getlistadoNovedad($usuario){
 		$model = new BaseModel();	
-		$sql = "select n.*, a.nombre as maquina, l.nombre as laboratorio from novedad as n
+		$sql = "select n.*, a.nombre as maquina, l.nombre as laboratorio, u.nombres  as nombre_tecnico1, u.apellidos as apellido_tecnico1, u1.nombres  as nombre_tecnico2, u1.apellidos as apellido_tecnico2 from novedad as n
 				inner join activo_fisico as a on a.id =  n.activo_fisico_id
 				inner join lab_activo as la on la.activo_fisico_id = a.id
 				inner join laboratorio as l on l.id = la.laboratorio_id
+				left join usuario as u on u.id = n.tecnico_asigna
+				left join usuario as u1 on u1.id = n.tecnico_repara
 				where (tecnico_asigna = ".$usuario." or 0 = ".$usuario.")";	
 		return $model->execSql($sql, array(),true);
 	}	
@@ -17,10 +19,13 @@ class NovedadModel {
 	{
 		$novedad = $_GET['id'];
 		$model = new BaseModel();		
-		$sql = "select n.*, a.nombre as maquina, l.nombre as laboratorio from novedad as n
+		$sql = "select n.*, a.nombre as maquina, l.nombre as laboratorio, u.nombres  as nombre_tecnico1, u.apellidos as apellido_tecnico1, u1.nombres  as nombre_tecnico2, u1.apellidos as apellido_tecnico2
+				from novedad as n
 				inner join activo_fisico as a on a.id =  n.activo_fisico_id
 				inner join lab_activo as la on la.activo_fisico_id = a.id
 				inner join laboratorio as l on l.id = la.laboratorio_id 
+				left join usuario as u on u.id = n.tecnico_asigna
+				left join usuario as u1 on u1.id = n.tecnico_repara
 				where n.id = ?";
 		return $model->execSql($sql, array($novedad));				
 
