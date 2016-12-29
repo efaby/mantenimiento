@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
  <link rel="shortcut icon" type="image/x-icon" href="<?php echo PATH_IMAGES.'/favicon.ico'?>" />
-    <title>Sistema Confrontas</title>
+    <title>SAM-W&L</title>
     <link href="<?php echo PATH_CSS; ?>/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo PATH_CSS; ?>/login.css" rel="stylesheet">
 	<link href="<?php echo PATH_CSS; ?>/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -21,7 +21,7 @@
 
 <div id="temafondo">
 		<div id="logoindex">
-		<div class="titulo">Sistema Control de Pr&aacute;cticas</div>
+		<div class="titulo">SAM-W&L</div>
 		<div id="logo"><img src="<?php echo PATH_IMAGES; ?>/logo.png" height="50px"></div>
 		</div>
         <div id="logosombra">
@@ -37,6 +37,7 @@
     	<div class="pass-icon"></div>
     	<!--END SLIDE-IN ICONS-->
 <!--LOGIN FORM-->
+<?php $url = $_SERVER["REQUEST_URI"];?>
 <form  id="frmLogin" name="frmLogin" class="login-form form-signin" action="<?php echo (strpos($url, '/Seguridad/listar/'))?'../validar/':'Seguridad/validar/';?>" method="POST">
 
 
@@ -57,14 +58,19 @@
     	<input name="password" id="password" type="password" placeholder="CONTRASE&Ntilde;A" class="input password"/>
 	</div>
 	<div class="form-group">
-		<select class="input selectTipo"  style="width:240px;" name="tipusuario" required>
+		<select class="input selectTipo"  style="width:240px;" name="tipousuario" required>
 		<option value=NULL>TIPO DE USUARIO</option>
-		
+		<?php foreach ($tipos as $item):?>
+		<option value="<?php echo $item->id; ?>"><?php echo $item->nombre; ?></option>
+		<?php endforeach;?>
 		</select>
 	</div>
     </div>
     <!--END CONTENT-->    
     <!--FOOTER-->
+    <div class="alert alert-danger fade in alert-dismissable" style="display: none; padding: 6px; margin-left: 10px; margin-right: 10px;" id="mensaje">
+				<span id="mensajeValidacion"></span>
+			</div> 
     <div class="footer">
     <!--LOGIN BUTTON--><input type="submit" name="submit" value="INGRESAR" class="btn-primary btn" style="float: right" /><!--END LOGIN BUTTON-->
     </div>

@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Startmin - Bootstrap Admin Theme</title>
+    <title>SAM-W&L</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo PATH_CSS; ?>/bootstrap.min.css" rel="stylesheet">
@@ -43,7 +43,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Sistema Control de Practicas</a>
+            <a class="navbar-brand" href="#">SAM-W&L</a>
             <div id="logo"><img src="<?php echo PATH_IMAGES; ?>/logo1.png" height="50px"></div>
         </div>
 
@@ -62,15 +62,14 @@
             
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i> secondtruth <b class="caret"></b>
+                    <i class="fa fa-user fa-fw"></i> <?php echo $_SESSION['SESSION_USER']->nombres; ?> <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                   
+                    <li><a href="../../Seguridad/cambiarContrasena/"><i class="fa fa-gear fa-fw"></i> Contraseña</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="../../Seguridad/cerrarSesion/"><i class="fa fa-sign-out fa-fw"></i> Salir</a>
                     </li>
                 </ul>
             </li>
@@ -80,56 +79,23 @@
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
 				<?php $url = $_SERVER["REQUEST_URI"];?>
+				
                 <ul class="nav" id="side-menu">
                     <li class="sidebar-search">
                         <div class="input-group custom-search-form">
                             
                         </div>
                     </li>
+                   
                     <li>
-                        <a href="#" class="active"><i class="fa fa-dashboard fa-fw"></i>Inicio</a>
+                        <a href="../../Seguridad/inicio/" class="<?php echo (strpos($url, 'Seguridad/inicio/'))?'active':'';?>"><i class="fa fa-dashboard fa-fw"></i>Inicio</a>
                     </li>
-                    <li>
-                        <a href="../../Usuario/listar/" class="active"><i class="fa fa-user fa-fw"></i>Usuarios</a>
-                    </li>
-                    <li>
-                        <a href="../../Paralelo/listar/" class="active"><i class="fa fa-link fa-fw"></i>Paralelos</a>
-                    </li>
-                    <li>
-                        <a href="../../Estudiante/listar/" class="active"><i class="fa fa-users fa-fw"></i>Estudiantes</a>
-                    </li>
-                    <li>
-                        <a href="../../Laboratorio/listar/" class="active"><i class="fa fa-table fa-fw"></i>Laboratorios</a>
-                    </li>
-                    <li>
-                        <a href="../../Practica/listar/" class="active"><i class="fa fa-tasks fa-fw"></i>Practicas</a>
-                    </li>
-                     <li>
-                        <a href="../../Novedad/listar/" class="active"><i class="fa fa-book fa-fw"></i>Novedades</a>
-                    </li>
-                     <li>
-                        <a href="../../Novedad/ingreso/" class="active"><i class="fa fa-edit fa-fw"></i>Ingreso Novedad</a>
-                    </li>
-                    <li>
-                        <a href="../../Plan/listar/" class="active"><i class="fa fa-wrench fa-fw"></i>Planes Mantenimiento</a>
-                    </li>
-                     
-                    <li>
-                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="#">Second Level Item</a>
-                            </li>
-                            <li>
-                                <a href="#">Third Level <span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a href="#">Third Level Item</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
+                    <?php foreach ($_SESSION['SESSION_USER']->links as $item):?>
+	                    <li>
+	                        <a href="../../<?php echo $item->accion;?>" class="<?php echo (strpos($url, $item->accion))?'active':'';?>"><i class="fa <?php echo $item->icono;?> fa-fw"></i><?php echo $item->titulo;?></a>
+	                    </li>                    
+                    <?php endforeach;?>
+                    
                 </ul>
 
             </div>

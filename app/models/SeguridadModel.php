@@ -8,13 +8,12 @@ require_once(PATH_MODELS."/BaseModel.php");
  */
 class SeguridadModel {
 
-	public function validarUsuario($login, $password){
+	public function validarUsuario($login, $password,$tipo){
 		$model = new BaseModel();
-		$sql = "select u.id, p.nombres, p.apellidos, u.usuario, u.tipo_usuario_id as tipo , t.clave, u.unidad_id
+		$sql = "select u.id, u.nombres, u.apellidos, u.tipo_usuario_id as tipo, t.nombre as tipo_nombre
 				from usuario as u
-				inner join persona as p on p.id = u.persona_id
 				inner join tipo_usuario as t on t.id = u.tipo_usuario_id
-				where u.usuario= '".$login."' and u.password = '".md5($password)."' and u.activo = 1 and p.activo = 1";
+				where u.cedula= '".$login."' and u.password = '".md5($password)."' and u.eliminado = 0 and u.tipo_usuario_id = ".$tipo;
 	
 		return $model->execSql($sql, array($login,$password));
 	}
@@ -25,5 +24,15 @@ class SeguridadModel {
 		return $model->execSql($sql, array($passwd,$user),false,true);
 	}
 	
+	public function getTipos(){
+		$model = new BaseModel();
+		return $model->getCatalogo('tipo_usuario');
+	}
+	
+	public function getAcceso($id){
+		$model = new BaseModel();
+		$sql = "select * from acceso where rol_id = ".$id;
+		return $model->execSql($sql,array(),true);
+	}
 	
 }
