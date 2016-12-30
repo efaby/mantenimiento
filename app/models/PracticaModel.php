@@ -73,4 +73,64 @@ class PracticaModel {
 				where ld.usuario_id = ".$docente;
 		return $model->execSql($sql, array(),true);
 	}
+	
+	/*
+	 * Estudiante
+	 */
+	
+	public function getlistadoPracticas($estudiante){
+		$model = new BaseModel();
+		$sql = "select p.*, a.nombre as maquina, l.nombre as laboratorio, ev.duracion_practica, ev.nota_practica, ev.archivo_url from practica as p
+				inner join lab_activo as la on la.id = p.lab_activo_id
+				inner join laboratorio as l on l.id = la.laboratorio_id
+				inner join activo_fisico as a on a.id =  la.activo_fisico_id
+				inner join paralelo as pa on pa.id = p.paralelo_id
+				inner join matricula as m on m.paralelo_id = pa.id
+				inner join estudiante as e on e.id = m.estudiante_id
+				left join evaluacion as ev on ev.practica_id = p.id
+				where p.eliminado = 0 and e.usuario_id = ".$estudiante;
+		return $model->execSql($sql, array(),true);
+	}
+	
+	public function getPracticaAll()
+	{
+		$practica = $_GET['id'];
+		$model = new BaseModel();
+		$sql = "select p.*, p.id,  a.nombre as maquina, a.id as maquina_id, l.nombre as laboratorio, ev.* , u.nombres, u.apellidos from practica as p
+				inner join lab_activo as la on la.id = p.lab_activo_id
+				inner join laboratorio as l on l.id = la.laboratorio_id
+				inner join activo_fisico as a on a.id =  la.activo_fisico_id	
+				inner join usuario as u on u.id =  p.usuario_id
+				left join evaluacion as ev on ev.practica_id = p.id
+				where p.eliminado = 0 and p.id = ?";
+		return $model->execSql($sql, array($practica));
+	}
+	
+	public function registroUso($duracion,$id){
+		$practica = $_GET['id'];
+		$sql = "update activo_plan set horas_operacion = horas_operacion + ".$duracion." where activo_fisico_id = ".$id;
+		$model = new BaseModel();
+		$result = $model->execSql($sql, array(),false,true);
+	}
+	
+	public function savePracticaEvaluacion($practica)
+	{
+		$model = new BaseModel();
+		return $model->saveDatos($practica,'evaluacion');
+	}
+	
+	public function getPlanes($id){
+		$model = new BaseModel();
+		$sql = "select ap.*, p.id,  p.tarea, p.usuario_id, u.nombres, u.apellidos, u.email from activo_plan as ap
+				inner join plan_mantenimiento as p on p.id = ap.plan_mantenimiento_id
+				inner join usuario as u on u.id =  p.usuario_id				
+				where ap.activo_fisico_id = ?";
+		return $model->execSql($sql, array($id),true);
+	}
+	
+	public function saveOrden($orden)
+	{
+		$model = new BaseModel();
+		return $model->saveDatos($orden,'orden_plan');
+	}
 }
