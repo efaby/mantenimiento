@@ -6,6 +6,16 @@
 			value="<?php echo $item->nombre; ?>">
 	</div>
 	<div class="form-group  col-sm-12">
+		<label class="control-label">Paralelo</label>
+		<select class='form-control' name="paralelo_id" id="paralelo_id">
+			<option value="" >Seleccione</option>
+		<?php foreach ($paralelos as $dato) { ?>
+			<option value="<?php echo $dato->id;?>"  <?php if($item->paralelo_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
+		<?php }?>
+		</select>
+	</div>
+	
+	<div class="form-group  col-sm-12">
 		<label class="control-label">Laboratorio</label>
 		<select class='form-control' name="lab_docente_id" id="laboratorio_id">
 			<option value="" >Seleccione</option>

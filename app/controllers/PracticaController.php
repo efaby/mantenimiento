@@ -17,6 +17,7 @@ class PracticaController {
 		$docente = 3; // Docente
 		$item = $model->getPractica();	
 		$laboratorios = $model->getLaboratorios($docente);
+		$paralelos = $model->getParalelos($docente);
 		$maquinas =  array();
 		if($item->laboratorio_id>0){
 			$maquinas =  $model->getMaquinas($item->laboratorio_id);
@@ -35,6 +36,7 @@ class PracticaController {
 		$practica ['tiempo_duracion'] = $_POST ['tiempo_duracion'];
 		$practica ['lab_activo_id'] = $_POST ['lab_activo_id'];	
 		$practica ['url'] = $this->uploadFile('lab','laboratorios');
+		$practica ['paralelo_id'] = $_POST ['paralelo_id'];
 		$practica ['usuario_id'] = 3; // Docente
 		$model = new PracticaModel();
 		try {

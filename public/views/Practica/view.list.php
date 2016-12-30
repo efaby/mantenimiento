@@ -25,6 +25,7 @@
 	    <tr>
 	    	<th>ID</th>
 		    <th>Nombre</th>
+		    <th>Paralelo</th>
 		    <th>Laboratorio</th>
 		    <th>Máquina</th>	
 		    <th>Fecha de Práctica</th>
@@ -37,6 +38,7 @@
     	<?php foreach ($datos as $item) {
     		echo "<tr><td>".$item->id."</td>";
     		echo "<td>".$item->nombre."</td>";
+    		echo "<td>".$item->paralelo."</td>";
     		echo "<td>".$item->laboratorio."</td>";
     		echo "<td>".$item->maquina."</td>";    
     		echo "<td>".$item->fecha."</td>";

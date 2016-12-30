@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `mantenimiento` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `mantenimiento`;
--- MySQL dump 10.13  Distrib 5.7.9, for linux-glibc2.5 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
 --
 -- Host: localhost    Database: mantenimiento
 -- ------------------------------------------------------
--- Server version	5.5.53-0ubuntu0.14.04.1
+-- Server version	5.7.16-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -498,14 +498,15 @@ CREATE TABLE `practica` (
   `tiempo_duracion` int(11) NOT NULL,
   `lab_activo_id` int(11) NOT NULL,
   `url` varchar(512) NOT NULL,
-  `eliminado` tinyint(4) NOT NULL,
+  `eliminado` tinyint(4) NOT NULL DEFAULT '0',
   `usuario_id` int(11) NOT NULL,
   `hora_inicio` time NOT NULL,
   `hora_fin` time NOT NULL,
+  `paralelo_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_practicas_activo_fisico1` (`lab_activo_id`),
   CONSTRAINT `fk_practica_1` FOREIGN KEY (`lab_activo_id`) REFERENCES `lab_activo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -514,7 +515,7 @@ CREATE TABLE `practica` (
 
 LOCK TABLES `practica` WRITE;
 /*!40000 ALTER TABLE `practica` DISABLE KEYS */;
-INSERT INTO `practica` VALUES (1,'practica','2016-12-25',0,1,'lab170061769.',0,0,'00:00:00','00:00:00'),(2,'practica 1','2016-12-25',3,1,'lab49451839.pdf',0,3,'00:00:00','00:00:00'),(3,'prectica','2016-12-25',4,1,'lab1098347432.pdf',0,3,'00:00:00','00:00:00'),(4,'practica 3','2016-12-27',1,1,'lab1078829698.pdf',0,3,'15:15:00','16:15:00'),(5,'2323','2016-12-28',2,1,'lab1868047202.pdf',0,3,'16:00:00','17:15:00');
+INSERT INTO `practica` VALUES (1,'practica','2016-12-25',0,1,'lab170061769.',0,0,'00:00:00','00:00:00',0),(2,'practica 1','2016-12-25',3,1,'lab49451839.pdf',0,3,'00:00:00','00:00:00',0),(3,'prectica','2016-12-25',4,1,'lab1098347432.pdf',0,3,'00:00:00','00:00:00',0),(4,'practica 3','2016-12-27',1,1,'lab1078829698.pdf',0,3,'15:15:00','16:15:00',1),(5,'2323','2016-12-28',2,1,'lab1868047202.pdf',0,3,'16:00:00','17:15:00',2),(6,'practica 4','2016-12-29',3,1,'lab1664524394.pdf',0,3,'22:15:00','22:40:00',2);
 /*!40000 ALTER TABLE `practica` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -609,4 +610,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-29 17:25:35
+-- Dump completed on 2016-12-29 22:10:08
