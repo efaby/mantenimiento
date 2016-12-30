@@ -15,40 +15,46 @@
 								</div>
 		<?php endif;?>
 <div class="row">
-
 	<table class="table table-striped table-bordered table-hover" id="dataTables-example">
     <thead>
 	    <tr>
 	    	<th>ID</th>
-		    <th>Práctica</th>
-		    <th>Paralelo</th>
-		    <th>Estudiante</th>
-		    <th>Tiempo Ejecución</th>
-		    <th>Calificación</th>
+		    <th>Máquina</th>
+		    <th>Plan Mantenimiento</th>
+		    <th>Horas Límite</th>
+		    <th>Horas Operando</th>
+		    <th>Fecha Emisión</th>
+		    <th>Fecha Atención</th>
 		    <th style="text-align: center; ">Acciones</th>
 	    </tr>
     </thead>
     <tbody>
     	<?php foreach ($datos as $item) {
+    		$disabled = '';
+    		if($item->fecha_atencion!=''){
+    			$disabled = 'disabled';
+    		}
     		echo "<tr><td>".$item->id."</td>";
-    		echo "<td>".$item->nombre."</td>";
-    		echo "<td>".$item->paralelo."</td>";    
-    		echo "<td>".$item->nombres." ".$item->apellidos."</td>";
-    		echo "<td>".date('G:i',strtotime($item->duracion_practica))."</td>";
-    		echo "<td>".$item->nota_practica."</td>";
-    		echo "<td align='center'><a href='javascript: loadModal(".$item->evaluacion_id.")' class='btn btn-warning btn-sm' title='Calificar' ><i class='fa fa-pencil'></i></a>
-					 </td>";
+    		echo "<td>".$item->maquina."</td>";
+    		echo "<td>".$item->tarea."</td>";    
+    		echo "<td>".$item->frecuencia_horas."</td>";    		
+    		echo "<td>".$item->horas_operacion."</td>";
+    		echo "<td>".$item->fecha_emision."</td>";
+    		echo "<td>".$item->fecha_atencion."</td>";
+    		echo "<td align='center'>
+						<a href='../editar/".$item->id."' class='btn btn-warning btn-sm ".$disabled."' title='Ejecutar Mantenimiento' ><i class='fa fa-pencil'></i></a>
+		    		<a href='javascript: loadModal(".$item->id.")' class='btn btn-info btn-sm' title='Ver Orden' ><i class='fa fa-info-circle'></i></td>";
     	}?>
     </tbody>
     </table>
 </div>
 <div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" style="width: 400px;">
+	<div class="modal-dialog" style="width: 700px;">
 		<div class="modal-content">
 			<div class="modal-header">
 				<a class="close" data-dismiss="modal">×</a>
-				<h3>Evaluar Practica</h3>
+				<h3>Orden de Trabajo</h3>
 			</div>
 
 			<div class="modal-body"></div>
@@ -57,6 +63,9 @@
 
 	</div>
 </div>
+
+
+
 <?php include_once PATH_TEMPLATE.'/footer.php';?>   
 <link href="<?php echo PATH_CSS; ?>/dataTables.bootstrap.css" rel="stylesheet">
 <script src="<?php echo PATH_JS; ?>/jquery.dataTables.min.js"></script>
@@ -66,7 +75,16 @@
 <script src="<?php echo PATH_JS; ?>/bootstrap.js"></script>
 <script src="<?php echo PATH_JS; ?>/currentList.js"></script>
 <link href="<?php echo PATH_CSS; ?>/bootstrapValidator.min.css" rel="stylesheet">
+<script type="text/javascript">
 
+	function loadModal(id){
+		$('.modal-body').load('../ver/' + id,function(result){
+		    $('#confirm-submit').modal({show:true});
+		});
+	}
+
+	
+</script>
 
 </body>
 </html>

@@ -85,7 +85,7 @@ $(document).ready(function() {
 });
 </script>
 <style>
-.col-sm-6, .col-sm-12 {
+#frmItem .col-sm-6, #frmItem .col-sm-12 {
 	padding-right: 0px;
 	padding-left: 0px;
 }
