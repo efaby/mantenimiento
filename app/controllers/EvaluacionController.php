@@ -6,7 +6,7 @@ class EvaluacionController {
 	
 	public function listar() {
 		$model = new EvaluacionModel();
-		$docente = 3; // Docente
+		$docente = $_SESSION['SESSION_USER']->id;  
 		$datos = $model->getlistadoPraticas($docente);
 		$message = "";
 		require_once PATH_VIEWS."/Evaluacion/view.list.php";
@@ -14,7 +14,7 @@ class EvaluacionController {
 	
 	public function editar(){
 		$model = new EvaluacionModel();
-		$docente = 3; // Docente
+		$docente = $_SESSION['SESSION_USER']->id;  
 		$item = $model->getEvaluacion();		
 		$message = "";
 		require_once PATH_VIEWS."/Evaluacion/view.form.php";
@@ -33,7 +33,7 @@ class EvaluacionController {
 		$evaluacion ['nota_practica'] = $_POST ['nota_practica'];
 		$evaluacion ['observaciones'] = $_POST ['observaciones'];
 		$evaluacion ['fecha_calificacion'] = date('Y-m-d');
-		$evaluacion ['profesor_id'] = 3; // Docente
+		$evaluacion ['profesor_id'] = $_SESSION['SESSION_USER']->id;  
 		
 		$model = new EvaluacionModel();
 		try {

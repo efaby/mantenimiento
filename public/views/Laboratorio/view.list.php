@@ -1,4 +1,4 @@
-<?php $title = "Grados Personal";?>
+<?php $title = "Laboratorios";?>
 <?php include_once PATH_TEMPLATE.'/header.php';?>
 
 <!-- Main row -->
@@ -24,7 +24,7 @@
     <thead>
 	    <tr>
 	    	<th>ID</th>
-		    <th>Codigo</th>
+		    <th>Código</th>
 		    <th>Laboratorio</th>
 		    <th>Docente</th>		    
 		    <th style="text-align: center; width: 20%">Acciones</th>

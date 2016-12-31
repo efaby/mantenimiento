@@ -18,13 +18,13 @@ class NovedadController {
 		$novedad ['solucion'] = $_POST ['solucion'];
 		$novedad ['es_estudiante'] = 0;
 		$novedad ['activo_fisico_id'] = $_POST ['activo_fisico_id'];
-		$novedad ['usuario_registra'] = 2; // Tecnico
+		$novedad ['usuario_registra'] = $_SESSION['SESSION_USER']->id; 
 	
 		$model = new NovedadModel();
 		try {
 			$datos = $model->saveNovedad( $novedad );
 			$_SESSION ['message'] = "Datos almacenados correctamente.";
-			//email
+			// envio email
 			
 		} catch ( Exception $e ) {
 			$_SESSION ['message'] = $e->getMessage ();
@@ -48,7 +48,10 @@ class NovedadController {
 	
 	public function listar() {
 		$model = new NovedadModel();	
-		$usuario = 0; // Docente preguntar si es supervisor o tecnico pra lstar de acuerdo a ello
+		$usuario = 0; 
+		if($_SESSION['SESSION_USER']->tipo > 1){
+			$usuario = $_SESSION['SESSION_USER']->id;
+		}
 		$datos = $model->getlistadoNovedad($usuario);
 		$message = "";
 		require_once PATH_VIEWS."/Novedad/view.list.php";
@@ -65,13 +68,13 @@ class NovedadController {
 	
 		$novedad ['id'] = $_POST ['id'];
 		$novedad ['tecnico_asigna'] = $_POST ['usuario_id'];
-		$novedad ['supervisor_id'] = 1; // supervisor
+		$novedad ['supervisor_id'] = $_SESSION['SESSION_USER']->id;
 	
 		$model = new NovedadModel();
 		try {
 			$datos = $model->saveNovedad( $novedad );
 			$_SESSION ['message'] = "Datos almacenados correctamente.";
-			//email
+			//envio email
 				
 		} catch ( Exception $e ) {
 			$_SESSION ['message'] = $e->getMessage ();
@@ -91,13 +94,12 @@ class NovedadController {
 		$novedad ['proceso'] = $_POST ['proceso'];
 		$novedad ['elementos'] = $_POST ['elementos'];
 		$novedad ['observaciones'] = $_POST ['observacion'];
-		$novedad ['tecnico_repara'] = 2; // tecnico repara
+		$novedad ['tecnico_repara'] = $_SESSION['SESSION_USER']->id; 
 	
 		$model = new NovedadModel();
 		try {
 			$datos = $model->saveNovedad( $novedad );
 			$_SESSION ['message'] = "Datos almacenados correctamente.";
-			//email
 	
 		} catch ( Exception $e ) {
 			$_SESSION ['message'] = $e->getMessage ();

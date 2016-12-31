@@ -7,7 +7,7 @@ class PracticaController {
 	
 	public function listar() {
 		$model = new PracticaModel();
-		$docente = 3; // Docente
+		$docente = $_SESSION['SESSION_USER']->id;
 		$datos = $model->getlistadoPractica($docente);
 		$message = "";
 		require_once PATH_VIEWS."/Practica/view.list.php";
@@ -15,7 +15,7 @@ class PracticaController {
 	
 	public function editar(){
 		$model = new PracticaModel();
-		$docente = 3; // Docente
+		$docente = $_SESSION['SESSION_USER']->id;
 		$item = $model->getPractica();	
 		$laboratorios = $model->getLaboratorios($docente);
 		$paralelos = $model->getParalelos($docente);
@@ -38,7 +38,7 @@ class PracticaController {
 		$practica ['lab_activo_id'] = $_POST ['lab_activo_id'];	
 		$practica ['url'] = $this->uploadFile('pra','laboratorios');
 		$practica ['paralelo_id'] = $_POST ['paralelo_id'];
-		$practica ['usuario_id'] = 3; // Docente
+		$practica ['usuario_id'] = $_SESSION['SESSION_USER']->id;
 		$model = new PracticaModel();
 		try {
 			$datos = $model->savePractica( $practica );
@@ -79,7 +79,7 @@ class PracticaController {
 	public function downloadFile(){
 		$nombre = $_GET['id'];
 		$upload = new File();
-		return $upload->download($nombre,'practicas');
+		return $upload->download($nombre,'laboratorios');
 	}
 	
 	public function verificar(){
@@ -105,7 +105,7 @@ class PracticaController {
 	
 	public function practicas(){
 		$model = new PracticaModel();
-		$estudiante = 27; // Estudiante usuario
+		$estudiante = $_SESSION['SESSION_USER']->id;
 		$datos = $model->getlistadoPracticas($estudiante);
 		$message = "";
 		require_once PATH_VIEWS."/Practica/view.practicas.php";
@@ -131,12 +131,12 @@ class PracticaController {
 		$practica ['id'] = 0;
 		$practica ['practica_id'] = $_POST ['id'];
 		$practica ['archivo_url'] = $this->uploadFile('pra','practicas');
-		$practica ['estudiante_id'] = 27; // obtener Estudiante
+		$practica ['estudiante_id'] = $_SESSION['SESSION_USER']->id;
 		$practica ['duracion_practica'] = $_POST ['duracion_practica'];
 		
 		$model = new PracticaModel();
 		try {
-			//$datos = $model->savePracticaEvaluacion( $practica );
+			$datos = $model->savePracticaEvaluacion( $practica );
 			if($_POST['opcion']==1){
 				$novedad['id'] = 0;
 				$novedad ['problema'] = $_POST ['problema'];

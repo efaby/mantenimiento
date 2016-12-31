@@ -31,7 +31,7 @@ class SeguridadModel {
 	
 	public function getAcceso($id){
 		$model = new BaseModel();
-		$sql = "select * from acceso where rol_id = ".$id;
+		$sql = "select * from acceso where rol_id = ".$id." order by orden";
 		return $model->execSql($sql,array(),true);
 	}
 	

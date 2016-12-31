@@ -4,7 +4,7 @@
 <!-- Main row -->
 <div class="row">
 	<div class="col-lg-12">
-    	<h1 class="page-header">Ver Novedad</h1>
+    	<h1 class="page-header">Mantenimiento Correctivo</h1>
    	</div>
 </div>
 <?php if (isset($_SESSION['message'])&& ($_SESSION['message'] != '')):?>
@@ -13,7 +13,8 @@
 					aria-hidden="true">&times;</button>
 								  <?php echo $_SESSION['message'];$_SESSION['message'] = ''?>
 								</div>
-		<?php endif;?>
+		<?php  endif; ?>
+		
 <div class="row">
 	<div class="form-group  col-sm-12">
 	<div class="form-group  col-sm-6">

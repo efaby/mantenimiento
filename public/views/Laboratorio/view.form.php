@@ -1,4 +1,4 @@
-<?php $title = "Grados Personal";?>
+<?php $title = "Laboratorio";?>
 <?php include_once PATH_TEMPLATE.'/header.php';?>
 
 <!-- Main row -->
@@ -23,7 +23,7 @@
 	</div>
 	<div class="form-group  col-sm-12">
 	<div class="form-group  col-sm-6">
-		<label class="control-label">Codigo</label>
+		<label class="control-label">Código</label>
 		<input type='text'
 			name='codigo' class='form-control'
 			value="<?php echo $item->codigo; ?>">
@@ -31,38 +31,35 @@
 	</div>
 	
 	<div class="form-group  col-sm-12">
-	<div class="form-group  col-sm-6">
-		<label class="control-label">Introduccion</label>
+
+		<label class="control-label">Introducción</label>
 	 <textarea name="introduccion" id="introduccion" rows="10" cols="80">
                 <?php echo $item->introduccion; ?>
             </textarea>
-	</div>
+
 	</div>	
 	
 	<div class="form-group  col-sm-12">
-	<div class="form-group  col-sm-6">
+
 		<label class="control-label">Objetivos</label>
 	 <textarea name="objetivos" id="objetivos" rows="10" cols="80">
                 <?php echo $item->objetivos; ?>
             </textarea>
-	</div>
+
 	</div>
 	<div class="form-group  col-sm-12">
-	<div class="form-group  col-sm-6">
 		<label class="control-label">Generalidades</label>
 	 <textarea name="generalidades" id="generalidades" rows="10" cols="80">
                 <?php echo $item->generalidades; ?>
             </textarea>
-	</div>
+
 	</div>
 	
 	<div class="form-group  col-sm-12">
-	<div class="form-group  col-sm-6">
 		<label class="control-label">Seguridad</label>
 	 <textarea name="seguridad" id="seguridad" rows="10" cols="80">
                <?php echo $item->seguridad; ?>
             </textarea>
-	</div>
 	</div>
 	
 	<div class="form-group  col-sm-12">
@@ -126,35 +123,23 @@ $(document).ready(function() {
 				}
 			},
 			codigo: {
-				message: 'El Codigo no es válido',
+				message: 'El Código no es válido',
 				validators: {
 					notEmpty: {
 						message: 'El Codigo no puede ser vacío.'
 					},					
 					regexp: {
 						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-]+$/,
-						message: 'Ingrese un Codigo válido.'
+						message: 'Ingrese un Código válido.'
 					}
 				}
 			},
 			introduccion: {
                 validators: {
                     notEmpty: {
-                        message: 'La Introduccion no puede ser vacia.'
+                        message: 'La Introducción no puede ser vacia.'
                     },
-                    callback: {
-                        message: 'La introduccion no puede ser menos de 200 caracteres.',
-                        callback: function(value, validator, $field) {
-                            if (value === '') {
-                                return true;
-                            }
-                            // Get the plain text without HTML
-                            var div  = $('<div/>').html(value).get(0),
-                                text = div.textContent || div.innerText;
-
-                            return text.length <= 200;
-                        }
-                    }
+                   
                 }
             },
             objetivos: {
@@ -162,19 +147,7 @@ $(document).ready(function() {
                     notEmpty: {
                         message: 'Los Objetivos no pueden ser vacios.'
                     },
-                    callback: {
-                        message: 'Los Objetivos no pueden ser menos de 200 caracteres.',
-                        callback: function(value, validator, $field) {
-                            if (value === '') {
-                                return true;
-                            }
-                            // Get the plain text without HTML
-                            var div  = $('<div/>').html(value).get(0),
-                                text = div.textContent || div.innerText;
-
-                            return text.length <= 200;
-                        }
-                    }
+                   
                 }
             },
             generalidades: {
@@ -182,19 +155,7 @@ $(document).ready(function() {
                     notEmpty: {
                         message: 'Las Generalidades no pueden ser vacias.'
                     },
-                    callback: {
-                        message: 'Las Generalidades no pueden ser menos de 200 caracteres.',
-                        callback: function(value, validator, $field) {
-                            if (value === '') {
-                                return true;
-                            }
-                            // Get the plain text without HTML
-                            var div  = $('<div/>').html(value).get(0),
-                                text = div.textContent || div.innerText;
-
-                            return text.length <= 200;
-                        }
-                    }
+                    
                 }
             },	
             seguridad: {
@@ -202,19 +163,7 @@ $(document).ready(function() {
                     notEmpty: {
                         message: 'La Seguridad no puede ser vacia.'
                     },
-                    callback: {
-                        message: 'La Seguridiad no puede ser menos de 200 caracteres.',
-                        callback: function(value, validator, $field) {
-                            if (value === '') {
-                                return true;
-                            }
-                            // Get the plain text without HTML
-                            var div  = $('<div/>').html(value).get(0),
-                                text = div.textContent || div.innerText;
-
-                            return text.length <= 200;
-                        }
-                    }
+                    
                 }
             },				
 			usuario_id: {

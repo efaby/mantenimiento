@@ -1,4 +1,4 @@
-<?php $title = "Grados Personal";?>
+<?php $title = "Planes Mantenimiento";?>
 <?php include_once PATH_TEMPLATE.'/header.php';?>
 
 <!-- Main row -->
@@ -25,9 +25,9 @@
 	    <tr>
 	    	<th>ID</th>
 		    <th>Tarea</th>
-		    <th>Tiempo Ejecucion</th>
-		    <th>Tecnico Asignado</th>		
-		    <th>Estado Maquina</th>		     
+		    <th>Tiempo Ejecución</th>
+		    <th>Técnico Asignado</th>		
+		    <th>Estado Máquina</th>		     
 		    <th style="text-align: center; width: 20%">Acciones</th>
 	    </tr>
     </thead>

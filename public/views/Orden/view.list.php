@@ -1,10 +1,10 @@
-<?php $title = "Evaluación de Prácticas";?>
+<?php $title = "Ordenes de Trabajo";?>
 <?php include_once PATH_TEMPLATE.'/header.php';?>
 
 <!-- Main row -->
 <div class="row">
 	<div class="col-lg-12">
-    	<h1 class="page-header">Evaluación de Prácticas</h1>
+    	<h1 class="page-header">Ordenes de Trabajo</h1>
    	</div>
 </div>
 <?php if (isset($_SESSION['message'])&& ($_SESSION['message'] != '')):?>
@@ -19,7 +19,7 @@
     <thead>
 	    <tr>
 	    	<th>ID</th>
-		    <th>Máquina</th>
+		    <th>Activo Físico</th>
 		    <th>Plan Mantenimiento</th>
 		    <th>Horas Límite</th>
 		    <th>Horas Operando</th>

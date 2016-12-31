@@ -6,7 +6,7 @@ class OrdenController {
 	
 	public function listar() {
 		$model = new OrdenModel();
-		$tecnico = 2; // Docente
+		$tecnico = $_SESSION['SESSION_USER']->id;  
 		$datos = $model->getlistadoOrdenes($tecnico);
 		$message = "";
 		require_once PATH_VIEWS."/Orden/view.list.php";
@@ -27,7 +27,7 @@ class OrdenController {
 		$orden ['observacion'] = $_POST ['observacion'];
 		$orden ['tiempo_ejecucion'] = $_POST ['tiempo_ejecucion'];
 		$orden ['fecha_atencion'] = date('Y-m-d');
-		$orden ['tecnico_atiende'] = 2; // Docente
+		$orden ['tecnico_atiende'] = $_SESSION['SESSION_USER']->id; 
 		
 		$model = new OrdenModel();
 		try {

@@ -23,7 +23,7 @@
 	</div>
 	<div class="form-group  col-sm-12">
 	<div class="form-group  col-sm-6">
-		<label class="control-label">Tiempo Ejecucion</label>
+		<label class="control-label">Tiempo Ejecución</label>
 		<input type='text'
 			name='tiempo_ejecucion' class='form-control'
 			value="<?php echo $item->tiempo_ejecucion; ?>">
@@ -32,7 +32,7 @@
 	
 	<div class="form-group  col-sm-12">
 	<div class="form-group  col-sm-6">
-		<label class="control-label">Estado Maquina</label>
+		<label class="control-label">Estado Máquina</label>
 		<div>
 		<label> <input type="radio" name="estado_maquina" value="0" <?php echo ($item->estado_maquina === 0)?'checked':''; ?>>Apagada</label>
 		 <label> <input type="radio" name="estado_maquina"value="1" <?php echo ($item->estado_maquina == 1)?'checked':''; ?>> Encendida</label>
@@ -60,26 +60,26 @@
 	</div>
 		
 	<div class="form-group  col-sm-12">
-	<div class="form-group  col-sm-6">
+	
 		<label class="control-label">Procedimiento</label>
 	 <textarea name="procedimiento" id="procedimiento" rows="10" cols="80">
                 <?php echo $item->procedimiento; ?>
             </textarea>
-	</div>
+
 	</div>
 	<div class="form-group  col-sm-12">
-	<div class="form-group  col-sm-6">
+
 		<label class="control-label">Observaciones</label>
 	 <textarea name="observaciones" id="observaciones" rows="10" cols="80">
                 <?php echo $item->observaciones; ?>
             </textarea>
-	</div>
+
 	</div>
 
 	
 	<div class="form-group  col-sm-12">
 	<div class="form-group  col-sm-6">
-		<label class="control-label">Asignar Tecnico</label>
+		<label class="control-label">Asignar Técnico</label>
 		<select class='form-control' name="usuario_id" id="usuario_id">
 			<option value="" >Seleccione</option>
 		<?php foreach ($tecnicos as $dato) { ?>
@@ -201,19 +201,7 @@ $(document).ready(function() {
                     notEmpty: {
                         message: 'El Procedimiento no puede ser vacio.'
                     },
-                    callback: {
-                        message: 'El Procedimiento no puede ser menos de 200 caracteres.',
-                        callback: function(value, validator, $field) {
-                            if (value === '') {
-                                return true;
-                            }
-                            // Get the plain text without HTML
-                            var div  = $('<div/>').html(value).get(0),
-                                text = div.textContent || div.innerText;
-
-                            return text.length <= 200;
-                        }
-                    }
+                    
                 }
             },
             observaciones: {
@@ -221,19 +209,7 @@ $(document).ready(function() {
                     notEmpty: {
                         message: 'Las Observaciones no pueden ser vacias.'
                     },
-                    callback: {
-                        message: 'Las Observaciones no pueden ser menos de 200 caracteres.',
-                        callback: function(value, validator, $field) {
-                            if (value === '') {
-                                return true;
-                            }
-                            // Get the plain text without HTML
-                            var div  = $('<div/>').html(value).get(0),
-                                text = div.textContent || div.innerText;
-
-                            return text.length <= 200;
-                        }
-                    }
+                    
                 }
             },
             

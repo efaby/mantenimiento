@@ -15,17 +15,12 @@
 								</div>
 		<?php endif;?>
 <div class="row">
-	<div class="col-lg-12">
-		<button class="btn btn-primary" id="modalOpen">
-			<i class="glyphicon glyphicon-plus"></i> Nuevo
-		</button>
-	</div>
 	<table class="table table-striped table-bordered table-hover" id="dataTables-example">
     <thead>
 	    <tr>
 	    	<th>ID</th>
 		    <th>Laboratorio</th>
-		    <th>Máquina</th>
+		    <th>Activo Físico</th>
 		    <th>Práctica</th>	
 		    <th>Fecha de Práctica</th>
 		    <th>Tiempo (Horas)</th>	 

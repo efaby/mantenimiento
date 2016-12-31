@@ -1,10 +1,10 @@
-<?php $title = "Grados Personal";?>
+<?php $title = "Mantenimiento Correctivo";?>
 <?php include_once PATH_TEMPLATE.'/header.php';?>
 
 <!-- Main row -->
 <div class="row">
 	<div class="col-lg-12">
-    	<h1 class="page-header">Novedades</h1>
+    	<h1 class="page-header">Mantenimiento Correctivo</h1>
    	</div>
 </div>
 <?php if (isset($_SESSION['message'])&& ($_SESSION['message'] != '')):?>
@@ -21,7 +21,7 @@
 	    <tr>
 	    	<th>ID</th>		   
 		    <th>Laboratorio</th>
-		    <th>Maquina</th>
+		    <th>Activo Físico</th>
 		    <th>Usuario</th>	
 		    <th>Problema</th>
 		    <th style="text-align: center; width: 20%">Acciones</th>
@@ -37,12 +37,17 @@
     		echo "<td>".substr ( $item->problema , 0 ,20 )."</td>";
     		$tecnico = ($item->tecnico_asigna > 0)?'disabled':'';
     		$repara = ($item->tecnico_repara > 0)?'disabled':'';
-    		echo "<td align='center'>
-				
-				<a href='../ver/".$item->id."' class='btn btn-info btn-sm' title='Ver Problema' ><i class='fa fa-info-circle '></i></a>
-				<a href='javascript: loadModalAction(".$item->id.",\"asignar\")' class='btn btn-warning btn-sm ".$tecnico."' title='Asignar Técnico' ><i class='fa fa-user'></i></a>
-				<a href='javascript: loadModalAction(".$item->id.",\"reparar\")' class='btn btn-warning btn-sm ".$repara."' title='Atender' ><i class='fa fa-edit'></i></a>
-				</td>";
+    		if($_SESSION['SESSION_USER']->tipo == 1){
+    			echo "<td align='center'>
+					<a href='../ver/".$item->id."' class='btn btn-info btn-sm' title='Ver Problema' ><i class='fa fa-info-circle '></i></a>
+					<a href='javascript: loadModalAction(".$item->id.",\"asignar\")' class='btn btn-warning btn-sm ".$tecnico."' title='Asignar Técnico' ><i class='fa fa-user'></i></a>					
+					</td>";
+    		} else {
+	    		echo "<td align='center'>				
+					<a href='../ver/".$item->id."' class='btn btn-info btn-sm' title='Ver Problema' ><i class='fa fa-info-circle '></i></a>					
+					<a href='javascript: loadModalAction(".$item->id.",\"reparar\")' class='btn btn-warning btn-sm ".$repara."' title='Atender' ><i class='fa fa-edit'></i></a>
+					</td>";
+    		}
     	}?>
     </tbody>
     </table>

@@ -70,7 +70,7 @@ class PracticaModel {
 		$model = new BaseModel();
 		$sql = "select p.* from paralelo as p
 				inner join lab_docente as ld on ld.id = p.lab_docente_id
-				where ld.usuario_id = ".$docente;
+				where p.eliminado = 0 and ld.usuario_id = ".$docente;
 		return $model->execSql($sql, array(),true);
 	}
 	
@@ -80,7 +80,7 @@ class PracticaModel {
 	
 	public function getlistadoPracticas($estudiante){
 		$model = new BaseModel();
-		$sql = "select p.*, a.nombre as maquina, l.nombre as laboratorio, ev.duracion_practica, ev.nota_practica, ev.archivo_url from practica as p
+		$sql = "select p.*, a.nombre as maquina, l.nombre as laboratorio, ev.duracion_practica, ev.nota_practica, ev.archivo_url, ev.ejecutado from practica as p
 				inner join lab_activo as la on la.id = p.lab_activo_id
 				inner join laboratorio as l on l.id = la.laboratorio_id
 				inner join activo_fisico as a on a.id =  la.activo_fisico_id

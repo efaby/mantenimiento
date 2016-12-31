@@ -34,8 +34,8 @@
     		echo "<td>".$item->nombre."</td>";
     		echo "<td>".$item->paralelo."</td>";    
     		echo "<td>".$item->nombres." ".$item->apellidos."</td>";
-    		echo "<td>".date('G:i',strtotime($item->duracion_practica))."</td>";
-    		echo "<td>".$item->nota_practica."</td>";
+    		echo "<td style='text-align: center;'>".date('G:i',strtotime($item->duracion_practica))."</td>";
+    		echo "<td style='text-align: center;'>".$item->nota_practica."</td>";
     		echo "<td align='center'><a href='javascript: loadModal(".$item->evaluacion_id.")' class='btn btn-warning btn-sm' title='Calificar' ><i class='fa fa-pencil'></i></a>
 					 </td>";
     	}?>

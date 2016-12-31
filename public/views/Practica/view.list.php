@@ -27,7 +27,7 @@
 		    <th>Nombre</th>
 		    <th>Paralelo</th>
 		    <th>Laboratorio</th>
-		    <th>Máquina</th>	
+		    <th>Activo Físico</th>	
 		    <th>Fecha de Práctica</th>
 		    <th>Hora de Inicio</th>	 	    
 		    <th>Hora de Fin</th>
@@ -56,7 +56,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<a class="close" data-dismiss="modal">×</a>
-				<h3>Practica</h3>
+				<h3>Práctica</h3>
 			</div>
 
 			<div class="modal-body"></div>

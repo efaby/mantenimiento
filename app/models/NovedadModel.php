@@ -27,6 +27,7 @@ class NovedadModel {
 				left join usuario as u on u.id = n.tecnico_asigna
 				left join usuario as u1 on u1.id = n.tecnico_repara
 				where n.id = ?";
+
 		return $model->execSql($sql, array($novedad));				
 
 	}
