@@ -41,7 +41,7 @@ class PlanModel {
 
 	public function getTecnicos(){
 		$model = new BaseModel();
-		$sql = "select u.id, u.nombres, u.apellidos from usuario as u where u.tipo_usuario_id = 2";
+		$sql = "select u.id, u.nombres, u.apellidos from usuario as u where u.eliminado = 0 and u.tipo_usuario_id = 2";
 		return $model->execSql($sql, array(),true);
 	}
 }

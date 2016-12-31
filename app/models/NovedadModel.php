@@ -49,7 +49,7 @@ class NovedadModel {
 
 	public function getLaboratorios(){
 		$model = new BaseModel();	
-		$sql = "select l.id, l.nombre from laboratorio as l";		
+		$sql = "select l.id, l.nombre from laboratorio as l where l.eliminado = 0";		
 		return $model->execSql($sql, array(),true);
 	}
 	
@@ -57,7 +57,7 @@ class NovedadModel {
 		$model = new BaseModel();
 		$sql = "select a.id, a.nombre from activo_fisico as a
 				inner join lab_activo as la on la.activo_fisico_id = a.id
-				where la.laboratorio_id = ".$laboratorio;
+				where a.eliminado = 0 and la.laboratorio_id = ".$laboratorio;
 		return $model->execSql($sql, array(),true);
 	}
 	

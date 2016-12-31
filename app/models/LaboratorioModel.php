@@ -53,7 +53,7 @@ class LaboratorioModel {
 	
 	public function getDocentes(){
 		$model = new BaseModel();
-		$sql = "select u.id, u.nombres, u.apellidos from usuario as u where u.tipo_usuario_id = 3";
+		$sql = "select u.id, u.nombres, u.apellidos from usuario as u where u.eliminado = 0 and u.tipo_usuario_id = 3";
 		return $model->execSql($sql, array(),true);
 	}
 }
