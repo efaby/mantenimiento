@@ -43,7 +43,7 @@ class UsuarioModel {
 	
 	public function delUsuario(){
 		$usuario = $_GET['id'];
-		$sql = "update usuario set activo = 0 where id = ?";
+		$sql = "update usuario set eliminado = 1 where id = ?";
 		$model = new BaseModel();
 		$result = $model->execSql($sql, array($usuario),false,true);
 	}

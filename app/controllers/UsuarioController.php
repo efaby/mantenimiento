@@ -28,8 +28,7 @@ class UsuarioController {
 		$usuario ['nombres'] = $_POST ['nombres'];
 		$usuario ['apellidos'] = $_POST ['apellidos'];
 		$usuario ['password'] = $_POST ['password'];		
-		$usuario ['email'] = $_POST ['email'];
-		$usuario ['activo'] = 1;
+		$usuario ['email'] = $_POST ['email'];		
 		
 		$model = new UsuarioModel();
 		try {
