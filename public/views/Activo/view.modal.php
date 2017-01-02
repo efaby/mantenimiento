@@ -1,4 +1,4 @@
-<form id="frmActivoModal" method="post" action="../guardar/">
+<form id="frmActivoModal" method="post" action="">
 <div style="overflow: auto;">
 	<div class="form-group col-sm-12">
 		<label class="control-label">Denominación</label>
@@ -11,13 +11,22 @@
 	</div>
 	<div class="form-group col-sm-12">
 		<input type='hidden' name='id' class='form-control' value="<?php echo $item->id; ?>">		
-		<button type="submit" class="btn btn-success boton" id="boton">Guardar</button>
+		<button type="button" class="btn btn-success boton" id="boton" onclick="guardar()">Guardar</button>
 	</div>
 
 </form>
 <script type="text/javascript">
+
+function guardar(){
+	
+	var tds = "<tr><td>"+ $("#denominacion").val() +" <input type='hidden' value='"+ $("#denominacion").val() +"' name='parte[]'></td><td></td><td><a href='javascript:eliminar()' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a></td></tr>";
+	$("#partesActivo").append(tds);	
+	$('#confirm-submit').modal('hide');
+	$('input[name="urlParte[]"]').val($('#url).val());
+}
+
 $(document).ready(function() {
-	$('#frmEstudiante').formValidation({
+	$('#frmActivoModal').formValidation({
     	message: 'This value is not valid',
 		feedbackIcons: {
 			valid: 'glyphicon glyphicon-ok',

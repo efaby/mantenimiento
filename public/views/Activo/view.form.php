@@ -24,6 +24,7 @@
 				<input type='text'
 					name='ficha' class='form-control'
 					value="<?php echo $item->ficha; ?>">
+					
 			</div>
 			<div class="form-group  col-sm-3">
 				<label class="control-label">Código</label>
@@ -37,7 +38,7 @@
 					name='inventario' class='form-control'
 					value="<?php echo $item->inventario; ?>">
 			</div>			
-		</div>
+		</div>	
 		<div class="form-group  col-sm-12">
 			<div class="form-group  col-sm-3">
 				<label class="control-label">Manuales de Fabricante</label>
@@ -58,7 +59,8 @@
 					value="<?php echo $item->version; ?>">
 			</div>
 		</div>
-		</div>		
+
+
 		<div class="form-group  col-sm-12">
 			<label class="control-label">DATOS DE LA MÁQUINA</label>
 		</div>			
@@ -67,11 +69,12 @@
 					<img src="<?php isset($item->imagen_maquina_url)?$item->imagen_maquina_url:null ?>" alt="Imagen" height="100" width="100">
 					<input type="file" name="foto" value="<?php echo $item->imagen_maquina_url; ?>">
 		</div>
+
 		<div class="form-group  col-sm-12">
 			<div class="form-group  col-sm-3">
 				<label class="control-label">Color</label>
 		 		<input type='text'
-					name='color' class='form-control'
+					name='color'  id='color' class='form-control'
 					value="<?php echo $item->color; ?>">
 			</div>
 			<div class="form-group  col-sm-3">
@@ -143,6 +146,7 @@
 					value="<?php echo $item->num_fases; ?>">
 			</div>
 		</div>
+
 		<div class="form-group  col-sm-12">
 			<div class="form-group  col-sm-3">
 				<label class="control-label">RPM</label>
@@ -196,24 +200,17 @@
 			</div>
 		</div>
 		<div class="form-group  col-sm-12">
-			<div class="form-group  col-sm-3">
-				<label class="control-label">#</label>
-			</div>
-			<div class="form-group  col-sm-3">
-				<label class="control-label">Denominación</label>
-			</div>
-			<div class="form-group  col-sm-3">
-				<label class="control-label">Imagen</label>
-			</div>
-			<div class="form-group  col-sm-3">
-				<div class="col-lg-12">
-					<button class="btn btn-primary" id="modalOpen">
-						<i class="glyphicon glyphicon-plus"></i>Agregar
+		<div class="col-lg-12" style="text-align: right; margin-bottom: 10px">
+					<button class="btn btn-primary" id="agregar" onclick="agregar1()">
+						<i class="glyphicon glyphicon-plus"></i>
 					</button>
-				</div>				
-			</div>
+				</div>
+			<table id="partesActivo" class="table-bordered table">
+			<tr><td>Denominacion</td><td>Archivo</td><td>accion</td></tr>
+			</table>
+			
 		</div>
-		
+										
 		<div class="form-group  col-sm-12">
 			<div class="form-group  col-sm-1">
 				<label class="control-label">Función</label>		 		
@@ -283,14 +280,29 @@
 
 <script type="text/javascript">
 
-function loadModal(id){
+/*function loadModal(id){
 	$('.modal-body').load('../editarModal/' + id,function(result){
 	    $('#confirm-submit').modal({show:true});
 	});
+}*/
+
+function agregar1(){	
+	var tds = "<tr><td><input type='text' value='' name='nombreParte[]' class='form-control' ></td><td><input type='file' name='urlParte[]' id='url' class='file' value=''></td><td style='text-align: center;'><button class='btn btn-danger btn-sm eliminar' title='Eliminar'><i class='fa fa-trash'></i></button></td></tr>";
+	$("#partesActivo").append(tds);	
+	$('#frmActivo').formValidation('addField', $([name="nombreParte[]"]));
+	
 }
+
 
 $(document).ready(function() {
 
+
+	$(document).on("click",".eliminar",function(){
+		var parent = $(this).parents().get(0);
+		parent = $(parent).parents().get(0);
+		$(parent).remove();
+	});
+	
 	CKEDITOR.replace('caracteristicas');
 	
     $('#frmActivo').formValidation({
@@ -337,7 +349,15 @@ $(document).ready(function() {
 						message: 'Ingrese un Codigo válido.'
 					}
 				}
-			},			
+			},	
+			'nombreParte[]': {
+				validators: {
+					notEmpty: {
+						message: 'El Codigo no puede ser vacío.'
+					}
+				}
+			},	
+					
 			manual_fabricante: {
 				message: 'El manual de fabricante no es válida',
 				validators: {
