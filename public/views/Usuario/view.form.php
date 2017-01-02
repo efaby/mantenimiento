@@ -171,7 +171,7 @@ $(document).ready(function() {
 						message: 'La Contraseña no puede ser vacía.'
 					},					
 					regexp: {
-						regexp: /^[a-zA-ZÃ¡Ã©Ã­Ã³ÃºÃ�Ã‰Ã�Ã“ÃšÃ±Ã‘0-9-_ \.]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9_\.]+$/,						
 						message: 'Ingrese una Contraseña válido.'
 					}
 				}
