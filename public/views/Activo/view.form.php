@@ -11,11 +11,19 @@
 <div class="row">
 	<form id="frmActivo" method="post" action="../guardar/" enctype="multipart/form-data">
 		<div class="form-group  col-sm-12">
-			<div class="form-group  col-sm-6">
+			<div class="form-group  col-sm-12">
 				<label class="control-label">Nombre del Activo</label>
 				<input type='text'
 					name='nombre_activo' class='form-control'
 					value="<?php echo $item->nombre_activo; ?>">
+			</div>
+		</div>
+		<div class="form-group  col-sm-12">
+			<div class="form-group  col-sm-6">
+				<label class="control-label">Alias del Activo</label>
+				<input type='text'
+					name='alias' class='form-control'
+					value="<?php echo $item->alias; ?>">
 			</div>
 		</div>
 		<div class="form-group  col-sm-12">
@@ -64,7 +72,7 @@
 		<div class="form-group  col-sm-12">
 			<div class="form-group  col-sm-6">
 				<label class="control-label">Fotografía de la Máquina</label>
-					<input type="file" name="foto" value="<?php echo $item->imagen_maquina_url; ?>">
+					<input type="file" name="imagen_maquina_url" value="<?php echo $item->imagen_maquina_url; ?>">
 					<br>
 			</div>		
 		</div>
@@ -253,7 +261,7 @@
 		<div class="form-group  col-sm-12">
 			<?php foreach ($laboratorios as $lab){?>
 			<div class="form-group  col-sm-3">
-				<input type="checkbox" name="laboratorio_id" value="<?php echo $lab->id;?>"> <?php echo $lab->nombre;?>
+				<input type="checkbox" name="laboratorio_id[]" value="<?php echo $lab->id;?>"> <?php echo $lab->nombre;?>
 			</div>
 			<?php }?>
 		</div>		
@@ -265,13 +273,12 @@
 							<a href="../downloadFile/<?php echo $item->diagram_proceso_url;?>">Descargar</a>
 						<input type="hidden" name="diagram_proceso_url" value="<?php echo $item->url;?>">
 					<?php else :?>
-						<input type='file' name='url' id="url" class="file">	
+						<input type='file' name='diagram_proceso_url' id="diagram_proceso_url" class="file">	
 					<?php endif;?>
 			</div>		
 		</div>
 		<div class="form-group">
 		<input type='hidden' name='id' class='form-control' value="<?php echo $item->id; ?>">
-		<input type='hidden' name='idLab' class='form-control' value="<?php echo $item->idLab; ?>">
 			<button type="submit" class="btn btn-success">Guardar</button>
 			<a href="../listar/" class="btn btn-info"  >
 				Cancelar
@@ -335,6 +342,18 @@ $(document).ready(function() {
 					regexp: {
 						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-\s]+$/,
 						message: 'Ingrese un nombre de activo válido.'
+					}
+				}
+			},
+			alias:{
+				message: 'El alias no es válido',
+				validators: {
+					notEmpty: {
+						message: 'El alias no puede ser vacío.'
+					},					
+					regexp: {
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-\s]+$/,
+						message: 'Ingrese un alias válido.'
 					}
 				}
 			},
@@ -562,10 +581,57 @@ $(document).ready(function() {
                     }
                 }
             },
+            imagen_maquina_url: {
+				validators: {
+					notEmpty: {
+						message: 'Seleccione una Imagen.'
+					},
+					file: {
+	                    extension: 'jpg, gif, jpeg, png',
+	                    message: 'Seleccione una imagen válido. (jpg, jpeg, gif, png)'
+	                }
+				}
+			},
+			nomenclatura: {
+					validators: {
+						notEmpty: {
+							message: 'Seleccione una Nomenclatura.'
+						},
+						file: {
+		                    extension: 'jpg, gif, jpeg, png',
+		                    message: 'Seleccione una nomenclatura válido. (jpg, jpeg, gif, png)'
+		               }
+				}
+			},
+			diagram_proceso_url:{
+					validators: {
+						notEmpty: {
+							message: 'Seleccione un Archivo.'
+						},
+						file: {
+		                    extension: 'pdf,docx,doc',
+		                    message: 'Seleccione un archivo válido. (pdf, doc, docx)'
+		                }
+				}
+			},	
+			tipo_motor_id:{
+				message: 'El tipo de motor no es válido',
+				validators: {
+					notEmpty: {
+						message: 'El tipo de motor no puede ser vacío.'
+					}
+				}
+			},	
+			'laboratorio_id[]': {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'Por favor escoja al menos un laboratorio.'
+	                    }
+	                }
+	        },			
             'partes[0].denominacion': denominacionValidators,
             'partes[0].url': urlValidators,            
-		}
-		
+		}		
 	})
 	.on('click', '.addButton', function() {
         bookIndex++;

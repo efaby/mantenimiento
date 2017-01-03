@@ -35,7 +35,7 @@ class ActivoModel {
 		} else {
 			$result = (object) array('id'=>0,'nombre_activo'=>'','ficha' =>'','codigo'=>'','inventario'=>'','manual_fabricante'=>'','seccion'=>'','version'=>'','imagen_maquina_url'=>'',
 					'color'=>'','pais_origen'=>'','capacidad'=>'','marca_maquina'=>'','modelo_maquina'=>'','serie'=>'','caracteristicas'=>'','marca_motor'=>'','tipo_he'=>'','num_fases'=>'',
-					'rpm'=>'','voltaje'=>'','hz'=>'','amperios'=>'','kw'=>'','tipo_motor'=>'','parte_maquina'=>'', 'funcion'=>''
+					'rpm'=>'','voltaje'=>'','hz'=>'','amperios'=>'','kw'=>'','tipo_motor'=>'','parte_maquina'=>'', 'funcion'=>'','alias'=>''
 			);			
 		}
 		

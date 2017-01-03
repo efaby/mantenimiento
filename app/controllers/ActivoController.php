@@ -30,18 +30,19 @@ class ActivoController {
 	
 	public function guardar() {		
 		$activo ['id'] = $_POST ['id'];
-		$activo ['version'] = $_POST ['version'];
 		$activo ['nombre_activo'] = $_POST ['nombre_activo'];
+		$activo ['alias'] = $_POST ['alias'];
 		$activo ['ficha'] = $_POST ['ficha'];
 		$activo ['codigo'] = $_POST ['codigo'];
-		$activo ['inventario'] = $_POST ['inventario'];		
+		$activo ['inventario'] = $_POST ['inventario'];
 		$activo ['manual_fabricante'] = $_POST ['manual_fabricante'];
 		$activo ['seccion'] = $_POST ['seccion'];
+		$activo ['version'] = $_POST ['version'];
 		$activo ['imagen_maquina_url'] = $_POST ['imagen_maquina_url'];
 		$activo ['color'] = $_POST ['color'];
 		$activo ['pais_origen'] = $_POST ['pais_origen'];
 		$activo ['capacidad'] = $_POST ['capacidad'];
-		$activo ['marca_maquina'] = $_POST ['marca_maquina'];
+		$activo ['marca_maquina'] = $_POST ['marca_maquina'];		
 		$activo ['modelo_maquina'] = $_POST ['modelo_maquina'];
 		$activo ['serie'] = $_POST ['serie'];
 		$activo ['caracteristicas'] = $_POST ['caracteristicas'];
@@ -55,6 +56,7 @@ class ActivoController {
 		$activo ['kw'] = $_POST ['kw'];
 		$activo ['tipo_motor_id'] = $_POST ['tipo_motor_id'];
 		$activo ['funcion'] = $_POST ['funcion'];
+		$activo ['nomenclatura'] = $_POST ['nomenclatura'];
 		
 		$model = new ActivoModel();
 		try {
