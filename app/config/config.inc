@@ -14,6 +14,11 @@
 	define('PATH_TEMPLATE', PATH_ROOT."/public/template");
 	define('PATH_HELPERS', PATH_ROOT."/lib");
 	define('PATH_FILES', PATH_ROOT."/public/web/files/");
+	
+	define('GUSER', 'sysmantauto@gmail.com'); // GMail username
+	define('GPWD', 'sysmantauto2016'); // GMail password
+	define('SENDEMAIL',1);
+	
 	define('PUBLIC_URLS', serialize(array('Seguridadlogin','Seguridadvalidar','Seguridaderror404','Seguridaderror403','Seguridaderror500')));
 	
 	define('PRIVATE_URLS', serialize(

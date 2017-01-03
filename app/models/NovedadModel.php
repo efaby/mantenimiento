@@ -63,7 +63,34 @@ class NovedadModel {
 	
 	public function getTecnicos(){
 		$model = new BaseModel();
-		$sql = "select u.id, u.nombres, u.apellidos from usuario as u where u.tipo_usuario_id = 2";
+		$sql = "select u.id, u.nombres, u.apellidos from usuario as u where eliminado = 0 and u.tipo_usuario_id = 2";
 		return $model->execSql($sql, array(),true);
 	}
+	
+	public function getActivoById($id){
+		$model = new BaseModel();
+		$sql = "select nombre from activo_fisico where id = ".$id;
+		return $model->execSql($sql, array());
+	}
+	
+	public function getSupervisorById(){
+		$model = new BaseModel();
+		$sql = "select nombres, apellidos, email from usuario where tipo_usuario_id = 1 and eliminado = 0 ";
+		return $model->execSql($sql, array());
+	}
+	
+	
+	public function getNovedadById($id)
+	{
+		$model = new BaseModel();
+		$sql = "select a.nombre as maquina, u.nombres, u.apellidos, u.email
+				from novedad as n
+				inner join activo_fisico as a on a.id =  n.activo_fisico_id
+				inner join usuario as u on u.id = n.tecnico_asigna
+				where n.id = ?";	
+		return $model->execSql($sql, array($id));
+	
+	}
+	
+	
 }

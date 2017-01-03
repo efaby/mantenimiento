@@ -6,7 +6,7 @@ class ParaleloController {
 	
 	public function listar() {
 		$model = new ParaleloModel();
-		$docente = 3; // Docente
+		$docente = $_SESSION['SESSION_USER']->id; // Docente
 		$datos = $model->getlistadoParalelo($docente);
 		$message = "";
 		require_once PATH_VIEWS."/Paralelo/view.list.php";
@@ -14,7 +14,7 @@ class ParaleloController {
 	
 	public function editar(){
 		$model = new ParaleloModel();
-		$docente = 3; // Docente
+		$docente = $_SESSION['SESSION_USER']->id; // Docente
 		$item = $model->getParalelo();	
 		$laboratorios = $model->getLaboratorios($docente);
 		$message = "";

@@ -64,14 +64,13 @@
 	</div>
 	
 	<div class="form-group">
-	<input type='hidden' name='id' class='form-control' value="<?php echo $item->id; ?>">
+	<input type='hidden' name='id' class='form-control' value="">
 		<button type="submit" class="btn btn-success">Guardar</button>
 	</div>
 
 </form>
 
 </div>
-
 <?php include_once PATH_TEMPLATE.'/footer.php';?>   
 <script src="<?php echo PATH_JS; ?>/formValidation.js"></script>
 <script src="<?php echo PATH_JS; ?>/bootstrap.js"></script>

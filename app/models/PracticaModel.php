@@ -121,9 +121,10 @@ class PracticaModel {
 	
 	public function getPlanes($id){
 		$model = new BaseModel();
-		$sql = "select ap.*, p.id,  p.tarea, p.usuario_id, u.nombres, u.apellidos, u.email from activo_plan as ap
+		$sql = "select ap.*, p.id,  p.tarea, p.usuario_id, u.nombres, u.apellidos, u.email, a.nombre as maquina from activo_plan as ap
 				inner join plan_mantenimiento as p on p.id = ap.plan_mantenimiento_id
-				inner join usuario as u on u.id =  p.usuario_id				
+				inner join usuario as u on u.id =  p.usuario_id		
+				inner join activo_fisico as a on a.id = ap.activo_fisico_id
 				where ap.activo_fisico_id = ?";
 		return $model->execSql($sql, array($id),true);
 	}

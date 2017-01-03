@@ -1,5 +1,6 @@
 <?php
 require_once (PATH_MODELS . "/NovedadModel.php");
+require_once (PATH_HELPERS . "/Email.php");
 
 
 class NovedadController {
@@ -22,9 +23,16 @@ class NovedadController {
 	
 		$model = new NovedadModel();
 		try {
-			$datos = $model->saveNovedad( $novedad );
+			//$datos = $model->saveNovedad( $novedad );
 			$_SESSION ['message'] = "Datos almacenados correctamente.";
 			// envio email
+			if(SENDEMAIL){
+				$email = new Email();
+				$supervisor = $model->getSupervisorById();
+				$activo = $model->getActivoById($_POST ['activo_fisico_id']);					
+				$email->sendNotificacionRegistro($supervisor->nombres ." ".$supervisor->apellidos, $supervisor->email, $activo->nombre ,"http://" . $_SERVER['HTTP_HOST'] . PATH_BASE);
+					
+			}
 			
 		} catch ( Exception $e ) {
 			$_SESSION ['message'] = $e->getMessage ();
@@ -75,6 +83,12 @@ class NovedadController {
 			$datos = $model->saveNovedad( $novedad );
 			$_SESSION ['message'] = "Datos almacenados correctamente.";
 			//envio email
+			if(SENDEMAIL){
+				$datos = $model->getNovedadById($_POST ['id']);					
+				$email = new Email();
+				$email->sendNotificacionTecnico($datos->nombres .' '.$datos->apellidos, $datos->email, $datos->maquina, "http://" . $_SERVER['HTTP_HOST'] . PATH_BASE);
+			}
+			
 				
 		} catch ( Exception $e ) {
 			$_SESSION ['message'] = $e->getMessage ();

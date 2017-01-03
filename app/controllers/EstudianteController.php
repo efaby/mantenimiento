@@ -16,7 +16,7 @@ class EstudianteController {
 	public function editar(){
 		$model = new EstudianteModel();
 		$item = $model->getEstudiante();		
-		$docente = 3; // Docente		
+		$docente = $_SESSION['SESSION_USER']->id; // Docente		
 		$paralelos = $model->getParalelo($docente);		
 		$message = "";
 		require_once PATH_VIEWS."/Estudiante/view.form.php";

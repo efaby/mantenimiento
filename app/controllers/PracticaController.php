@@ -144,7 +144,7 @@ class PracticaController {
 				$novedad ['solucion'] = $_POST ['solucion'];
 				$novedad ['es_estudiante'] = 1;
 				$novedad ['activo_fisico_id'] = $_POST ['activo_fisico_id'];
-				$novedad ['usuario_registra'] = 27; // Estudiante
+				$novedad ['usuario_registra'] = $_SESSION['SESSION_USER']->id; // Estudiante
 				$model1 = new NovedadModel();
 				$datos = $model1->saveNovedad( $novedad );
 			}
@@ -172,7 +172,16 @@ class PracticaController {
 				$orden['activo_plan_id'] = $id;
 				$orden['fecha_emision'] = date('Y-m-d');
 				$orden['tecnico_asignado'] = $item->usuario_id;
-				$model->saveOrden($orden);
+				$model->saveOrden($orden);				
+				
+				if(SENDEMAIL){
+					$email = new Email();
+					$supervisor = $model->getSupervisorById();
+					$activo = $model->getActivoById($_POST ['activo_fisico_id']);
+					$email->sendNotificacionOrden($item->nombres ." ".$item->apellidos, $item->email, $item->tarea, $item->maquina ,"http://" . $_SERVER['HTTP_HOST'] . PATH_BASE);
+				
+						
+				}
 			}
 		}
 		
