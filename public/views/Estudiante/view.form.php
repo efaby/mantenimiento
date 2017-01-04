@@ -35,7 +35,7 @@
 			value="<?php echo $item->email; ?>" id="email">
 	</div>	
 	<div class="form-group">
-		<input type='hidden' name='id' class='form-control' value="<?php echo $item->id; ?>">		
+		<input type='hidden' name='id' id='id' class='form-control' value="<?php echo $item->id; ?>">		
 		<button type="submit" class="btn btn-success boton" id="boton">Guardar</button>
 	</div>
 
@@ -84,6 +84,7 @@ $(document).ready(function() {
 		        	jQuery("#nombres").val('');
 		        	jQuery("#apellidos").val('');
 		        	jQuery("#email").val('');
+		        	jQuery("#id").val(0);
 			        if(data){
 			        	jQuery("#codigo").val(data.codigo);
 			        	jQuery("#nombres").val(data.nombres);

@@ -70,7 +70,7 @@ class PracticaModel {
 		$model = new BaseModel();
 		$sql = "select p.* from paralelo as p
 				inner join lab_docente as ld on ld.id = p.lab_docente_id
-				where p.eliminado = 0 and ld.usuario_id = ".$docente;
+				where p.eliminado = 0 and ld.usuario_id = ".$docente." and (p.fecha_inicio <= '".date('Y-m_d')."' and p.fecha_fin >= '".date('Y-m_d')."')";
 		return $model->execSql($sql, array(),true);
 	}
 	
@@ -87,12 +87,12 @@ class PracticaModel {
 				inner join paralelo as pa on pa.id = p.paralelo_id
 				inner join matricula as m on m.paralelo_id = pa.id
 				inner join estudiante as e on e.id = m.estudiante_id
-				left join evaluacion as ev on ev.practica_id = p.id
+				left join evaluacion as ev on ev.practica_id = p.id and ev.estudiante_id = ".$estudiante ."
 				where p.eliminado = 0 and e.usuario_id = ".$estudiante;
 		return $model->execSql($sql, array(),true);
 	}
 	
-	public function getPracticaAll()
+	public function getPracticaAll($estudiante)
 	{
 		$practica = $_GET['id'];
 		$model = new BaseModel();
@@ -101,7 +101,7 @@ class PracticaModel {
 				inner join laboratorio as l on l.id = la.laboratorio_id
 				inner join activo_fisico as a on a.id =  la.activo_fisico_id	
 				inner join usuario as u on u.id =  p.usuario_id
-				left join evaluacion as ev on ev.practica_id = p.id
+				left join evaluacion as ev on ev.practica_id = p.id and ev.estudiante_id = ".$estudiante ."
 				where p.eliminado = 0 and p.id = ?";
 		return $model->execSql($sql, array($practica));
 	}
@@ -134,4 +134,6 @@ class PracticaModel {
 		$model = new BaseModel();
 		return $model->saveDatos($orden,'orden_plan');
 	}
+	
+	
 }

@@ -113,8 +113,9 @@ class PracticaController {
 	}
 	
 	public function ver(){
-		$model = new PracticaModel();		
-		$item = $model->getPracticaAll();		
+		$model = new PracticaModel();	
+		$estudiante = $_SESSION['SESSION_USER']->id;
+		$item = $model->getPracticaAll($estudiante);		
 		$message = "";
 		require_once PATH_VIEWS."/Practica/view.ver.php";
 	}
@@ -122,7 +123,8 @@ class PracticaController {
 	public function ejecutar(){
 		$model = new PracticaModel();
 		$practica = $_GET['id'];
-		$item = $model->getPracticaAll();
+		$estudiante = $_SESSION['SESSION_USER']->id;
+		$item = $model->getPracticaAll($estudiante);
 		$message = "";
 		require_once PATH_VIEWS."/Practica/view.ejecutar.php";
 	}
@@ -170,18 +172,14 @@ class PracticaController {
 			if($item->frecuencia_horas <= $item->horas_operacion){
 				// envio correo al tecnico
 				$orden['id'] = 0;
-				$orden['activo_plan_id'] = $id;
+				$orden['activo_plan_id'] = $item->id;
 				$orden['fecha_emision'] = date('Y-m-d');
 				$orden['tecnico_asignado'] = $item->usuario_id;
 				$model->saveOrden($orden);				
 				
 				if(SENDEMAIL){
 					$email = new Email();
-					$supervisor = $model->getSupervisorById();
-					$activo = $model->getActivoById($_POST ['activo_fisico_id']);
-					$email->sendNotificacionOrden($item->nombres ." ".$item->apellidos, $item->email, $item->tarea, $item->maquina ,"http://" . $_SERVER['HTTP_HOST'] . PATH_BASE);
-				
-						
+					$email->sendNotificacionOrden($item->nombres ." ".$item->apellidos, $item->email, $item->tarea, $item->maquina ,"http://" . $_SERVER['HTTP_HOST'] . PATH_BASE);			
 				}
 			}
 		}

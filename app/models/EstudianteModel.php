@@ -40,13 +40,14 @@ class EstudianteModel {
 	
 	public function saveEstudiante($usuario,$estudiante, $matricula){
 		$model = new BaseModel();		
-		if((($usuario['id']>0) && ($usuario['password']!=$this->pattern))||($usuario['id']==0)){
+		if($usuario['id']==0){
 			$usuario['password'] =  md5($usuario['password']);
 		} else {
 			unset($usuario['password']);
 		}
-		$usuario_id = $model->saveDatos($usuario,'usuario');				
-		$estudiante['usuario_id'] = $usuario_id;
+		$usuario_id = $model->saveDatos($usuario,'usuario');
+		
+		$estudiante['usuario_id'] = ($usuario['id']>0)?$usuario['id']:$usuario_id;
 		$estudiante_id = $model->saveDatos($estudiante,'estudiante');
 	
 		$matricula['estudiante_id'] = $estudiante_id ;		
