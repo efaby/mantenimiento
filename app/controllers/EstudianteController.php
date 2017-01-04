@@ -29,7 +29,7 @@ class EstudianteController {
 		$usuario ['apellidos'] = $_POST ['apellidos'];
 		$usuario ['password'] = $_POST ['identificacion'];
 		$usuario ['email'] = $_POST ['email'];		
-		$usuario ['activo'] = 1;
+		//$usuario ['activo'] = 1;
 		$usuario ['tipo_usuario_id'] = 4;
 		
 		$estudiante['codigo']=$_POST['codigo'];		
