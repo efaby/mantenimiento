@@ -29,9 +29,7 @@ class EstudianteController {
 		$usuario ['apellidos'] = $_POST ['apellidos'];
 		$usuario ['password'] = $_POST ['identificacion'];
 		$usuario ['email'] = $_POST ['email'];		
-		//$usuario ['activo'] = 1;
 		$usuario ['tipo_usuario_id'] = 4;
-		
 		$estudiante['codigo']=$_POST['codigo'];		
 		$matricula['paralelo_id']=$_POST['paralelo_id'];			
 		$model = new EstudianteModel();
