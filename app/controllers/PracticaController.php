@@ -2,6 +2,7 @@
 require_once (PATH_MODELS . "/PracticaModel.php");
 require_once (PATH_MODELS . "/NovedadModel.php");
 require_once (PATH_HELPERS. "/File.php");
+require_once (PATH_HELPERS. "/Email.php");
 
 class PracticaController {
 	

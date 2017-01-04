@@ -36,13 +36,14 @@
 	            </div>
 	            <button id="btn-comenzar">Comenzar</button>
 	        </div>
+	      <?php else: ?> 
+	       <h2>La Práctica ya se encuentra ejecutada</h2>
 	        <?php endif;?>
-	       La Práctica ya se encuentra ejecutada
 	</div>
 	
 	<div class="form-group  col-sm-12">
 	
-	<embed src="<?php echo PATH_JS."/../files/laboratorios/".$item->url;?>" type="application/pdf" width="100%" height="600"></embed>
+	<embed src="<?php echo PATH_JS."/../files/practicas/".$item->url;?>" type="application/pdf" width="100%" height="600"></embed>
 	</div>
 </div>
 
