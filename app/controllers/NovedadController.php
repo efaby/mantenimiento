@@ -1,13 +1,13 @@
 <?php
 require_once (PATH_MODELS . "/NovedadModel.php");
 require_once (PATH_HELPERS . "/Email.php");
-
+require_once (PATH_HELPERS. "/File.php");
 
 class NovedadController {
 	
 	public function ingreso(){
 		$model = new NovedadModel();		
-		$laboratorios = $model->getLaboratorios();		
+		$maquinas = $model->getMaquinas();		
 		$message = "";
 		require_once PATH_VIEWS."/Novedad/view.ingreso.php";
 	}
@@ -23,7 +23,7 @@ class NovedadController {
 	
 		$model = new NovedadModel();
 		try {
-			//$datos = $model->saveNovedad( $novedad );
+			$datos = $model->saveNovedad( $novedad );
 			$_SESSION ['message'] = "Datos almacenados correctamente.";
 			// envio email
 			if(SENDEMAIL){
@@ -40,18 +40,7 @@ class NovedadController {
 		header ( "Location: ../ingreso/" );
 	}
 	
-	public function loadActivoFisico(){
-		$opcion = $_POST ['opcion'];
-		$model = new NovedadModel();
-		$maquinas = $model->getMaquinas($opcion);
-		$html ='<option value="" >Seleccione</option>';
-		foreach ($maquinas as $dato) {
-			$html .='<option value="'.$dato->id.'" >'.$dato->nombre.'</option>';
-		}
-		$html .='</select>';
-		echo $html;
-	}
-	
+
 	
 	
 	public function listar() {
@@ -109,6 +98,10 @@ class NovedadController {
 		$novedad ['elementos'] = $_POST ['elementos'];
 		$novedad ['observaciones'] = $_POST ['observacion'];
 		$novedad ['tecnico_repara'] = $_SESSION['SESSION_USER']->id; 
+		if($_FILES['url']['name']!=''){
+			$novedad ['url'] = $this->uploadFile('nov','novedades');
+		}
+		
 	
 		$model = new NovedadModel();
 		try {
@@ -119,6 +112,17 @@ class NovedadController {
 			$_SESSION ['message'] = $e->getMessage ();
 		}
 		header ( "Location: ../listar/" );
+	}
+	
+	private function uploadFile($nombre,$carpeta){
+		$upload = new File();
+		return $upload->uploadFile($nombre,$carpeta);
+	}
+	
+	public function downloadFile(){
+		$nombre = $_GET['id'];
+		$upload = new File();
+		return $upload->download($nombre,'novedades');
 	}
 	
 	public function ver(){

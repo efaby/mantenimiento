@@ -36,7 +36,7 @@ class PracticaController {
 		$practica ['hora_fin'] = $_POST ['hora_fin'];
 		$practica ['tiempo_duracion'] = $_POST ['tiempo_duracion'];
 		$practica ['lab_activo_id'] = $_POST ['lab_activo_id'];	
-		$practica ['url'] = $this->uploadFile('pra','laboratorios');
+		$practica ['url'] = $this->uploadFile('pra','practicas');
 		$practica ['paralelo_id'] = $_POST ['paralelo_id'];
 		$practica ['usuario_id'] = $_SESSION['SESSION_USER']->id;
 		$model = new PracticaModel();
@@ -79,7 +79,7 @@ class PracticaController {
 	public function downloadFile(){
 		$nombre = $_GET['id'];
 		$upload = new File();
-		return $upload->download($nombre,'laboratorios');
+		return $upload->download($nombre,'practicas');
 	}
 	
 	public function verificar(){

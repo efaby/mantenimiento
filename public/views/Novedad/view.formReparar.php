@@ -1,11 +1,5 @@
 <form id="frmItem" method="post" action="../guardarReparar/" enctype="multipart/form-data">
 
-
-	<div class="form-group  col-sm-12">
-		<label class="control-label">Laboratorio</label>
-		<div id="texto"> <?php echo $item->laboratorio; ?>
-		</div>
-	</div>
 	<div class="form-group  col-sm-12">
 		<label class="control-label">Activo Fisico</label>
 		<div id="texto"> <?php echo $item->maquina; ?>
@@ -44,7 +38,10 @@
 		<textarea name='observacion' id='observacion' class='form-control' ></textarea>	
 		
 	</div>
-		
+		<div class="form-group col-sm-12">
+		<label class="control-label">Imagen </label>	
+			<input type='file' name='url' id="url" class="file">	
+	</div>
 	<div class="form-group">
 	<input type='hidden' name='id' class='form-control' value="<?php echo $item->id; ?>">
 		<button type="submit" class="btn btn-success" id="saveReparar">Guardar</button>
@@ -70,7 +67,7 @@ $(document).ready(function() {
 						message: 'El Proceso no puede ser vacío.'
 					},												
 							regexp: {
-								regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.]+$/,
+								regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-]+$/,
 								message: 'Ingrese un proceso válido.'
 							}
 						}
@@ -82,7 +79,7 @@ $(document).ready(function() {
 								message: 'La Causa no puede ser vacía.'
 							},												
 									regexp: {
-										regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.]+$/,
+										regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-]+$/,
 										message: 'Ingrese los Elementos válidos.'
 									}
 								}
@@ -91,12 +88,19 @@ $(document).ready(function() {
 								message: 'La observación no es válido',
 								validators: {												
 											regexp: {
-												regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.]+$/,
+												regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-]+$/,
 												message: 'Ingrese una Observación válida.'
 											}
 										}
 									},
-
+									url: {
+										validators: {							
+											file: {
+							                    extension: 'png,jpg,gif',
+							                    message: 'Seleccione un archivo válido. (.png,.jpg,.gif)'
+							                }
+										}
+									},
 			
 		}
 	});

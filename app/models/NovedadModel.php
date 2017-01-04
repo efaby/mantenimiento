@@ -5,13 +5,12 @@ class NovedadModel {
 
 	public function getlistadoNovedad($usuario){
 		$model = new BaseModel();	
-		$sql = "select n.*, a.nombre as maquina, l.nombre as laboratorio, u.nombres  as nombre_tecnico1, u.apellidos as apellido_tecnico1, u1.nombres  as nombre_tecnico2, u1.apellidos as apellido_tecnico2 from novedad as n
+		$sql = "select n.*, a.nombre as maquina, u.nombres  as nombre_tecnico1, u.apellidos as apellido_tecnico1, u1.nombres  as nombre_tecnico2, u1.apellidos as apellido_tecnico2 from novedad as n
 				inner join activo_fisico as a on a.id =  n.activo_fisico_id
-				inner join lab_activo as la on la.activo_fisico_id = a.id
-				inner join laboratorio as l on l.id = la.laboratorio_id
 				left join usuario as u on u.id = n.tecnico_asigna
 				left join usuario as u1 on u1.id = n.tecnico_repara
-				where (tecnico_asigna = ".$usuario." or 0 = ".$usuario.")";	
+				where (tecnico_asigna = ".$usuario." or 0 = ".$usuario.") order by n.id desc";	
+
 		return $model->execSql($sql, array(),true);
 	}	
 	
@@ -19,11 +18,10 @@ class NovedadModel {
 	{
 		$novedad = $_GET['id'];
 		$model = new BaseModel();		
-		$sql = "select n.*, a.nombre as maquina, l.nombre as laboratorio, u.nombres  as nombre_tecnico1, u.apellidos as apellido_tecnico1, u1.nombres  as nombre_tecnico2, u1.apellidos as apellido_tecnico2
+		$sql = "select n.*, a.nombre as maquina, u.nombres  as nombre_tecnico1, u.apellidos as apellido_tecnico1, u1.nombres  as nombre_tecnico2, u1.apellidos as apellido_tecnico2
 				from novedad as n
 				inner join activo_fisico as a on a.id =  n.activo_fisico_id
-				inner join lab_activo as la on la.activo_fisico_id = a.id
-				inner join laboratorio as l on l.id = la.laboratorio_id 
+				
 				left join usuario as u on u.id = n.tecnico_asigna
 				left join usuario as u1 on u1.id = n.tecnico_repara
 				where n.id = ?";
@@ -53,11 +51,10 @@ class NovedadModel {
 		return $model->execSql($sql, array(),true);
 	}
 	
-	public function getMaquinas($laboratorio){
+	public function getMaquinas(){
 		$model = new BaseModel();
-		$sql = "select a.id, a.nombre from activo_fisico as a
-				inner join lab_activo as la on la.activo_fisico_id = a.id
-				where a.eliminado = 0 and la.laboratorio_id = ".$laboratorio;
+		$sql = "select a.id, a.nombre from activo_fisico as a				
+				where a.eliminado = 0 ";
 		return $model->execSql($sql, array(),true);
 	}
 	

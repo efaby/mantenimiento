@@ -20,7 +20,7 @@
     <thead>
 	    <tr>
 	    	<th>ID</th>		   
-		    <th>Laboratorio</th>
+		    
 		    <th>Activo Físico</th>
 		    <th>Usuario</th>	
 		    <th>Problema</th>
@@ -31,7 +31,7 @@
     	<?php foreach ($datos as $item) {
     		$usuario = ($item->es_estudiante)?"Estudiante":"Técnico";
     		echo "<tr><td>".$item->id."</td>";    		
-    		echo "<td>".$item->laboratorio."</td>";
+    		
     		echo "<td>".$item->maquina."</td>";    		
     		echo "<td>".$usuario."</td>";
     		echo "<td>".substr ( $item->problema , 0 ,20 )."</td>";

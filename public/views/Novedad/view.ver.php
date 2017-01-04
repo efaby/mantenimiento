@@ -17,11 +17,7 @@
 		
 <div class="row">
 	<div class="form-group  col-sm-12">
-	<div class="form-group  col-sm-6">
-		<label class="control-label">Laboratorio</label>
-		<div id="texto"> <?php echo $item->laboratorio; ?></div>
-	</div>
-	</div>
+
 	<div class="form-group  col-sm-12">
 	<div class="form-group  col-sm-6">
 		<label class="control-label">Activo Físico</label>
@@ -88,6 +84,12 @@
 		</div>
 		</div>		
 	</div>
+	<?php if($item->url!=''):?>
+	<div class="form-group col-sm-12">
+		<label class="control-label">Imagen</label> 		
+		<div id="texto"><a href="../downloadFile/<?php echo $item->url;?>">Descargar</a></div>			
+	</div>
+	<?php endif;?>
 	<div class="form-group">
 	<a href="../listar/" class="btn btn-info"  >
 			Regresar
