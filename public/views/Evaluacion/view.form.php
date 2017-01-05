@@ -58,7 +58,7 @@ $(document).ready(function() {
 				message: 'La observación no es válido',
 				validators: {												
 							regexp: {
-								regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.]+$/,
+								regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-]+$/,
 								message: 'Ingrese una Observación válida.'
 							}
 						}

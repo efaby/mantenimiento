@@ -194,6 +194,10 @@ $(document).ready(function() {
 				validators: {
 							notEmpty: {
 								message: 'El Código no puede ser vacío.'
+							},
+							regexp: {
+								regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-]+$/,
+								message: 'Ingrese un Código válido.'
 							}
 						}
 					},
@@ -203,6 +207,10 @@ $(document).ready(function() {
 						validators: {
 									notEmpty: {
 										message: 'El Nombre no puede ser vacío.'
+									},
+									regexp: {
+										regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ \.]+$/,
+										message: 'Ingrese un Nombre válido.'
 									}
 								}
 							},
@@ -211,6 +219,10 @@ $(document).ready(function() {
 						validators: {
 										notEmpty: {
 										message: 'El Apellido no puede ser vacío.'
+									},
+									regexp: {
+										regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ \.]+$/,
+										message: 'Ingrese un Apellido válido.'
 									}
 								}
 						},

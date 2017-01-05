@@ -132,7 +132,7 @@ $(document).ready(function() {
 						message: 'La Tarea no puede ser vacía.'
 					},					
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-]+$/,
 						message: 'Ingrese una La Tarea válida.'
 					}
 				}

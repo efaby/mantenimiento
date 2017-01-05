@@ -150,6 +150,13 @@ class PracticaController {
 				$novedad ['usuario_registra'] = $_SESSION['SESSION_USER']->id; // Estudiante
 				$model1 = new NovedadModel();
 				$datos = $model1->saveNovedad( $novedad );
+				if(SENDEMAIL){
+					$email = new Email();
+					$supervisor = $model1->getSupervisorById();
+					$activo = $model1->getActivoById($_POST ['activo_fisico_id']);
+					$email->sendNotificacionRegistro($supervisor->nombres ." ".$supervisor->apellidos, $supervisor->email, $activo->nombre ,"http://" . $_SERVER['HTTP_HOST'] . PATH_BASE);
+						
+				}
 			}
 			
 			$duracion =  explode(':', $_POST ['duracion_practica']);

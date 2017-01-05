@@ -96,7 +96,7 @@ $(document).ready(function() {
 						message: 'El Problema no puede ser vacío.'
 					},												
 							regexp: {
-								regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.]+$/,
+								regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-]+$/,
 								message: 'Ingrese un problema válido.'
 							}
 						}
@@ -108,7 +108,7 @@ $(document).ready(function() {
 								message: 'La Causa no puede ser vacía.'
 							},												
 									regexp: {
-										regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.]+$/,
+										regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-]+$/,
 										message: 'Ingrese una Causa válida.'
 									}
 								}
@@ -117,7 +117,7 @@ $(document).ready(function() {
 								message: 'La Solución no es válido',
 								validators: {												
 											regexp: {
-												regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.]+$/,
+												regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-]+$/,
 												message: 'Ingrese una Solución válida.'
 											}
 										}

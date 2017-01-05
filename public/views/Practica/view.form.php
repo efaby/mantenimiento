@@ -131,7 +131,7 @@ $(document).ready(function() {
 						message: 'El Nombre no puede ser vacío.'
 					},					
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-]+$/,
 						message: 'Ingrese un Nombre válido.'
 					}
 				}
