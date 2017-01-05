@@ -30,6 +30,8 @@ class ActivoPlanController {
 		$activoPlan ['activo_fisico_id'] = $_POST ['activo_fisico_id'];
 		$activoPlan ['frecuencia_numero'] = $_POST ['frecuencia_numero'];
 		$activoPlan ['frecuencia_id'] = $_POST ['frecuencia_id'];
+		$activoPlan ['fecha_registro'] = date('Y-m-d');
+		$activoPlan ['fecha_inicio'] = date('Y-m-d');
 		
 		$model = new ActivoPlanModel();
 		try {

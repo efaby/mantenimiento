@@ -125,7 +125,7 @@ class PracticaModel {
 				inner join plan_mantenimiento as p on p.id = ap.plan_mantenimiento_id
 				inner join usuario as u on u.id =  p.usuario_id		
 				inner join activo_fisico as a on a.id = ap.activo_fisico_id
-				where ap.activo_fisico_id = ?";
+				where ap.activo_fisico_id = ? and ap.frecuencia_id = 1";
 		return $model->execSql($sql, array($id),true);
 	}
 	

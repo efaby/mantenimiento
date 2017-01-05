@@ -28,6 +28,25 @@
 		</div>
 	</div>
 	</div>
+	
+	<div class="form-group  col-sm-12">
+		<label class="control-label">Alertar</label>
+		<div class="form-group  col-sm-12">
+			<div class="form-group  col-sm-4">
+			<input type='text'
+			name='frecuencia_numero' class='form-control'
+			value="<?php echo $item->alerta_numero; ?>">
+			</div>
+			<div class="form-group  col-sm-8">
+		<select class='form-control' name="frecuencia_alerta_id">
+			<option value="" >Seleccione</option>
+		<?php foreach ($frecuencias as $dato) { ?>
+			<option value="<?php echo $dato->id;?>"  <?php if($item->frecuencia_alerta_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
+		<?php }?>
+		</select>
+		</div>
+	</div>
+	</div>
 
 	
 	<div class="form-group">

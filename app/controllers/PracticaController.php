@@ -176,7 +176,7 @@ class PracticaController {
 		
 		foreach ($planes as $item){
 
-			if($item->frecuencia_horas <= $item->horas_operacion){
+			if($item->frecuencia_numero <= $item->horas_operacion){
 				// envio correo al tecnico
 				$orden['id'] = 0;
 				$orden['activo_plan_id'] = $item->id;

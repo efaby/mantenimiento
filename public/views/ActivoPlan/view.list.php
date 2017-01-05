@@ -31,6 +31,7 @@
 		    <th>Plan</th>		    
 		    <th>Frecuencia Mantenimiento</th>
 		    <th>Horas Operando</th>
+		     <th>Desde</th>
 		    <th style="text-align: center; width: 20%">Acciones</th>
 	    </tr>
     </thead>
@@ -38,8 +39,9 @@
     	<?php foreach ($datos as $item) {
     		echo "<tr><td>".$item->id."</td>";
     		echo "<td>".$item->tarea."</td>";    		 
-    		echo "<td>".$item->frecuencia_numero." ".$item->frecuencia."</td>";
+    		echo "<td> Cada ".$item->frecuencia_numero." ".$item->frecuencia."</td>";
     		echo "<td>".$item->horas_operacion."</td>";
+    		echo "<td>".$item->fecha_inicio."</td>";
     		$id = $activo->id."-".$item->id;
     		echo "<td align='center'><a href='javascript: loadModal(\"".$id."\")' class='btn btn-warning btn-sm' title='Editar' ><i class='fa fa-pencil'></i></a>
 					  <a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(\"".$id."\");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a></td>";
