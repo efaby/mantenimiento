@@ -113,13 +113,20 @@ CREATE TABLE `activo_plan` (
   `plan_mantenimiento_id` int(11) NOT NULL,
   `activo_fisico_id` int(11) NOT NULL,
   `horas_operacion` decimal(5,2) NOT NULL DEFAULT '0.00',
-  `frecuencia_horas` int(11) NOT NULL,
+  `frecuencia_numero` int(11) NOT NULL DEFAULT '0',
+  `frecuencia_id` int(11) NOT NULL,
+  `eliminado` tinyint(4) NOT NULL DEFAULT '0',
+  `fecha_registro` date NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `alerta_numero` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_activo_plan_plan_mantenimiento1` (`plan_mantenimiento_id`),
   KEY `fk_activo_plan_activo_fisico1` (`activo_fisico_id`),
+  KEY `fk_activo_plan_frecuencia_idx` (`frecuencia_id`),
   CONSTRAINT `fk_activo_plan_activo_fisico1` FOREIGN KEY (`activo_fisico_id`) REFERENCES `activo_fisico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_activo_plan_plan_mantenimiento1` FOREIGN KEY (`plan_mantenimiento_id`) REFERENCES `plan_mantenimiento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_activo_plan_plan_mantenimiento1` FOREIGN KEY (`plan_mantenimiento_id`) REFERENCES `plan_mantenimiento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_frecuencia_id` FOREIGN KEY (`frecuencia_id`) REFERENCES `frecuencia` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +135,7 @@ CREATE TABLE `activo_plan` (
 
 LOCK TABLES `activo_plan` WRITE;
 /*!40000 ALTER TABLE `activo_plan` DISABLE KEYS */;
-INSERT INTO `activo_plan` VALUES (1,1,1,6.85,2);
+INSERT INTO `activo_plan` VALUES (2,2,1,2.00,2,1,0,'2017-01-05','2017-01-05',1),(3,1,1,2.00,3,2,0,'2017-01-05','2017-01-05',1);
 /*!40000 ALTER TABLE `activo_plan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -210,7 +217,7 @@ CREATE TABLE `evaluacion` (
   KEY `fk_evaluacion_estudiante1_idx` (`estudiante_id`),
   CONSTRAINT `fk_evaluacion_1` FOREIGN KEY (`practica_id`) REFERENCES `practica` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_evaluacion_estudiante1` FOREIGN KEY (`estudiante_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -219,8 +226,33 @@ CREATE TABLE `evaluacion` (
 
 LOCK TABLES `evaluacion` WRITE;
 /*!40000 ALTER TABLE `evaluacion` DISABLE KEYS */;
-INSERT INTO `evaluacion` VALUES (2,27,6,'lab966520740.pdf','00:50:01','ninguna',5.00,'2016-12-31',3,1),(3,27,6,'lab1317023215.pdf','02:00:02','ninguna',6.00,'2016-12-30',3,1),(4,27,6,'lab417198010.pdf','02:00:02','dsfdfdfdf',9.50,'2016-12-30',3,1),(5,26,8,'pra725055146.pdf','00:00:01',NULL,NULL,NULL,NULL,1),(6,29,8,'pra1100864505.pdf','02:00:02',NULL,NULL,NULL,NULL,1);
+INSERT INTO `evaluacion` VALUES (2,27,6,'lab966520740.pdf','00:50:01','ninguna',5.00,'2016-12-31',3,1),(3,27,6,'lab1317023215.pdf','02:00:02','ninguna',6.00,'2016-12-30',3,1),(4,27,6,'lab417198010.pdf','02:00:02','dsfdfdfdf',9.50,'2016-12-30',3,1),(5,26,8,'pra725055146.pdf','00:00:01',NULL,NULL,NULL,NULL,1),(6,29,8,'pra1100864505.pdf','02:00:02',NULL,NULL,NULL,NULL,1),(7,29,9,'pra23073.pdf','02:00:04','ninguna',9.00,'2017-01-04',3,1),(8,26,9,'pra28372.pdf','01:00:01',NULL,NULL,NULL,NULL,1),(9,29,10,'pra1718509545.pdf','01:00:03',NULL,NULL,NULL,NULL,1),(10,26,10,'pra2075474913.pdf','01:00:01',NULL,NULL,NULL,NULL,1);
 /*!40000 ALTER TABLE `evaluacion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `frecuencia`
+--
+
+DROP TABLE IF EXISTS `frecuencia`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `frecuencia` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(64) NOT NULL,
+  `descripcion` varchar(512) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `frecuencia`
+--
+
+LOCK TABLES `frecuencia` WRITE;
+/*!40000 ALTER TABLE `frecuencia` DISABLE KEYS */;
+INSERT INTO `frecuencia` VALUES (1,'Horas','Horas'),(2,'Meses','Meses'),(3,'Años','Años');
+/*!40000 ALTER TABLE `frecuencia` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -234,7 +266,7 @@ CREATE TABLE `lab_activo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `activo_fisico_id` int(11) NOT NULL,
   `laboratorio_id` int(11) NOT NULL,
-  `docente_id` varchar(45) NOT NULL,
+  `eliminado` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fk_lab_activo_activo_fisico1` (`activo_fisico_id`),
   KEY `fk_lab_activo_laboratorio1` (`laboratorio_id`),
@@ -249,7 +281,7 @@ CREATE TABLE `lab_activo` (
 
 LOCK TABLES `lab_activo` WRITE;
 /*!40000 ALTER TABLE `lab_activo` DISABLE KEYS */;
-INSERT INTO `lab_activo` VALUES (1,1,1,'3'),(2,1,2,'3');
+INSERT INTO `lab_activo` VALUES (1,1,1,0),(2,1,2,0);
 /*!40000 ALTER TABLE `lab_activo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -367,7 +399,7 @@ CREATE TABLE `novedad` (
   `url` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_novedades_activo_fisico1` (`activo_fisico_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -376,7 +408,7 @@ CREATE TABLE `novedad` (
 
 LOCK TABLES `novedad` WRITE;
 /*!40000 ALTER TABLE `novedad` DISABLE KEYS */;
-INSERT INTO `novedad` VALUES (1,'problame prueba','causa prueba','','sdsdsd','sdsdsd','sdsdsd',2,1,1,0,2,2,NULL),(2,'otro vez','cxcxc','','cvcv','c vcv','cvcv',2,1,1,0,2,2,'nov79378553.jpg'),(3,'teste','tese','',' vcvcv','cvcv','cv cv',2,1,1,0,2,2,NULL),(4,'dfdf','dfcdfdf','dfdf',NULL,NULL,NULL,NULL,NULL,1,0,NULL,2,NULL),(5,'problema','problema','',NULL,NULL,NULL,NULL,NULL,1,1,NULL,26,NULL),(6,'se daño','se daño','no se',NULL,NULL,NULL,NULL,NULL,1,1,NULL,29,NULL);
+INSERT INTO `novedad` VALUES (1,'problame prueba','causa prueba','','sdsdsd','sdsdsd','sdsdsd',2,1,1,0,2,2,NULL),(2,'otro vez','cxcxc','','cvcv','c vcv','cvcv',2,1,1,0,2,2,'nov79378553.jpg'),(3,'teste','tese','',' vcvcv','cvcv','cv cv',2,1,1,0,2,2,NULL),(4,'dfdf','dfcdfdf','dfdf',NULL,NULL,NULL,NULL,NULL,1,0,NULL,2,NULL),(5,'problema','problema','',NULL,NULL,NULL,NULL,NULL,1,1,NULL,26,NULL),(6,'se daño','se daño','no se',NULL,NULL,NULL,NULL,NULL,1,1,NULL,29,NULL),(7,'problem 1','causa 1','',NULL,NULL,NULL,2,1,1,0,NULL,2,NULL),(8,'novedad estudiante','causa estudiante','',NULL,NULL,NULL,NULL,NULL,1,1,NULL,29,NULL),(9,'estudiate 2','causa estudiante 2','',NULL,NULL,NULL,NULL,NULL,1,1,NULL,26,NULL),(10,'asasas','asasas','asas',NULL,NULL,NULL,NULL,NULL,1,1,NULL,29,NULL);
 /*!40000 ALTER TABLE `novedad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -396,10 +428,11 @@ CREATE TABLE `orden_plan` (
   `tiempo_ejecucion` varchar(64) DEFAULT NULL,
   `observacion` varchar(1024) DEFAULT NULL,
   `tecnico_atiende` int(11) DEFAULT NULL,
+  `atendido` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fk_orden_plan_activo_plan1` (`activo_plan_id`),
   CONSTRAINT `fk_orden_plan_activo_plan1` FOREIGN KEY (`activo_plan_id`) REFERENCES `activo_plan` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -408,7 +441,7 @@ CREATE TABLE `orden_plan` (
 
 LOCK TABLES `orden_plan` WRITE;
 /*!40000 ALTER TABLE `orden_plan` DISABLE KEYS */;
-INSERT INTO `orden_plan` VALUES (1,1,'2016-12-30','2016-12-30',2,'2 horas','ninguna',2),(2,1,'2017-01-04',NULL,2,NULL,NULL,NULL),(3,1,'2017-01-04',NULL,2,NULL,NULL,NULL);
+INSERT INTO `orden_plan` VALUES (6,2,'2017-01-05',NULL,2,NULL,NULL,NULL,0);
 /*!40000 ALTER TABLE `orden_plan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -525,7 +558,7 @@ CREATE TABLE `practica` (
   PRIMARY KEY (`id`),
   KEY `fk_practicas_activo_fisico1` (`lab_activo_id`),
   CONSTRAINT `fk_practica_1` FOREIGN KEY (`lab_activo_id`) REFERENCES `lab_activo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -534,7 +567,7 @@ CREATE TABLE `practica` (
 
 LOCK TABLES `practica` WRITE;
 /*!40000 ALTER TABLE `practica` DISABLE KEYS */;
-INSERT INTO `practica` VALUES (1,'practica','2016-12-25',0,1,'lab170061769.',0,0,'00:00:00','00:00:00',0),(2,'practica 1','2016-12-25',3,1,'lab49451839.pdf',0,3,'00:00:00','00:00:00',0),(3,'prectica','2016-12-25',4,1,'lab1098347432.pdf',0,3,'00:00:00','00:00:00',0),(4,'practica 3','2016-12-27',1,1,'lab1078829698.pdf',0,3,'15:15:00','16:15:00',1),(5,'2323','2016-12-28',2,1,'lab1868047202.pdf',0,3,'16:00:00','17:15:00',2),(6,'practica 4','2016-12-30',3,1,'lab1664524394.pdf',0,3,'09:15:00','10:40:00',2),(7,'Practica 5','2016-12-31',4,1,'pra1660178785.pdf',0,3,'12:00:00','12:30:00',1),(8,'practica prueba','2017-01-04',1,2,'pra1168150249.pdf',0,3,'14:00:00','14:50:00',4);
+INSERT INTO `practica` VALUES (1,'practica','2016-12-25',0,1,'lab170061769.',0,0,'00:00:00','00:00:00',0),(2,'practica 1','2016-12-25',3,1,'lab49451839.pdf',0,3,'00:00:00','00:00:00',0),(3,'prectica','2016-12-25',4,1,'lab1098347432.pdf',0,3,'00:00:00','00:00:00',0),(4,'practica 3','2016-12-27',1,1,'lab1078829698.pdf',0,3,'15:15:00','16:15:00',1),(5,'2323','2016-12-28',2,1,'lab1868047202.pdf',0,3,'16:00:00','17:15:00',2),(6,'practica 4','2016-12-30',3,1,'lab1664524394.pdf',0,3,'09:15:00','10:40:00',2),(7,'Practica 5','2016-12-31',4,1,'pra1660178785.pdf',0,3,'12:00:00','12:30:00',1),(8,'practica prueba','2017-01-04',1,2,'pra1168150249.pdf',0,3,'14:00:00','14:50:00',4),(9,'practica 1','2017-01-04',1,1,'pra23549.pdf',0,3,'21:30:00','22:00:00',4),(10,'practica emal','2017-01-05',2,1,'pra1232277027.pdf',0,3,'14:00:00','15:00:00',4);
 /*!40000 ALTER TABLE `practica` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -616,7 +649,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'1111111111','Jane ale','Concha','fcea920f7412b5da7be0cf42b8c93759','efaby10@hotmail.com',0,1),(2,'2222222222','ga','wej','e10adc3949ba59abbe56e057f20f883e','lajane2021@gmail.com',0,2),(3,'3333333333','wewe','wew','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',0,3),(4,'0603108770','sdsd','sdd','e10adc3949ba59abbe56e057f20f883e','sdds',1,1),(6,'4444244444','2323','2323','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',1,4),(7,'0602567802','dsd','sdsd','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',1,4),(25,'0600034202','sdsd','Perez','8b522136773385655e6140faeaac1e4e','lajane2020@hotmail.com',1,4),(26,'0600034201','sdsd','Perez','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',0,4),(27,'6666666666','sdsd','Perez','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',0,4),(28,'0603718578','Juan122','Perez','202cb962ac59075b964b07152d234b70','lajane2020@hotmail.com',0,1),(29,'0603718578','Fabian','Villa','8e57010f041a36616c747808e9bfa2dd','efaby10@hotmail.com',0,4);
+INSERT INTO `usuario` VALUES (1,'1111111111','Jane ale','Concha','fcea920f7412b5da7be0cf42b8c93759','efaby10@hotmail.com',0,1),(2,'2222222222','ga','wej','e10adc3949ba59abbe56e057f20f883e','efaby10@gmail.com',0,2),(3,'3333333333','wewe','wew','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',0,3),(4,'0603108770','sdsd','sdd','e10adc3949ba59abbe56e057f20f883e','sdds',1,1),(6,'4444244444','2323','2323','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',1,4),(7,'0602567802','dsd','sdsd','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',1,4),(25,'0600034202','sdsd','Perez','8b522136773385655e6140faeaac1e4e','lajane2020@hotmail.com',1,4),(26,'0600034201','sdsd','Perez','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',0,4),(27,'6666666666','sdsd','Perez','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',0,4),(28,'0603718578','Juan122','Perez','202cb962ac59075b964b07152d234b70','lajane2020@hotmail.com',0,1),(29,'0603718578','Fabian','Villa','8e57010f041a36616c747808e9bfa2dd','efaby10@hotmail.com',0,4);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -629,4 +662,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-04 14:20:26
+-- Dump completed on 2017-01-05 14:28:33

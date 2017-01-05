@@ -135,5 +135,12 @@ class PracticaModel {
 		return $model->saveDatos($orden,'orden_plan');
 	}
 	
-	
+	public function getOrdenPlan($id)
+	{
+		$model = new BaseModel();		
+		$sql = "select id from orden_plan
+					where atendido = 0 and activo_plan_id = ?";
+		return $model->execSql($sql, array($id));
+
+	}
 }

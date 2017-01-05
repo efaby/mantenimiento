@@ -8,7 +8,7 @@ class ActivoPlanModel {
 		$model = new BaseModel();	
 		$sql = "select ap.*, p.tarea, f.nombre as frecuencia from activo_plan as ap
 				inner join plan_mantenimiento as p on p.id = ap.plan_mantenimiento_id
-				inner join frecuencia as f on f.id = ap.frecuencia_id 
+				inner join frecuencia as f on f.id = ap.frecuencia_id 			
 				where ap.eliminado = 0 and ap.activo_fisico_id = ".$activo;		
 		return $model->execSql($sql, array(),true);
 	}	
@@ -28,7 +28,7 @@ class ActivoPlanModel {
 			$sql = "select * from activo_plan where eliminado = 0 and id = ?";
 			$result = $model->execSql($sql, array($id));				
 		} else {
-			$result = (object) array('id'=>0,'frecuencia_numero'=>'','plan_mantenimiento_id'=>0, 'frecuencia_id' =>0);			
+			$result = (object) array('id'=>0,'alerta_numero'=>'', 'frecuencia_numero'=>'','plan_mantenimiento_id'=>0, 'frecuencia_id' =>0);			
 		}		
 		return $result;
 	}

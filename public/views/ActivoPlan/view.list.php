@@ -30,6 +30,7 @@
 	    	<th>ID</th>
 		    <th>Plan</th>		    
 		    <th>Frecuencia Mantenimiento</th>
+		    <th>Alerta Mantenimiento</th>
 		    <th>Horas Operando</th>
 		     <th>Desde</th>
 		    <th style="text-align: center; width: 20%">Acciones</th>
@@ -40,6 +41,8 @@
     		echo "<tr><td>".$item->id."</td>";
     		echo "<td>".$item->tarea."</td>";    		 
     		echo "<td> Cada ".$item->frecuencia_numero." ".$item->frecuencia."</td>";
+    		$antes = ($item->frecuencia_id==1)?'Hora(s) Antes':'Día(s) antes';
+    		echo "<td> Cada ".$item->alerta_numero." ".$antes."</td>";
     		echo "<td>".$item->horas_operacion."</td>";
     		echo "<td>".$item->fecha_inicio."</td>";
     		$id = $activo->id."-".$item->id;

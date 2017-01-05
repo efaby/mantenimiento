@@ -45,9 +45,6 @@ class Email{
 	}
 	
 	
-	
-	
-	
 	public function sendNotificacionRegistro($name,$email, $activo,$url){
 		$message = '<table>
 					    <tr>
@@ -86,7 +83,7 @@ class Email{
 					      <td>Estimado '.$name.',</td>
 					    </tr>
 					    <tr>
-					      <td><br> Le informámos que se ha registrado una orden de trabajo para el Activo F&iacute;sico '.$activo.'asociado con el Plan de Mantenimiento '.$plan.'  el del el proceso de postulacion para '.$postulacion.'. ara poder dar atenci&oacute;n por favor ingrese al sistema con sus credenciales en el siguiente <a target="_blank" href="'.$url.'">link</a>.
+					      <td><br> Le informámos que se ha registrado una orden de trabajo para el Activo F&iacute;sico '.$activo.'asociado. Para poder dar atenci&oacute;n por favor ingrese al sistema con sus credenciales en el siguiente <a target="_blank" href="'.$url.'">link</a>.
 					  
 					      	<br><br>
 					      	La Administraci&oacute;n.
@@ -96,6 +93,20 @@ class Email{
 		$this->sendMail($email, "Notificación de Orden de Trabajo", $message);
 	}
 	
-	
+	public function sendNotificacionOrdenAlerta($name,$email, $plan, $activo){
+		$message = '<table>
+					    <tr>
+					      <td>Estimado '.$name.',</td>
+					    </tr>
+					    <tr>
+					      <td><br> Le informámos que se ha registrado una alerta de mantenimiento para el Activo F&iacute;sico '.$activo.' asociado con el Plan de Mantenimiento '.$plan.'. Por favor estar atento a la orden de trabajo. 
+				
+					      	<br><br>
+					      	La Administraci&oacute;n.
+					      </td>
+					    </tr>
+					  </table>';
+		$this->sendMail($email, "Alerta Notificación de Orden de Trabajo", $message);
+	}
 	
 }

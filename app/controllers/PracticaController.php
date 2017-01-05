@@ -178,15 +178,23 @@ class PracticaController {
 
 			if($item->frecuencia_numero <= $item->horas_operacion){
 				// envio correo al tecnico
-				$orden['id'] = 0;
-				$orden['activo_plan_id'] = $item->id;
-				$orden['fecha_emision'] = date('Y-m-d');
-				$orden['tecnico_asignado'] = $item->usuario_id;
-				$model->saveOrden($orden);				
-				
+				// revisar si exite alerta pendiente
+				$orden = $model->getOrdenPlan( $item->id );
+				if(!is_object($orden)){
+					$orden['id'] = 0;
+					$orden['activo_plan_id'] = $item->id;
+					$orden['fecha_emision'] = date('Y-m-d');
+					$orden['tecnico_asignado'] = $item->usuario_id;
+					$model->saveOrden($orden);	
+				}				
 				if(SENDEMAIL){
 					$email = new Email();
 					$email->sendNotificacionOrden($item->nombres ." ".$item->apellidos, $item->email, $item->tarea, $item->maquina ,"http://" . $_SERVER['HTTP_HOST'] . PATH_BASE);			
+				}
+			} else {
+				if(($item->frecuencia_numero - $item->alerta_numero) <= $item->horas_operacion){
+					$email = new Email();
+					$email->sendNotificacionOrdenAlerta($item->nombres ." ".$item->apellidos, $item->email, $item->tarea, $item->maquina );
 				}
 			}
 		}

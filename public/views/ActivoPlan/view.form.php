@@ -19,7 +19,7 @@
 			value="<?php echo $item->frecuencia_numero; ?>">
 			</div>
 			<div class="form-group  col-sm-8">
-		<select class='form-control' name="frecuencia_id">
+		<select class='form-control' name="frecuencia_id" id="frecuencia_id">
 			<option value="" >Seleccione</option>
 		<?php foreach ($frecuencias as $dato) { ?>
 			<option value="<?php echo $dato->id;?>"  <?php if($item->frecuencia_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
@@ -34,16 +34,11 @@
 		<div class="form-group  col-sm-12">
 			<div class="form-group  col-sm-4">
 			<input type='text'
-			name='frecuencia_numero' class='form-control'
+			name='alerta_numero' class='form-control'
 			value="<?php echo $item->alerta_numero; ?>">
 			</div>
 			<div class="form-group  col-sm-8">
-		<select class='form-control' name="frecuencia_alerta_id">
-			<option value="" >Seleccione</option>
-		<?php foreach ($frecuencias as $dato) { ?>
-			<option value="<?php echo $dato->id;?>"  <?php if($item->frecuencia_alerta_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
-		<?php }?>
-		</select>
+			<label class="control-label" id="antes"><?php echo ($item->frecuencia_id==1)?'Hora(s) Antes':'Día(s) antes'; ?></label>
 		</div>
 	</div>
 	</div>
@@ -59,6 +54,17 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+
+	$("#frecuencia_id").change(function(){
+	     if(this.value==1){
+		     $('#antes').html('Hora(s) Antes');
+	     } else {
+	    	 $('#antes').html('Día(s) Antes');
+	     }
+	    
+	  });
+	
+
 	
     $('#frmItem').formValidation({
     	message: 'This value is not valid',
@@ -80,7 +86,18 @@ $(document).ready(function() {
 					}
 				}
 			},
-			
+			alerta_numero: {
+				message: 'El valor de la alerta no es válido',
+				validators: {
+					notEmpty: {
+						message: 'El valor de la alerta no puede ser vacío.'
+					},					
+					regexp: {
+						regexp: /^\d*$/,
+						message: 'Ingrese un valor de la alerta válido.'
+					}
+				}
+			},
 			plan_mantenimiento_id: {
 				validators: {
 					notEmpty: {
@@ -95,13 +112,20 @@ $(document).ready(function() {
 					}
 				}
 			},
+			frecuencia_alerta_id: {
+				validators: {
+					notEmpty: {
+						message: 'Seleccione una Frecuencia de Alerta'
+					}
+				}
+			},
 			
 		}
 	});
 });
 </script>
 <style>
-.col-sm-6, .col-sm-12 {
+#frmItem .col-sm-6, #frmItem .col-sm-12 {
 	padding-right: 0px;
 	padding-left: 0px;
 }

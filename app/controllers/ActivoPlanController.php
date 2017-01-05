@@ -32,6 +32,8 @@ class ActivoPlanController {
 		$activoPlan ['frecuencia_id'] = $_POST ['frecuencia_id'];
 		$activoPlan ['fecha_registro'] = date('Y-m-d');
 		$activoPlan ['fecha_inicio'] = date('Y-m-d');
+		$activoPlan ['alerta_numero'] = $_POST ['alerta_numero'];
+		
 		
 		$model = new ActivoPlanModel();
 		try {
@@ -40,7 +42,7 @@ class ActivoPlanController {
 		} catch ( Exception $e ) {
 			$_SESSION ['message'] = $e->getMessage ();
 		}
-		header ( "Location: ../listar/".$_POST ['plan_mantenimiento_id'] );
+		header ( "Location: ../listar/".$_POST ['activo_fisico_id'] );
 	}
 	
 	public function eliminar() {
