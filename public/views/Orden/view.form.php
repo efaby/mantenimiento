@@ -22,7 +22,7 @@
 <?php echo $data->nombre ." </br>";?>
 <?php endforeach;?>
 </td>
-<td style="text-align: center; width: 15%;">Frecuencia: <?php echo $item->frecuencia_horas; ?> Horas</td></tr>
+<td style="text-align: center; width: 15%;">Frecuencia: <?php echo " Cada ".$item->frecuencia_numero." ".$item->frecuencia; ?></td></tr>
 </table>
 <br>
 <table class="table table-bordered" style="width: 90%">
@@ -52,7 +52,8 @@
 	</div>
 	
 	<div class="form-group">
-	<input type='hidden' name='id' class='form-control' value="<?php echo $item->orden_id; ?>">
+		<input type='hidden' name='id' class='form-control' value="<?php echo $item->orden_id; ?>">
+		<input type='hidden' name='activo_plan_id' class='form-control' value="<?php echo $item->activo_plan_id; ?>">
 		<button type="submit" class="btn btn-success">Guardar</button>
 	</div>
 </form>

@@ -28,10 +28,13 @@ class OrdenController {
 		$orden ['tiempo_ejecucion'] = $_POST ['tiempo_ejecucion'];
 		$orden ['fecha_atencion'] = date('Y-m-d');
 		$orden ['tecnico_atiende'] = $_SESSION['SESSION_USER']->id; 
+		$orden ['atendido'] = 1;
+		
+		$activo = $_POST ['activo_plan_id'];
 		
 		$model = new OrdenModel();
 		try {
-			$datos = $model->saveOrden( $orden );
+			$datos = $model->saveOrden( $orden, $activo );
 			$_SESSION ['message'] = "Datos almacenados correctamente.";
 		} catch ( Exception $e ) {
 			$_SESSION ['message'] = $e->getMessage ();

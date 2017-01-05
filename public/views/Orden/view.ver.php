@@ -9,8 +9,8 @@
 		<div id="texto"> <?php echo $item->tarea; ?></div>
 	</div>
 	<div class="form-group  col-sm-6">
-		<label class="control-label">Hora Límite</label>
-		<div id="texto"> <?php echo $item->frecuencia_horas; ?></div>
+		<label class="control-label">Frecuencia Mantenimiento</label>
+		<div id="texto"> <?php echo " Cada ".$item->frecuencia_numero." ".$item->frecuencia; ?></div>
 	</div>	
 	
 	<div class="form-group  col-sm-6">

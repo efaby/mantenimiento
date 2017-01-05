@@ -21,7 +21,7 @@
 	    	<th>ID</th>
 		    <th>Activo Físico</th>
 		    <th>Plan Mantenimiento</th>
-		    <th>Horas Límite</th>
+		   <th>Frecuencia Mantenimiento</th>
 		    <th>Horas Operando</th>
 		    <th>Fecha Emisión</th>
 		    <th>Fecha Atención</th>
@@ -31,13 +31,13 @@
     <tbody>
     	<?php foreach ($datos as $item) {
     		$disabled = '';
-    		if($item->fecha_atencion!=''){
+    		if($item->atendido==1){
     			$disabled = 'disabled';
     		}
     		echo "<tr><td>".$item->id."</td>";
     		echo "<td>".$item->maquina."</td>";
     		echo "<td>".$item->tarea."</td>";    
-    		echo "<td>".$item->frecuencia_horas."</td>";    		
+    		echo "<td> Cada ".$item->frecuencia_numero." ".$item->frecuencia."</td>";
     		echo "<td>".$item->horas_operacion."</td>";
     		echo "<td>".$item->fecha_emision."</td>";
     		echo "<td>".$item->fecha_atencion."</td>";
