@@ -57,10 +57,11 @@
 		<button type="submit" class="btn btn-success">Guardar</button>
 	</div>
 </form>
-
+</div>
 <?php include_once PATH_TEMPLATE.'/footer.php';?>   
 
 <script src="<?php echo PATH_JS; ?>/formValidation.js"></script>
+
 <script src="<?php echo PATH_JS; ?>/bootstrap.js"></script>
 <link href="<?php echo PATH_CSS; ?>/bootstrapValidator.min.css" rel="stylesheet">
 

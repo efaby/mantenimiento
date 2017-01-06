@@ -131,10 +131,11 @@ class SeguridadController {
 				}
 			} else {
 				$tope = strtotime ( '-'.$item->alerta_numero.' day' , $tope);
-
 				if($tope <= $hoy){
-					$email = new Email();
-					$email->sendNotificacionOrdenAlerta($item->nombres ." ".$item->apellidos, $item->email, $item->tarea, $item->maquina );
+					if(SENDEMAIL){
+						$email = new Email();
+						$email->sendNotificacionOrdenAlerta($item->nombres ." ".$item->apellidos, $item->email, $item->tarea, $item->maquina );
+					}
 				}
 			}
 		}
