@@ -1,5 +1,6 @@
 <?php
 require_once(PATH_MODELS."/SeguridadModel.php");
+require_once (PATH_HELPERS. "/Email.php");
 
 /**
  * Controlador de Usuarios
@@ -38,6 +39,9 @@ class SeguridadController {
 			session_write_close();
 			$url = $_SERVER["REQUEST_URI"];			
 			$response['data'] = (strpos($url, '/Seguridad/mostrar/'))?'../':'Seguridad/'.'inicio/';
+			
+			$this->validarMantenimiento();
+			
 				
 		} else {
 			$response['data'] = 'Credenciales Inválidas.';
@@ -99,5 +103,42 @@ class SeguridadController {
 	public function error500(){
 		require_once PATH_VIEWS."/Seguridad/view.error500.php";
 	}
+	
+	private function validarMantenimiento(){
+		$model = new SeguridadModel();
+		$planes = $model->getPlanes();
+	
+		foreach ($planes as $item){
+			$numero = $item->frecuencia_numero;
+			if($item->frecuencia_id==3){
+				$numero = $item->frecuencia_numero * 12;
+			}
+			$tope = strtotime ( '+'.$numero.' month' , strtotime ( $item->fecha_inicio ) ) ;
+			$hoy = strtotime ( date('Y-m-d'));
+
+			if($tope <= $hoy){
+				$orden = $model->getOrdenPlan( $item->id );
+				if(!is_object($orden)){
+					$orden['id'] = 0;
+					$orden['activo_plan_id'] = $item->id;
+					$orden['fecha_emision'] = date('Y-m-d');
+					$orden['tecnico_asignado'] = $item->usuario_id;
+					$model->saveOrden($orden);
+				}
+				if(SENDEMAIL){
+					$email = new Email();
+					$email->sendNotificacionOrden($item->nombres ." ".$item->apellidos, $item->email, $item->tarea, $item->maquina ,"http://" . $_SERVER['HTTP_HOST'] . PATH_BASE);
+				}
+			} else {
+				$tope = strtotime ( '-'.$item->alerta_numero.' day' , $tope);
+
+				if($tope <= $hoy){
+					$email = new Email();
+					$email->sendNotificacionOrdenAlerta($item->nombres ." ".$item->apellidos, $item->email, $item->tarea, $item->maquina );
+				}
+			}
+		}
+	
+	}	
 
 }
