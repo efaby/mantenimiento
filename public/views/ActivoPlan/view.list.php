@@ -51,6 +51,7 @@
     	}?>
     </tbody>
     </table>
+    <a href='../../Activo/listar/' class='btn btn-info' title='Regresar' >Regresar</a>
 </div>
 <div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">

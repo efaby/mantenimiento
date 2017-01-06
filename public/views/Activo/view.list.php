@@ -41,7 +41,10 @@
     		echo "<td>".$item->ficha."</td>";
     		echo "<td>".$item->manual_fabricante."</td>";    
     		echo "<td align='center'>
+				<a href='../../Partes/listar/".$item->id."' class='btn btn-success btn-sm' title='Partes' ><i class='fa fa-cubes'></i></a>
+				<a href='../../ActivoPlan/listar/".$item->id."' class='btn btn-success btn-sm' title='Planes Asociados' ><i class='fa fa-gears'></i></a>
 				<a href='../editar/".$item->id."' class='btn btn-warning btn-sm' title='Editar' ><i class='fa fa-pencil'></i></a>
+						
 				<a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a></td>";
     	}?>
     </tbody>
