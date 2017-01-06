@@ -1,5 +1,6 @@
 <?php
 require_once (PATH_MODELS . "/ActivoModel.php");
+require_once (PATH_HELPERS. "/File.php");
 
 
 
@@ -14,7 +15,7 @@ class ActivoController {
 	
 	public function editar(){
 		$model = new ActivoModel();
-		$item = $model->getActivo();		
+		$item = $model->getActivo();
 		$tipo_motor = $model->getMotor();
 		$laboratorios = $model->getLaboratorios();
 		$message = "";
@@ -29,6 +30,16 @@ class ActivoController {
 	}
 	
 	public function guardar() {		
+		/*print '<pre>';
+		print_r($_FILES['partes1']);
+		print '</pre>';
+		print '<pre>';
+		print_r($_POST['partes']);
+		print '</pre>';
+		exit();*/
+		//print_r($_REQUEST);
+		//exit();		
+		
 		$activo ['id'] = $_POST ['id'];
 		$activo ['nombre_activo'] = $_POST ['nombre_activo'];
 		$activo ['alias'] = $_POST ['alias'];
@@ -37,35 +48,47 @@ class ActivoController {
 		$activo ['inventario'] = $_POST ['inventario'];
 		$activo ['manual_fabricante'] = $_POST ['manual_fabricante'];
 		$activo ['seccion'] = $_POST ['seccion'];
-		$activo ['version'] = $_POST ['version'];
-		$activo ['imagen_maquina_url'] = $_POST ['imagen_maquina_url'];
+		if($_FILES['imagen_maquina_url']['name']!=''){
+			$activo ['imagen_maquina_url'] = $this->uploadFile('act','activo',$_FILES['imagen_maquina_url']);
+		}
+		$activo ['marca_maquina'] = $_POST ['marca_maquina'];
+		$activo ['modelo_maquina'] = $_POST ['modelo_maquina'];
+		$activo ['serie_maquina'] = $_POST ['serie_maquina'];
 		$activo ['color'] = $_POST ['color'];
 		$activo ['pais_origen'] = $_POST ['pais_origen'];
 		$activo ['capacidad'] = $_POST ['capacidad'];
-		$activo ['marca_maquina'] = $_POST ['marca_maquina'];		
-		$activo ['modelo_maquina'] = $_POST ['modelo_maquina'];
-		$activo ['serie'] = $_POST ['serie'];
 		$activo ['caracteristicas'] = $_POST ['caracteristicas'];
 		$activo ['marca_motor'] = $_POST ['marca_motor'];
 		$activo ['tipo_he'] = $_POST ['tipo_he'];
 		$activo ['num_fases'] = $_POST ['num_fases'];
 		$activo ['rpm'] = $_POST ['rpm'];
-		$activo ['voltaje'] = $_POST ['voltaje'];
+		$activo ['voltaje_motor'] = $_POST ['voltaje_motor'];
 		$activo ['hz'] = $_POST ['hz'];
-		$activo ['amperios'] = $_POST ['amperios'];
+		$activo ['amperios_motor'] = $_POST ['amperios_motor'];
 		$activo ['kw'] = $_POST ['kw'];
 		$activo ['tipo_motor_id'] = $_POST ['tipo_motor_id'];
 		$activo ['funcion'] = $_POST ['funcion'];
-		$activo ['nomenclatura'] = $_POST ['nomenclatura'];
+		if($_FILES['nomenglatura_url']['name']!=''){
+			$activo ['nomenglatura_url'] = $this->uploadFile('act','activo',$_FILES['nomenglatura_url']);
+		}
+		if($_FILES['diagram_proceso_url']['name']!=''){
+			$activo ['diagram_proceso_url'] = $this->uploadFile('act','activo',$_FILES['diagram_proceso_url']);
+		}
+		$laboratorios  = $_POST ['laboratorio_id'];
 		
 		$model = new ActivoModel();
 		try {
-			$datos = $model->saveEstudiante( $usuario,$estudiante,$matricula);			
+			$datos = $model->saveActivo($activo, $laboratorios);			
 			$_SESSION ['message'] = "Datos almacenados correctamente.";
 		} catch ( Exception $e ) {
 			$_SESSION ['message'] = $e->getMessage ();
 		}
 		header ( "Location: ../listar/" );
+	}
+	
+	private function uploadFile($nombre,$carpeta, $url){
+		$upload = new File();
+		return $upload->uploadFileGeneric($nombre,$carpeta, $url);
 	}
 	
 	public function guardarModal() {

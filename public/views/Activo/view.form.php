@@ -58,13 +58,7 @@
 				<input type='text'
 					name='seccion' class='form-control'
 					value="<?php echo $item->seccion; ?>">
-			</div>
-			<div class="form-group  col-sm-3">
-				<label class="control-label">Versión</label>
-				<input type='text'
-					name='version' class='form-control'
-					value="<?php echo $item->version; ?>">
-			</div>
+			</div>			
 		</div>
 		<div class="form-group  col-sm-12" align="center">
 			<label class="control-label">DATOS DE LA MÁQUINA</label>
@@ -72,9 +66,34 @@
 		<div class="form-group  col-sm-12">
 			<div class="form-group  col-sm-6">
 				<label class="control-label">Fotografía de la Máquina</label>
-					<input type="file" name="imagen_maquina_url" value="<?php echo $item->imagen_maquina_url; ?>">
-					<br>
+					<?php if(isset($item->imagen_maquina_url) &&  $item->imagen_maquina_url != ''):?>
+						<input type='file' name='imagen_maquina_url' id="imagen_maquina_url" class="file">		
+							<a href="../downloadFile/<?php echo $item->imagen_maquina_url;?>">Descargar</a>
+						<input type="hidden" name="imagen_maquina_url" value="<?php echo $item->imagen_maquina_url;?>">
+					<?php else :?>
+						<input type='file' name='imagen_maquina_url' id="imagen_maquina_url" class="file">	
+					<?php endif;?>
 			</div>		
+		</div>
+		<div class="form-group  col-sm-12">
+			<div class="form-group  col-sm-3">
+				<label class="control-label">Marca</label>
+		 		<input type='text'
+					name='marca_maquina' class='form-control'
+					value="<?php echo $item->marca_maquina; ?>">
+			</div>
+			<div class="form-group  col-sm-3">
+				<label class="control-label">Modelo</label>
+		 		<input type='text'
+					name='modelo_maquina' class='form-control'
+					value="<?php echo $item->modelo_maquina; ?>">
+			</div>
+			<div class="form-group  col-sm-3">
+				<label class="control-label">Serie</label>
+		 		<input type='text'
+					name='serie_maquina' class='form-control'
+					value="<?php echo $item->serie_maquina; ?>">
+			</div>
 		</div>
 		<div class="form-group  col-sm-12">
 			<div class="form-group  col-sm-3">
@@ -97,26 +116,6 @@
 			</div>		
 		</div>
 		<div class="form-group  col-sm-12">
-			<div class="form-group  col-sm-3">
-				<label class="control-label">Marca</label>
-		 		<input type='text'
-					name='marca_maquina' class='form-control'
-					value="<?php echo $item->marca_maquina; ?>">
-			</div>
-			<div class="form-group  col-sm-3">
-				<label class="control-label">Modelo</label>
-		 		<input type='text'
-					name='modelo_maquina' class='form-control'
-					value="<?php echo $item->modelo_maquina; ?>">
-			</div>
-			<div class="form-group  col-sm-3">
-				<label class="control-label">Serie</label>
-		 		<input type='text'
-					name='serie' class='form-control'
-					value="<?php echo $item->serie; ?>">
-			</div>
-		</div>		
-		<div class="form-group  col-sm-12">
 			<div class="form-group  col-sm-6">
 				<label class="control-label">CARACTERÍSTICAS GENERALES</label>
 			</div>				
@@ -124,9 +123,7 @@
 		<div class="form-group  col-sm-12">
 			<div class="form-group  col-sm-12" style="text-align: left;">
 				<label class="control-label">Construido con</label>
-		 		<textarea name="caracteristicas" id="caracteristicas" rows="5" cols="120">
-                	<?php echo $item->caracteristicas; ?>
-            	</textarea>
+		 		<textarea name="caracteristicas" id="caracteristicas" rows="5" cols="120"><?php echo $item->caracteristicas; ?></textarea>
 			</div>			
 		</div>		
 		<div class="form-group  col-sm-12">
@@ -165,8 +162,8 @@
 			<div class="form-group  col-sm-3">
 				<label class="control-label">Voltaje</label>
 		 		<input type='text'
-					name='voltaje' class='form-control'
-					value="<?php echo $item->voltaje; ?>">
+					name='voltaje_motor' class='form-control'
+					value="<?php echo $item->voltaje_motor; ?>">
 			</div>
 			<div class="form-group  col-sm-3">
 				<label class="control-label">Hz</label>
@@ -179,8 +176,8 @@
 			<div class="form-group  col-sm-3">
 				<label class="control-label">Amperios</label>
 		 		<input type='text'
-					name='amperios' class='form-control'
-					value="<?php echo $item->amperios; ?>">
+					name='amperios_motor' class='form-control'
+					value="<?php echo $item->amperios_motor; ?>">
 			</div>
 			<div class="form-group  col-sm-3">
 				<label class="control-label">KW</label>
@@ -202,35 +199,36 @@
 			</div>
 			<?php }?>
 		</div>		
-		<div class="form-group  col-sm-12">
+		<!-- <div class="form-group  col-sm-12">
 			<div class="form-group  col-sm-6">
 				<label class="control-label">PARTES IMPORTANTES</label>
 			</div>
 		</div>
-		<div class="form-group  col-sm-12">
+		<div class="col-sm-12">
 			<div class="form-group col-sm-12">       			
-			        <div class="form-group  col-sm-4">
-			            <input type="text" class="form-control" name="partes[0].denominacion" placeholder="Denominación" />
+			        <div class=" col-sm-4">
+			            <input type="text" class="form-control" name="partes[0]" placeholder="Denominación" />
 			        </div>
-			        <div class="form-group  col-sm-4">
-			            <input type="file" class="form-control" name="partes[0].url" placeholder="Imagen" style="border: none"/>
+			        <div class="col-sm-4">
+			            <input type="file" class="form-control" name="partes1[0]" multiple placeholder="Imagen" style="border: none"/>
 			        </div>
-			        <div class="form-group  col-sm-1">
+			        <div class="col-sm-1">
 			            <button type="button" class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
 			        </div>
-	        </div>	
+	        </div>	        
 	        <div class="form-group hide col-sm-12" id="bookTemplate">
-		        <div class="form-group  col-sm-4">
+		        <div class="col-sm-4">
 		            <input type="text" class="form-control" name="denominacion" placeholder="Denominación" />
 		        </div>
-		        <div class="form-group  col-sm-4">
-		             <input type="file" class="form-control" name="url" placeholder="Imagen" style="border: none"/>			
+		        <div class="col-sm-4">
+		             <input type="file" class="form-control" name="url" multiple placeholder="Imagen" style="border: none"/>			
 		        </div>		       
-		        <div class="form-group  col-sm-1">
+		        <div class="col-sm-1">
 		            <button type="button" class="btn btn-default removeButton"><i class="fa fa-minus"></i></button>
 		        </div>
     		</div>	
     	</div>
+    	 -->
     	<div class="form-group  col-sm-12">
 			<div class="form-group  col-sm-2">
 				<label class="control-label">Función</label>		 		
@@ -245,8 +243,8 @@
 			<div class="form-group col-sm-12">
 				<label class="control-label">Nomenclatura</label> 
 					<?php if(isset($item->diagram_proceso_url) &&  $item->diagram_proceso_url != ''):?>
-						<input type='file' name='nomenclatura' id="nomenclatura" class="file">		
-							<a href="../downloadFile/<?php echo $item->nomenclatura;?>">Descargar</a>
+						<input type='file' name='nomenglatura_url' id="nomenglatura_url" class="file">		
+							<a href="../downloadFile/<?php echo $item->nomenglatura_url;?>">Descargar</a>
 						<input type="hidden" name="nomenclatura" value="<?php echo $item->nomenclatura;?>">
 					<?php else :?>
 						<input type='file' name='nomenclatura' id="nomenclatura" class="file">	
@@ -260,9 +258,11 @@
 		</div>	
 		<div class="form-group  col-sm-12">
 			<?php foreach ($laboratorios as $lab){?>
-			<div class="form-group  col-sm-3">
-				<input type="checkbox" name="laboratorio_id[]" value="<?php echo $lab->id;?>"> <?php echo $lab->nombre;?>
-			</div>
+				<div class="form-group  col-sm-3">
+					<input type="checkbox" name="laboratorio_id[]" value="<?php echo $lab->id;?>"
+					<?php if (in_array($lab->id, $item->laboratorios, true)) echo "checked";?>> 
+					<?php echo $lab->nombre;?>
+				</div>				
 			<?php }?>
 		</div>		
 		<div class="form-group col-sm-12">
@@ -302,7 +302,7 @@
 $(document).ready(function() {
 	CKEDITOR.replace('caracteristicas');
 	
-	var denominacionValidators = {
+	/*var denominacionValidators = {
 	           row: '.col-sm-4',   // The title is placed inside a <div class="col-xs-4"> element
 	           validators: {
 	               notEmpty: {
@@ -322,7 +322,7 @@ $(document).ready(function() {
                 }
             }
     },
-	bookIndex = 0;
+	bookIndex = 0;*/
 	
     $('#frmActivo').formValidation({
     	message: 'This value is not valid',
@@ -393,30 +393,6 @@ $(document).ready(function() {
 					}
 				}
 			},			
-			seccion: {
-				message: 'La sección no es válida',
-				validators: {
-					notEmpty: {
-						message: 'La sección no puede ser vacía.'
-					},					
-					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
-						message: 'Ingrese una sección válida.'
-					}
-				}
-			},
-			version: {
-				message: 'La versión no es válida',
-				validators: {
-					notEmpty: {
-						message: 'La versión no puede ser vacía.'
-					},					
-					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
-						message: 'Ingrese una versión válida.'
-					}
-				}
-			},
 			inventario:{
 				message: 'El inventario no es válido',
 				validators: {
@@ -471,7 +447,7 @@ $(document).ready(function() {
 					}
 				}
 			},
-			serie:{
+			serie_maquina:{
 				message: 'La serie no es válida',
 				validators: {
 					regexp: {
@@ -516,7 +492,7 @@ $(document).ready(function() {
 					}
 				}
 			},
-			voltaje:{
+			voltaje_motor:{
 				message: 'El voltaje no es válida',
 				validators: {
 					regexp: {
@@ -534,7 +510,7 @@ $(document).ready(function() {
 					}
 				}
 			},
-			amperios:{
+			amperios_motor:{
 				message: 'Los amperios no es válida',
 				validators: {
 					regexp: {
@@ -555,32 +531,22 @@ $(document).ready(function() {
 			funcion:{
 				message: 'La función no es válida',
 				validators: {
+					notEmpty: {
+						message: 'El manual de fabricante no puede ser vacío.'
+					},
 					regexp: {
 						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
 						message: 'Ingrese una función válido.'
 					}
 				}
 			},
-			caracteristicas: {
+			/*caracteristicas: {
                 validators: {
                     notEmpty: {
                         message: 'Las características no pueden ser vacías.'
-                    },
-                    callback: {
-                        message: 'Los características no pueden ser menos de 200 caracteres.',
-                        callback: function(value, validator, $field) {
-                            if (value === '') {
-                                return true;
-                            }
-                            // Get the plain text without HTML
-                            var div  = $('<div/>').html(value).get(0),
-                                text = div.textContent || div.innerText;
-
-                            return text.length <= 200;
-                        }
                     }
                 }
-            },
+            },*/
             imagen_maquina_url: {
 				validators: {
 					notEmpty: {
@@ -592,7 +558,7 @@ $(document).ready(function() {
 	                }
 				}
 			},
-			nomenclatura: {
+			nomenglatura_url: {
 					validators: {
 						notEmpty: {
 							message: 'Seleccione una Nomenclatura.'
@@ -629,12 +595,12 @@ $(document).ready(function() {
 	                    }
 	                }
 	        },			
-            'partes[0].denominacion': denominacionValidators,
-            'partes[0].url': urlValidators,            
+         //   'partes[0]': denominacionValidators,
+         //   'partes1[0]': urlValidators,            
 		}		
 	})
-	.on('click', '.addButton', function() {
-        bookIndex++;
+/*	.on('click', '.addButton', function() {
+		bookIndex++;        
         var $template = $('#bookTemplate'),
             $clone    = $template
                             .clone()
@@ -645,30 +611,28 @@ $(document).ready(function() {
 
         // Update the name attributes
         $clone
-            .find('[name="denominacion"]').attr('name', 'partes[' + bookIndex + '].denominacion').end()
-            .find('[name="url"]').attr('name', 'partes[' + bookIndex + '].url').end();
+            .find('[name="denominacion"]').attr('name', 'partes[' + bookIndex + ']').end()
+            .find('[name="url"]').attr('name', 'partes1[' + bookIndex + ']').end();
 
         // Add new fields
         // Note that we also pass the validator rules for new field as the third parameter
         $('#frmActivo')
-            .formValidation('addField', 'partes[' + bookIndex + '].denominacion', denominacionValidators)
-            .formValidation('addField', 'partes[' + bookIndex + '].url', urlValidators);
+            .formValidation('addField', 'partes[' + bookIndex + ']', denominacionValidators)
+            .formValidation('addField', 'partes1[' + bookIndex + ']', urlValidators);
     })
 
     // Remove button click handler
     .on('click', '.removeButton', function() {
         var $row  = $(this).parents('.form-group'),
             index = $row.attr('data-book-index');
-
-        // Remove fields
+	    // Remove fields
         $('#frmActivo')
-            .formValidation('removeField', $row.find('[name="partes[' + index + '].denominacion"]'))
-            .formValidation('removeField', $row.find('[name="partes[' + index + '].url"]'));
+            .formValidation('removeField', $row.find('[name="partes[' + index + ']"]'))
+            .formValidation('removeField', $row.find('[name="partes1[' + index + ']"]'));
 
         // Remove element containing the fields
         $row.remove();
-    });	
-        
+    });*/        
 });
 </script>
 </body>

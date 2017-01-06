@@ -7,35 +7,31 @@ class ActivoModel {
 	
 	public function getlistadoActivos(){		
 		$model = new BaseModel();	
-		/*$sql = "select u.id,u.cedula, u.nombres, u.apellidos,u.email, e.codigo, e.id as id_estudiante,p.nombre as paralelo
-				from usuario as u
-				inner join estudiante e on e.usuario_id = u.id
-        		inner join matricula m on m.estudiante_id = e.id
-        		inner join paralelo p on p.id = m.paralelo_id
-				where e.eliminado = 0";*/
-		$sql="SELECT * FROM activo_fisico";
+		$sql="SELECT a.id, a.ficha,a.codigo, a.inventario,a.nombre_activo, a.manual_fabricante
+			  FROM activo_fisico a
+			  where a.eliminado =0";
 		return $model->execSql($sql, array(),true);
 	}	
 	
 	public function getActivo()
 	{
-		$usuario = $_GET['id'];
+		$activo = $_GET['id'];
 		$model = new BaseModel();		
-		if($usuario > 0){
-			$sql = "select u.*, t.nombre as tipo_usuario_nombre,e.codigo, p.id as paralelo_id
-					from usuario as u
-					inner join tipo_usuario t on u.tipo_usuario_id= t.id
-					inner join estudiante e on e.usuario_id = u.id
-					inner join matricula m on m.estudiante_id = e.id
-        			inner join paralelo p on p.id = m.paralelo_id
-					where u.id = ?";
-			$result = $model->execSql($sql, array($usuario));
-			$result->password = $result->password1 = $this->pattern;
-			$result->identificacion = $result->cedula;
+		if($activo > 0){
+			$sql = "SELECT * FROM activo_fisico a
+					where a.id = ?";
+			$result = $model->execSql($sql, array($activo));
+			$sql = "SELECT l.id FROM mantenimiento.activo_fisico a
+        			INNER JOIN lab_activo la ON la.activo_fisico_id = a.id
+        			INNER JOIN laboratorio l ON l.id = la.laboratorio_id
+    				where a.id = ?";
+			$lab = $model->execSql($sql, array($activo));
+			$result->laboratorios = $lab;
+			
 		} else {
 			$result = (object) array('id'=>0,'nombre_activo'=>'','ficha' =>'','codigo'=>'','inventario'=>'','manual_fabricante'=>'','seccion'=>'','version'=>'','imagen_maquina_url'=>'',
-					'color'=>'','pais_origen'=>'','capacidad'=>'','marca_maquina'=>'','modelo_maquina'=>'','serie'=>'','caracteristicas'=>'','marca_motor'=>'','tipo_he'=>'','num_fases'=>'',
-					'rpm'=>'','voltaje'=>'','hz'=>'','amperios'=>'','kw'=>'','tipo_motor'=>'','parte_maquina'=>'', 'funcion'=>'','alias'=>''
+					'color'=>'','pais_origen'=>'','capacidad'=>'','marca_maquina'=>'','modelo_maquina'=>'','serie_maquina'=>'','caracteristicas'=>'','marca_motor'=>'','tipo_he'=>'','num_fases'=>'',
+					'rpm'=>'','voltaje_motor'=>'','hz'=>'','amperios_motor'=>'','kw'=>'','tipo_motor'=>'','parte_maquina'=>'', 'funcion'=>'','alias'=>''
 			);			
 		}
 		
@@ -49,15 +45,19 @@ class ActivoModel {
 		return $result;
 	}
 	
-	public function saveEstudiante($usuario,$estudiante, $matricula){
+	public function saveActivo($activo, $laboratorios){
 		$model = new BaseModel();		
-		$usuario_id = $model->saveDatos($usuario,'usuario');		
-		
-		$estudiante['usuario_id'] = $usuario_id;
-		$estudiante_id = $model->saveDatos($estudiante,'estudiante');
+		$activo_id = $model->saveDatos($activo,'activo_fisico');
+			
+		foreach ($laboratorios as $lab){
+			$laboratorio['laboratorio_id']=$lab;
+			$laboratorio['activo_fisico_id']=$activo_id;
+			$lab_id = $model->saveDatos($laboratorio,'lab_activo');
+		}
+		//$laboratorios['id'] = $activo_id;
+		//$model->saveDatos($estudiante,'estudiante');
 	
-		$matricula['estudiante_id'] = $estudiante_id ;		
-		return $model->saveDatos($matricula,'matricula');		
+		return $activo_id;		
 	}
 	
 	public function delEstudiante(){

@@ -44,7 +44,6 @@ class File {
 	
 	
 	private function uploadFileToServer($prefix,$key,$path){
-		
 		$name = $_FILES[$key]['name'];
 		$name_tmp = $_FILES[$key]['tmp_name'];
 		$name = explode('.', $name);
@@ -52,5 +51,19 @@ class File {
 		@move_uploaded_file($name_tmp, $path . $nombre);
 		return $nombre;
 	}
+	
+	public function uploadFileGeneric($prefix,$folder,$url){
+		$key = $url;
+		return $this->uploadFileToServerGeneric($prefix, $key,PATH_FILES.$folder.'/');
+	}
+	
+	private function uploadFileToServerGeneric($prefix,$key,$path){
+		$name = $key['name'];
+		$name_tmp = $key['tmp_name'];
+		$name = explode('.', $name);
+		$nombre = $prefix.rand().".".$name[1];
+		@move_uploaded_file($name_tmp, $path . $nombre);
+		return $nombre;
+	}	
 	
 }

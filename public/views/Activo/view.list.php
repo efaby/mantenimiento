@@ -24,9 +24,11 @@
     <thead>
 	    <tr>
 	    	<th>ID</th>
-		    <th>Codigo</th>
-		    <th>Laboratorio</th>
-		    <th>Docente</th>		    
+		    <th>Código</th>
+		    <th>Nombre Activo</th>
+		    <th>Inventario</th>		    
+		    <th>Ficha</th>
+		    <th>Manual Fabricante</th>
 		    <th style="text-align: center; width: 20%">Acciones</th>
 	    </tr>
     </thead>
@@ -34,8 +36,10 @@
     	<?php foreach ($datos as $item) {
     		echo "<tr><td>".$item->id."</td>";
     		echo "<td>".$item->codigo."</td>";
-    		echo "<td>".$item->nombre."</td>";  		
-    		echo "<td>".$item->nombres." ".$item->apellidos."</td>";    
+    		echo "<td>".$item->nombre_activo."</td>";  		
+    		echo "<td>".$item->inventario."</td>";
+    		echo "<td>".$item->ficha."</td>";
+    		echo "<td>".$item->manual_fabricante."</td>";    
     		echo "<td align='center'>
 				<a href='../editar/".$item->id."' class='btn btn-warning btn-sm' title='Editar' ><i class='fa fa-pencil'></i></a>
 				<a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a></td>";
