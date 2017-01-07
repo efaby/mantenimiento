@@ -31,14 +31,10 @@ class ActivoController {
 	
 	public function guardar() {		
 		/*print '<pre>';
-		print_r($_FILES['partes1']);
+		print_r($_FILES['nomenglatura_url']);
 		print '</pre>';
-		print '<pre>';
-		print_r($_POST['partes']);
-		print '</pre>';
-		exit();*/
-		//print_r($_REQUEST);
-		//exit();		
+		exit();
+		*/
 		
 		$activo ['id'] = $_POST ['id'];
 		$activo ['nombre_activo'] = $_POST ['nombre_activo'];
@@ -49,7 +45,7 @@ class ActivoController {
 		$activo ['manual_fabricante'] = $_POST ['manual_fabricante'];
 		$activo ['seccion'] = $_POST ['seccion'];
 		if($_FILES['imagen_maquina_url']['name']!=''){
-			$activo ['imagen_maquina_url'] = $this->uploadFile('act','activo',$_FILES['imagen_maquina_url']);
+			$activo ['imagen_maquina_url'] = $this->uploadFile('act','activos',$_FILES['imagen_maquina_url']);
 		}
 		$activo ['marca_maquina'] = $_POST ['marca_maquina'];
 		$activo ['modelo_maquina'] = $_POST ['modelo_maquina'];
@@ -69,10 +65,10 @@ class ActivoController {
 		$activo ['tipo_motor_id'] = $_POST ['tipo_motor_id'];
 		$activo ['funcion'] = $_POST ['funcion'];
 		if($_FILES['nomenglatura_url']['name']!=''){
-			$activo ['nomenglatura_url'] = $this->uploadFile('act','activo',$_FILES['nomenglatura_url']);
+			$activo ['nomenglatura_url'] = $this->uploadFile('act','activos',$_FILES['nomenglatura_url']);
 		}
 		if($_FILES['diagram_proceso_url']['name']!=''){
-			$activo ['diagram_proceso_url'] = $this->uploadFile('act','activo',$_FILES['diagram_proceso_url']);
+			$activo ['diagram_proceso_url'] = $this->uploadFile('act','activos',$_FILES['diagram_proceso_url']);
 		}
 		$laboratorios  = $_POST ['laboratorio_id'];
 		
@@ -89,6 +85,12 @@ class ActivoController {
 	private function uploadFile($nombre,$carpeta, $url){
 		$upload = new File();
 		return $upload->uploadFileGeneric($nombre,$carpeta, $url);
+	}
+	
+	public function downloadFile(){
+		$nombre = $_GET['id'];
+		$upload = new File();
+		return $upload->download($nombre,'activos');
 	}
 	
 	public function guardarModal() {

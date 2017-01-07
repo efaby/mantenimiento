@@ -247,7 +247,7 @@
 							<a href="../downloadFile/<?php echo $item->nomenglatura_url;?>">Descargar</a>
 						<input type="hidden" name="nomenclatura" value="<?php echo $item->nomenclatura;?>">
 					<?php else :?>
-						<input type='file' name='nomenclatura' id="nomenclatura" class="file">	
+						<input type='file' name='nomenglatura_url' id="nomenglatura_url" class="file">	
 					<?php endif;?>
 			</div>		
 		</div>	
@@ -259,8 +259,7 @@
 		<div class="form-group  col-sm-12">
 			<?php foreach ($laboratorios as $lab){?>
 				<div class="form-group  col-sm-3">
-					<input type="checkbox" name="laboratorio_id[]" value="<?php echo $lab->id;?>"
-					<?php if (in_array($lab->id, $item->laboratorios, true)) echo "checked";?>> 
+					<input type="checkbox" name="laboratorio_id[]" value="<?php echo $lab->id;?>"> 
 					<?php echo $lab->nombre;?>
 				</div>				
 			<?php }?>
