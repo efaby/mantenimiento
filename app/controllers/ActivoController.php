@@ -22,20 +22,7 @@ class ActivoController {
 		require_once PATH_VIEWS."/Activo/view.form.php";
 	}
 	
-	public function editarModal(){
-		$model = new ActivoModel();
-		$item = $model->getPartesMotor();
-		$message = "";
-		require_once PATH_VIEWS."/Activo/view.modal.php";
-	}
-	
 	public function guardar() {		
-		/*print '<pre>';
-		print_r($_FILES['nomenglatura_url']);
-		print '</pre>';
-		exit();
-		*/
-		
 		$activo ['id'] = $_POST ['id'];
 		$activo ['nombre_activo'] = $_POST ['nombre_activo'];
 		$activo ['alias'] = $_POST ['alias'];
@@ -44,8 +31,8 @@ class ActivoController {
 		$activo ['inventario'] = $_POST ['inventario'];
 		$activo ['manual_fabricante'] = $_POST ['manual_fabricante'];
 		$activo ['seccion'] = $_POST ['seccion'];
-		if($_FILES['imagen_maquina_url']['name']!=''){
-			$activo ['imagen_maquina_url'] = $this->uploadFile('act','activos',$_FILES['imagen_maquina_url']);
+		if((isset($_FILES['imagen_maquina_url']) && $_FILES['imagen_maquina_url']['name']!='') || (isset($_FILES['imagen_maquina_url1']) && $_FILES['imagen_maquina_url1']['name']!='')){
+			$activo ['imagen_maquina_url'] = $this->uploadFile('act','activos',$_FILES['imagen_maquina_url'],$_POST['filename'],$_POST['imagen_maquina_url1']);
 		}
 		$activo ['marca_maquina'] = $_POST ['marca_maquina'];
 		$activo ['modelo_maquina'] = $_POST ['modelo_maquina'];
@@ -64,11 +51,11 @@ class ActivoController {
 		$activo ['kw'] = $_POST ['kw'];
 		$activo ['tipo_motor_id'] = $_POST ['tipo_motor_id'];
 		$activo ['funcion'] = $_POST ['funcion'];
-		if($_FILES['nomenglatura_url']['name']!=''){
-			$activo ['nomenglatura_url'] = $this->uploadFile('act','activos',$_FILES['nomenglatura_url']);
+		if((isset($_FILES['nomenglatura_url']) && $_FILES['nomenglatura_url']['name']!='')||(isset($_FILES['nomenglatura_url1']) && $_FILES['nomenglatura_url1']['name']!='')){
+			$activo ['nomenglatura_url'] = $this->uploadFile('act','activos',$_FILES['nomenglatura_url'], $_POST['filename1'],$_POST['nomenglatura_url1']);
 		}
-		if($_FILES['diagram_proceso_url']['name']!=''){
-			$activo ['diagram_proceso_url'] = $this->uploadFile('act','activos',$_FILES['diagram_proceso_url']);
+		if((isset($_FILES['diagram_proceso_url']) && $_FILES['diagram_proceso_url']['name']!='')||(isset($_FILES['diagram_proceso_url1']) && $_FILES['diagram_proceso_url1']['name']!='')){
+			$activo ['diagram_proceso_url'] = $this->uploadFile('act','activos',$_FILES['diagram_proceso_url'], $_POST['filename2'],$_POST['diagram_proceso_url1']);
 		}
 		$laboratorios  = $_POST ['laboratorio_id'];
 		
@@ -82,9 +69,9 @@ class ActivoController {
 		header ( "Location: ../listar/" );
 	}
 	
-	private function uploadFile($nombre,$carpeta, $url){
+	private function uploadFile($nombre,$carpeta, $url, $filename, $url1){
 		$upload = new File();
-		return $upload->uploadFileGeneric($nombre,$carpeta, $url);
+		return $upload->uploadFileGeneric($nombre,$carpeta, $url,$filename, $url1);
 	}
 	
 	public function downloadFile(){
@@ -92,23 +79,6 @@ class ActivoController {
 		$upload = new File();
 		return $upload->download($nombre,'activos');
 	}
-	
-	public function guardarModal() {
-		$activo ['denominacion'] = $_POST ['nombre'];
-		$activo ['url'] = $_POST ['url'];
-		
-		$this->uploadFile('pra','laboratorios');
-		
-		$model = new ActivoModel();
-		try {
-			$datos = $model->savePartesActivo($activo);
-			$_SESSION ['message'] = "Datos almacenados correctamente.";
-		} catch ( Exception $e ) {
-			$_SESSION ['message'] = $e->getMessage ();
-		}
-		header ( "Location: ../editar/" );
-	}
-	
 	
 	public function eliminar() {
 		$model = new EstudianteModel();
@@ -119,20 +89,5 @@ class ActivoController {
 			$_SESSION ['message'] = $e->getMessage ();
 		}
 		header ( "Location: ../listar/" );
-	}
-	
-	public function getEstudianteByIde() {
-		$cedula = $_GET ['identificacion'];		
-		$model = new EstudianteModel();
-		$persona = $model->getEstudiantePorCedula($cedula);
-		echo json_encode ($persona);
-	}
-	
-	public function getExistEstudiante() {
-		$cedula = $_GET ['identificacion'];
-		$paralelo_id = $_GET ['paralelo_id'];
-		$model = new EstudianteModel();
-		$persona = $model->getExistEstudiante($cedula, $paralelo_id);
-		echo json_encode ($persona);
 	}
 }

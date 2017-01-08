@@ -9,7 +9,7 @@ class ActivoModel {
 		$model = new BaseModel();	
 		$sql="SELECT a.id, a.ficha,a.codigo, a.inventario,a.nombre_activo, a.manual_fabricante
 			  FROM activo_fisico a
-			  where a.eliminado =0";
+			  WHERE a.eliminado =0";
 		return $model->execSql($sql, array(),true);
 	}	
 	
@@ -19,15 +19,9 @@ class ActivoModel {
 		$model = new BaseModel();		
 		if($activo > 0){
 			$sql = "SELECT * FROM activo_fisico a
-					where a.id = ?";
+					WHERE a.id = ?";
 			$result = $model->execSql($sql, array($activo));
-			$sql = "SELECT l.id FROM mantenimiento.activo_fisico a
-        			INNER JOIN lab_activo la ON la.activo_fisico_id = a.id
-        			INNER JOIN laboratorio l ON l.id = la.laboratorio_id
-    				where a.id = ?";
-			$lab = $model->execSql($sql, array($activo));
-			$result->laboratorios = $lab;
-			
+			$result->laboratorios = $this->getLaboratoriosActivo($activo);					
 		} else {
 			$result = (object) array('id'=>0,'nombre_activo'=>'','ficha' =>'','codigo'=>'','inventario'=>'','manual_fabricante'=>'','seccion'=>'','version'=>'','imagen_maquina_url'=>'',
 					'color'=>'','pais_origen'=>'','capacidad'=>'','marca_maquina'=>'','modelo_maquina'=>'','serie_maquina'=>'','caracteristicas'=>'','marca_motor'=>'','tipo_he'=>'','num_fases'=>'',
@@ -36,6 +30,22 @@ class ActivoModel {
 		}
 		
 		return $result;
+	}
+	
+	private function getLaboratoriosActivo($activo){
+		$model = new BaseModel();
+		if($activo > 0){
+			$sql = "SELECT l.id FROM mantenimiento.activo_fisico a
+        			INNER JOIN lab_activo la ON la.activo_fisico_id = a.id
+        			INNER JOIN laboratorio l ON l.id = la.laboratorio_id
+    				WHERE a.eliminado=0 and a.id = ?";
+			$result = $model->execSql($sql, array($activo),true);
+			$laboratorios =[];
+			foreach ($result as $val){
+				$laboratorios[] = $val->id;
+			}
+			return $laboratorios;
+		}
 	}
 	
 	public function getPartesMotor()
@@ -47,16 +57,37 @@ class ActivoModel {
 	
 	public function saveActivo($activo, $laboratorios){
 		$model = new BaseModel();		
-		$activo_id = $model->saveDatos($activo,'activo_fisico');
-			
-		foreach ($laboratorios as $lab){
-			$laboratorio['laboratorio_id']=$lab;
-			$laboratorio['activo_fisico_id']=$activo_id;
-			$lab_id = $model->saveDatos($laboratorio,'lab_activo');
+		$activo_id=  $model->saveDatos($activo,'activo_fisico');
+		if(isset($activo['id'])){
+			$lab_asociados = $this->getCatalogo('lab_activo',' where activo_fisico_id='.$activo['id']);
+			if (count($lab_asociados) >0){
+				foreach ($lab_asociados as $lab_aso){					
+							$laboratorio['id'] = $lab_aso->id;
+							$laboratorio['eliminado']=1;
+							$model->saveDatos($laboratorio,'lab_activo');
+				}
+				foreach ($lab_asociados as $lab_aso){
+					foreach ($laboratorios as $lab){
+						if($lab_aso->id == $lab){
+							$laboratorio['id'] = $lab_aso->id;
+							$laboratorio['eliminado']=0;
+							$model->saveDatos($laboratorio,'lab_activo');
+						}
+						else{
+							$laboratorio['laboratorio_id']=$lab;
+							$laboratorio['activo_fisico_id']=$activo['id'];
+							$lab_id = $model->saveDatos($laboratorio,'lab_activo');
+						}
+					}
+				}
+			}
+		}else{		
+			foreach ($laboratorios as $lab){			
+				$laboratorio['laboratorio_id']=$lab;
+				$laboratorio['activo_fisico_id']=$activo_id;
+				$lab_id = $model->saveDatos($laboratorio,'lab_activo');
+			}
 		}
-		//$laboratorios['id'] = $activo_id;
-		//$model->saveDatos($estudiante,'estudiante');
-	
 		return $activo_id;		
 	}
 	
@@ -67,29 +98,10 @@ class ActivoModel {
 		$result = $model->execSql($sql, array($estudiante),false,true);
 	}
 
-	public function getCatalogo($tabla){
+	public function getCatalogo($tabla,$where=null){
 		$model = new BaseModel();
-		return $model->getCatalogo($tabla);
+		return $model->getCatalogo($tabla,$where);
 	}	
-	
-	public function getEstudiantePorCedula($cedula){
-		$model =  new BaseModel();
-		$sql = "select e.*, u.*
-				from estudiante e
-				inner join usuario u on e.usuario_id=u.id
-        		where tipo_usuario_id = 4 and cedula =?";
-		return $model->execSql($sql, array($cedula));
-	}
-	
-	public function getExistEstudiante($cedula, $paralelo){
-		$model =  new BaseModel();
-		$sql = "select e.*, u.*
-				from estudiante e
-				inner join usuario u on e.usuario_id=u.id
-				inner join matricula m on m.estudiante_id=e.id
-				where tipo_usuario_id = 4 and cedula =? and paralelo_id=?";
-		return $model->execSql($sql, array($cedula, $paralelo));
-	}
 	
 	public function getMotor(){
 		$model = new BaseModel();

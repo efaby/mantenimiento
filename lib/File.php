@@ -52,8 +52,16 @@ class File {
 		return $nombre;
 	}
 	
-	public function uploadFileGeneric($prefix,$folder,$url){
+	public function uploadFileGeneric($prefix,$folder,$url, $filename, $url1){
 		$key = $url;
+		if(isset($filename)){				
+			if($_FILES[$url1]['name']!=''){
+				$key = $url1;
+				unlink(PATH_FILES.$folder.'/'.$filename);
+			} else {
+				return $filename;
+			}
+		}
 		return $this->uploadFileToServerGeneric($prefix, $key,PATH_FILES.$folder.'/');
 	}
 	

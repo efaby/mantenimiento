@@ -67,9 +67,9 @@
 			<div class="form-group  col-sm-6">
 				<label class="control-label">Fotografía de la Máquina</label>
 					<?php if(isset($item->imagen_maquina_url) &&  $item->imagen_maquina_url != ''):?>
-						<input type='file' name='imagen_maquina_url' id="imagen_maquina_url" class="file">		
+						<input type='file' name='imagen_maquina_url1' id="imagen_maquina_url1" class="file">		
 							<a href="../downloadFile/<?php echo $item->imagen_maquina_url;?>">Descargar</a>
-						<input type="hidden" name="imagen_maquina_url" value="<?php echo $item->imagen_maquina_url;?>">
+						<input type="hidden" name="fileName" value="<?php echo $item->imagen_maquina_url;?>">
 					<?php else :?>
 						<input type='file' name='imagen_maquina_url' id="imagen_maquina_url" class="file">	
 					<?php endif;?>
@@ -199,37 +199,7 @@
 			</div>
 			<?php }?>
 		</div>		
-		<!-- <div class="form-group  col-sm-12">
-			<div class="form-group  col-sm-6">
-				<label class="control-label">PARTES IMPORTANTES</label>
-			</div>
-		</div>
-		<div class="col-sm-12">
-			<div class="form-group col-sm-12">       			
-			        <div class=" col-sm-4">
-			            <input type="text" class="form-control" name="partes[0]" placeholder="Denominación" />
-			        </div>
-			        <div class="col-sm-4">
-			            <input type="file" class="form-control" name="partes1[0]" multiple placeholder="Imagen" style="border: none"/>
-			        </div>
-			        <div class="col-sm-1">
-			            <button type="button" class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
-			        </div>
-	        </div>	        
-	        <div class="form-group hide col-sm-12" id="bookTemplate">
-		        <div class="col-sm-4">
-		            <input type="text" class="form-control" name="denominacion" placeholder="Denominación" />
-		        </div>
-		        <div class="col-sm-4">
-		             <input type="file" class="form-control" name="url" multiple placeholder="Imagen" style="border: none"/>			
-		        </div>		       
-		        <div class="col-sm-1">
-		            <button type="button" class="btn btn-default removeButton"><i class="fa fa-minus"></i></button>
-		        </div>
-    		</div>	
-    	</div>
-    	 -->
-    	<div class="form-group  col-sm-12">
+		<div class="form-group  col-sm-12">
 			<div class="form-group  col-sm-2">
 				<label class="control-label">Función</label>		 		
 			</div>
@@ -243,9 +213,9 @@
 			<div class="form-group col-sm-12">
 				<label class="control-label">Nomenclatura</label> 
 					<?php if(isset($item->diagram_proceso_url) &&  $item->diagram_proceso_url != ''):?>
-						<input type='file' name='nomenglatura_url' id="nomenglatura_url" class="file">		
+						<input type='file' name='nomenglatura_url1' id="nomenglatura_url1" class="file">		
 							<a href="../downloadFile/<?php echo $item->nomenglatura_url;?>">Descargar</a>
-						<input type="hidden" name="nomenclatura" value="<?php echo $item->nomenclatura;?>">
+						<input type="hidden" name="fileName1" value="<?php echo $item->nomenglatura_url;?>">
 					<?php else :?>
 						<input type='file' name='nomenglatura_url' id="nomenglatura_url" class="file">	
 					<?php endif;?>
@@ -259,7 +229,8 @@
 		<div class="form-group  col-sm-12">
 			<?php foreach ($laboratorios as $lab){?>
 				<div class="form-group  col-sm-3">
-					<input type="checkbox" name="laboratorio_id[]" value="<?php echo $lab->id;?>"> 
+					<input type="checkbox" name="laboratorio_id[]" value="<?php echo $lab->id;?>"
+					<?php if (isset($item->laboratorios) && (in_array($lab->id, $item->laboratorios))) echo "checked";?>> 
 					<?php echo $lab->nombre;?>
 				</div>				
 			<?php }?>
@@ -268,9 +239,9 @@
 			<div class="form-group col-sm-12">
 				<label class="control-label">Respado Digital</label> 
 					<?php if(isset($item->diagram_proceso_url) &&  $item->diagram_proceso_url != ''):?>
-						<input type='file' name='diagram_proceso_url' id="diagram_proceso_url" class="file">		
+						<input type='file' name='diagram_proceso_url1' id="diagram_proceso_url1" class="file">		
 							<a href="../downloadFile/<?php echo $item->diagram_proceso_url;?>">Descargar</a>
-						<input type="hidden" name="diagram_proceso_url" value="<?php echo $item->url;?>">
+						<input type="hidden" name="filename2" value="<?php echo $item->diagram_proceso_url;?>">
 					<?php else :?>
 						<input type='file' name='diagram_proceso_url' id="diagram_proceso_url" class="file">	
 					<?php endif;?>
@@ -301,29 +272,7 @@
 $(document).ready(function() {
 	CKEDITOR.replace('caracteristicas');
 	
-	/*var denominacionValidators = {
-	           row: '.col-sm-4',   // The title is placed inside a <div class="col-xs-4"> element
-	           validators: {
-	               notEmpty: {
-	                   message: 'La denominación es requerida.'
-	               },					
-				   regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-\s]+$/,
-						message: 'Ingrese una denominación válida.'
-				   }
-	           }
-	},
-	urlValidators = {
-            row: '.col-sm-4',
-            validators: {
-                url: {
-                    message: 'La url no es válida.'
-                }
-            }
-    },
-	bookIndex = 0;*/
-	
-    $('#frmActivo').formValidation({
+	$('#frmActivo').formValidation({
     	message: 'This value is not valid',
     	excluded: [':disabled'],
 		feedbackIcons: {
@@ -369,14 +318,14 @@ $(document).ready(function() {
 				}
 			},
 			codigo: {
-				message: 'El Codigo no es válido',
+				message: 'El Código no es válido',
 				validators: {
 					notEmpty: {
 						message: 'El Codigo no puede ser vacío.'
 					},					
 					regexp: {
 						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-\s]+$/,
-						message: 'Ingrese un Codigo válido.'
+						message: 'Ingrese un Código válido.'
 					}
 				}
 			},
@@ -593,45 +542,9 @@ $(document).ready(function() {
 	                        message: 'Por favor escoja al menos un laboratorio.'
 	                    }
 	                }
-	        },			
-         //   'partes[0]': denominacionValidators,
-         //   'partes1[0]': urlValidators,            
-		}		
+	        }			
+      }		
 	})
-/*	.on('click', '.addButton', function() {
-		bookIndex++;        
-        var $template = $('#bookTemplate'),
-            $clone    = $template
-                            .clone()
-                            .removeClass('hide')
-                            .removeAttr('id')
-                            .attr('data-book-index', bookIndex)
-                            .insertBefore($template);
-
-        // Update the name attributes
-        $clone
-            .find('[name="denominacion"]').attr('name', 'partes[' + bookIndex + ']').end()
-            .find('[name="url"]').attr('name', 'partes1[' + bookIndex + ']').end();
-
-        // Add new fields
-        // Note that we also pass the validator rules for new field as the third parameter
-        $('#frmActivo')
-            .formValidation('addField', 'partes[' + bookIndex + ']', denominacionValidators)
-            .formValidation('addField', 'partes1[' + bookIndex + ']', urlValidators);
-    })
-
-    // Remove button click handler
-    .on('click', '.removeButton', function() {
-        var $row  = $(this).parents('.form-group'),
-            index = $row.attr('data-book-index');
-	    // Remove fields
-        $('#frmActivo')
-            .formValidation('removeField', $row.find('[name="partes[' + index + ']"]'))
-            .formValidation('removeField', $row.find('[name="partes1[' + index + ']"]'));
-
-        // Remove element containing the fields
-        $row.remove();
-    });*/        
 });
 </script>
 </body>
