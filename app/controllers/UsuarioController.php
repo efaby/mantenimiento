@@ -34,6 +34,12 @@ class UsuarioController {
 		try {
 			$datos = $model->saveUsuario( $usuario );
 			$_SESSION ['message'] = "Datos almacenados correctamente.";
+			if($_POST ['id']){
+				require_once (PATH_MODELS . "/AuditoriaModel.php");
+				// registro Auditoria
+				$log = new AuditoriaModel();
+				$log->saveAuditoria($_SESSION['SESSION_USER']->nombres." ".$_SESSION['SESSION_USER']->apellidos, $_SESSION['SESSION_USER']->tipo_nombre,'Ingreso de nuevo Usuario"'.$_POST ['identificacion'].'"');
+			}
 		} catch ( Exception $e ) {
 			$_SESSION ['message'] = $e->getMessage ();
 		}
@@ -52,10 +58,19 @@ class UsuarioController {
 	}
 	
 	public function getUsuarioByIde() {
-		$cedula = $_GET ['identificacion'];
+		$cedula = $_POST['identificacion'];
+		$id = $_POST['id'];
 		$model = new UsuarioModel();
-		$persona = $model->getusuarioPorCedula($cedula);	
-		echo json_encode ($persona);
+		$persona = $model->getusuarioPorCedula($cedula,$id);
+		if(isset($persona) && $persona != null){
+			$isAvailable = false;
+		}
+		else{
+			$isAvailable = true;
+		}
+		
+		echo json_encode(array(
+				'valid' => $isAvailable,));		
 	}
 	
 }

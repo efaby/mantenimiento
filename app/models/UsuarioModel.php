@@ -53,9 +53,9 @@ class UsuarioModel {
 		return $model->getCatalogo($tabla, $where);
 	}	
 	
-	public function getUsuarioPorCedula($cedula){
+	public function getUsuarioPorCedula($cedula,$id){
 		$model =  new BaseModel();
-		$sql = "select * from usuario where cedula = ? ";
-		return $model->execSql($sql, array($cedula));
+		$sql = "select * from usuario where cedula = ? and id <> ? and eliminado=0";
+		return $model->execSql($sql, array($cedula,$id));
 	}
 }

@@ -53,28 +53,6 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-
-	$('#identificacion').keyup(function(){
-	    var ci = jQuery("#identificacion").val();
-	    if(ci.length == 10){
-	    	jQuery.ajax({
-		        type: "GET",
-		        dataType: "json",
-		        url: "../getUsuarioByIde/",
-		        data: {
-		        	"identificacion": ci
-		        },
-		        success:function(data) {
-		        	if(data){
-		        		alert("El usuario con está identificación ya existe por favor ingrese otra");
-						jQuery("#boton").addClass('disabled');		        	
-			        }		        	
-		        }
-		    });
-	    }
-	});
-
-		
     $('#frmUsuario').formValidation({
     	message: 'This value is not valid',
 		feedbackIcons: {
@@ -93,6 +71,23 @@ $(document).ready(function() {
 								regexp: /^(?:\+)?\d{10,13}$/,
 								message: 'Ingrese un Número de Identificación válido.'
 							},
+							remote: {
+		                        message: 'El Número de Identificación ya existe.',
+		                        url: '../getUsuarioByIde/',
+		                      /*  data: {
+		                            type: 'identificacion',
+		                            		                            	
+		                        },*/
+
+		                        data: function(validator, $field, value) {
+		                            return {
+		                                id: validator.getFieldElements('id').val()
+		                            };
+		                        },
+
+		                        
+		                        type: 'POST'
+		                    },									
 							callback: {
 				                message: 'El Número de Identificación no es válido.',
                  				callback: function (value, validator, $field) {
