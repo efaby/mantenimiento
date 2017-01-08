@@ -39,9 +39,9 @@ class SeguridadController {
 			session_write_close();
 			$url = $_SERVER["REQUEST_URI"];			
 			$response['data'] = (strpos($url, '/Seguridad/mostrar/'))?'../':'Seguridad/'.'inicio/';
-			
-			$this->validarMantenimiento();
-			
+			if($result->tipo == 2){				
+				$this->validarMantenimiento();
+			}			
 				
 		} else {
 			$response['data'] = 'Credenciales Inválidas.';
