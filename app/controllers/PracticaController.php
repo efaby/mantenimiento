@@ -1,6 +1,7 @@
 <?php
 require_once (PATH_MODELS . "/PracticaModel.php");
 require_once (PATH_MODELS . "/NovedadModel.php");
+require_once (PATH_MODELS . "/AuditoriaModel.php");
 require_once (PATH_HELPERS. "/File.php");
 require_once (PATH_HELPERS. "/Email.php");
 
@@ -157,6 +158,11 @@ class PracticaController {
 					$email->sendNotificacionRegistro($supervisor->nombres ." ".$supervisor->apellidos, $supervisor->email, $activo->nombre ,"http://" . $_SERVER['HTTP_HOST'] . PATH_BASE);
 						
 				}
+				
+				// registro Auditoria
+				$log = new AuditoriaModel();
+				$log->saveAuditoria($_SESSION['SESSION_USER']->nombres." ".$_SESSION['SESSION_USER']->apellidos, $_SESSION['SESSION_USER']->tipo_nombre,'Registro una Novedad "'.$_POST ['problema'].'"');
+			
 			}
 			
 			$duracion =  explode(':', $_POST ['duracion_practica']);
