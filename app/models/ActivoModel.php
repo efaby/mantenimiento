@@ -38,7 +38,7 @@ class ActivoModel {
 			$sql = "SELECT l.id FROM mantenimiento.activo_fisico a
         			INNER JOIN lab_activo la ON la.activo_fisico_id = a.id
         			INNER JOIN laboratorio l ON l.id = la.laboratorio_id
-    				WHERE a.eliminado=0 and a.id = ?";
+    				WHERE la.eliminado=0 and a.id = ?";
 			$result = $model->execSql($sql, array($activo),true);
 			$laboratorios =[];
 			foreach ($result as $val){
@@ -57,37 +57,30 @@ class ActivoModel {
 	
 	public function saveActivo($activo, $laboratorios){
 		$model = new BaseModel();		
-		$activo_id=  $model->saveDatos($activo,'activo_fisico');
-		if(isset($activo['id'])){
-			$lab_asociados = $this->getCatalogo('lab_activo',' where activo_fisico_id='.$activo['id']);
-			if (count($lab_asociados) >0){
-				foreach ($lab_asociados as $lab_aso){					
-							$laboratorio['id'] = $lab_aso->id;
-							$laboratorio['eliminado']=1;
-							$model->saveDatos($laboratorio,'lab_activo');
-				}
-				foreach ($lab_asociados as $lab_aso){
-					foreach ($laboratorios as $lab){
-						if($lab_aso->id == $lab){
-							$laboratorio['id'] = $lab_aso->id;
-							$laboratorio['eliminado']=0;
-							$model->saveDatos($laboratorio,'lab_activo');
-						}
-						else{
-							$laboratorio['laboratorio_id']=$lab;
-							$laboratorio['activo_fisico_id']=$activo['id'];
-							$lab_id = $model->saveDatos($laboratorio,'lab_activo');
-						}
-					}
-				}
+		$activo_id=  $model->saveDatos($activo,'activo_fisico');		
+		if($activo['id'] != 0){
+			$activo_id = $activo['id']; 
+		}
+		$sql = "update lab_activo set eliminado=1 where activo_fisico_id=".$activo_id;
+		$result = $model->execSql($sql, array(),false,true);
+		
+		$lab_asociados = $this->getCatalogo('lab_activo',' where activo_fisico_id='.$activo_id);
+		foreach ($laboratorios as $lab){
+			$band = true;
+			foreach ($lab_asociados as $lab_aso){
+				if($lab_aso->laboratorio_id == $lab && $lab_aso->activo_fisico_id==$activo_id){
+					$laboratorio['id'] = $lab_aso->id;
+					$laboratorio['eliminado']=0;
+					$model->saveDatos($laboratorio,'lab_activo');
+					$band = false;
+				}			
 			}
-		}else{		
-			foreach ($laboratorios as $lab){			
+			if($band){
 				$laboratorio['laboratorio_id']=$lab;
 				$laboratorio['activo_fisico_id']=$activo_id;
-				$lab_id = $model->saveDatos($laboratorio,'lab_activo');
+				$lab_id = $model->saveDatos($laboratorio,'lab_activo');				
 			}
-		}
+		}		
 		return $activo_id;		
 	}
 	
