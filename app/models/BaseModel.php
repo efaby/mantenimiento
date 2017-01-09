@@ -158,13 +158,15 @@ class BaseModel
 	
 	public function backupDataBase(){
 	
-	   $target_path = PATH_FILES.'/respaldos/';
+	   $target_path = PATH_FILES.'respaldos/';
 	   $now = date("Y-m-d");
 	   $outputfilename = DATABASE . '-' . $now . '.sql';
 	   $outputfilename = str_replace(" ", "-", $outputfilename);
 	   $save_path = $target_path .$outputfilename;
 	          
 	   $command = PATH_DUMP." --user=".USERNAME." --password=".PASSWORD." ".DATABASE." > $save_path";	   
+	   
+	   
 	   shell_exec($command);
 	 
 	            
@@ -175,7 +177,7 @@ class BaseModel
 	   header('Content-Transfer-Encoding: binary');
 	   header("Content-Type: application/download");
 	   header("Content-Description: File Transfer"); 
-	   header("Content-Length: ".filesize($outputfilename));
+	   header("Content-Length: ".filesize($save_path));
 	   readfile($save_path);
 	         
 	   //Eliminar el archivo del servidor

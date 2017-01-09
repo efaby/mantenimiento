@@ -53,7 +53,7 @@ class NovedadModel {
 	
 	public function getMaquinas(){
 		$model = new BaseModel();
-		$sql = "select a.id, a.nombre from activo_fisico as a				
+		$sql = "select a.id, a.nombre_activo as nombre from activo_fisico as a				
 				where a.eliminado = 0 ";
 		return $model->execSql($sql, array(),true);
 	}
@@ -66,7 +66,7 @@ class NovedadModel {
 	
 	public function getActivoById($id){
 		$model = new BaseModel();
-		$sql = "select nombre from activo_fisico where id = ".$id;
+		$sql = "select nombre_activo as nombre from activo_fisico where id = ".$id;
 		return $model->execSql($sql, array());
 	}
 	

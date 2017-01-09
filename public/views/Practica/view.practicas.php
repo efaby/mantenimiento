@@ -48,7 +48,7 @@
     		echo "<td>".$item->laboratorio."</td>";
     		echo "<td>".$item->maquina."</td>"; 
     		echo "<td>".$item->nombre."</td>";
-    		echo "<td>".$item->fecha." De ".date('G:i',strtotime($item->hora_inicio))." a ".date('G:i',strtotime($item->hora_fin))."</td>";
+    		echo "<td>".$item->fecha."<br> De ".date('G:i',strtotime($item->hora_inicio))." a ".date('G:i',strtotime($item->hora_fin))."</td>";
     		echo "<td>".$item->tiempo_duracion."</td>";
     		$tiempo = is_null($item->duracion_practica)?'':date('G:i',strtotime($item->duracion_practica));
     		echo "<td>".$tiempo."</td>";
