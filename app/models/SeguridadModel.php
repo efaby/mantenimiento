@@ -37,7 +37,7 @@ class SeguridadModel {
 	
 	public function getPlanes(){
 		$model = new BaseModel();
-		$sql = "select ap.*,  p.tarea, p.usuario_id, u.nombres, u.apellidos, u.email, a.nombre as maquina 
+		$sql = "select ap.*,  p.tarea, p.usuario_id, u.nombres, u.apellidos, u.email, a.nombre_activo as maquina 
 				from activo_plan as ap
 				inner join plan_mantenimiento as p on p.id = ap.plan_mantenimiento_id
 				inner join usuario as u on u.id =  p.usuario_id		

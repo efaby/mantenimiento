@@ -80,7 +80,7 @@ class PracticaModel {
 	
 	public function getlistadoPracticas($estudiante){
 		$model = new BaseModel();
-		$sql = "select p.*, a.nombre as maquina, l.nombre as laboratorio, ev.duracion_practica, ev.nota_practica, ev.archivo_url, ev.ejecutado from practica as p
+		$sql = "select p.*, a.nombre_activo as maquina, l.nombre as laboratorio, ev.duracion_practica, ev.nota_practica, ev.archivo_url, ev.ejecutado from practica as p
 				inner join lab_activo as la on la.id = p.lab_activo_id
 				inner join laboratorio as l on l.id = la.laboratorio_id
 				inner join activo_fisico as a on a.id =  la.activo_fisico_id
@@ -96,7 +96,7 @@ class PracticaModel {
 	{
 		$practica = $_GET['id'];
 		$model = new BaseModel();
-		$sql = "select p.*, p.id,  a.nombre as maquina, a.id as maquina_id, l.nombre as laboratorio, ev.* , u.nombres, u.apellidos from practica as p
+		$sql = "select p.*, p.id,  a.nombre_activo as maquina, a.id as maquina_id, l.nombre as laboratorio, ev.* , u.nombres, u.apellidos from practica as p
 				inner join lab_activo as la on la.id = p.lab_activo_id
 				inner join laboratorio as l on l.id = la.laboratorio_id
 				inner join activo_fisico as a on a.id =  la.activo_fisico_id	
@@ -121,7 +121,7 @@ class PracticaModel {
 	
 	public function getPlanes($id){
 		$model = new BaseModel();
-		$sql = "select ap.*,  p.tarea, p.usuario_id, u.nombres, u.apellidos, u.email, a.nombre as maquina from activo_plan as ap
+		$sql = "select ap.*,  p.tarea, p.usuario_id, u.nombres, u.apellidos, u.email, a.nombre_activo as maquina from activo_plan as ap
 				inner join plan_mantenimiento as p on p.id = ap.plan_mantenimiento_id
 				inner join usuario as u on u.id =  p.usuario_id		
 				inner join activo_fisico as a on a.id = ap.activo_fisico_id

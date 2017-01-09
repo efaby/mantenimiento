@@ -5,7 +5,7 @@ class OrdenModel {
 
 	public function getlistadoOrdenes($tecnico){
 		$model = new BaseModel();	
-		$sql = "select op.*, a.nombre as maquina, pm.tarea, ap.horas_operacion, f.nombre as frecuencia, ap.frecuencia_numero
+		$sql = "select op.*, a.nombre_activo as maquina, pm.tarea, ap.horas_operacion, f.nombre as frecuencia, ap.frecuencia_numero
 				from orden_plan as op
 				inner join activo_plan as ap on op.activo_plan_id = ap.id
 				inner join plan_mantenimiento as pm on pm.id = ap.plan_mantenimiento_id
@@ -28,7 +28,7 @@ class OrdenModel {
 	{
 		$orden = $_GET['id'];
 		$model = new BaseModel();		
-		$sql = "select op.fecha_emision, op.activo_plan_id, op.id as orden_id, a.nombre as maquina,f.nombre as frecuencia, pm.*, ap.horas_operacion, ap.activo_fisico_id, ap.frecuencia_numero 
+		$sql = "select op.fecha_emision, op.activo_plan_id, op.id as orden_id, a.nombre_activo as maquina,f.nombre as frecuencia, pm.*, ap.horas_operacion, ap.activo_fisico_id, ap.frecuencia_numero 
 				from orden_plan as op
 				inner join activo_plan as ap on op.activo_plan_id = ap.id
 				inner join plan_mantenimiento as pm on pm.id = ap.plan_mantenimiento_id
@@ -51,7 +51,7 @@ class OrdenModel {
 	{
 		$orden = $_GET['id'];
 		$model = new BaseModel();
-		$sql = "select op.*, a.nombre as maquina, pm.tarea, f.nombre as frecuencia, ap.horas_operacion, ap.activo_fisico_id, ap.frecuencia_numero
+		$sql = "select op.*, a.nombre_activo as maquina, pm.tarea, f.nombre as frecuencia, ap.horas_operacion, ap.activo_fisico_id, ap.frecuencia_numero
 				from orden_plan as op
 				inner join activo_plan as ap on op.activo_plan_id = ap.id
 				inner join plan_mantenimiento as pm on pm.id = ap.plan_mantenimiento_id

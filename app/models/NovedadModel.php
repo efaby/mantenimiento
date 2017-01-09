@@ -5,7 +5,7 @@ class NovedadModel {
 
 	public function getlistadoNovedad($usuario){
 		$model = new BaseModel();	
-		$sql = "select n.*, a.nombre as maquina, u.nombres  as nombre_tecnico1, u.apellidos as apellido_tecnico1, u1.nombres  as nombre_tecnico2, u1.apellidos as apellido_tecnico2 from novedad as n
+		$sql = "select n.*, a.nombre_activo as maquina, u.nombres  as nombre_tecnico1, u.apellidos as apellido_tecnico1, u1.nombres  as nombre_tecnico2, u1.apellidos as apellido_tecnico2 from novedad as n
 				inner join activo_fisico as a on a.id =  n.activo_fisico_id
 				left join usuario as u on u.id = n.tecnico_asigna
 				left join usuario as u1 on u1.id = n.tecnico_repara
@@ -18,7 +18,7 @@ class NovedadModel {
 	{
 		$novedad = $_GET['id'];
 		$model = new BaseModel();		
-		$sql = "select n.*, a.nombre as maquina, u.nombres  as nombre_tecnico1, u.apellidos as apellido_tecnico1, u1.nombres  as nombre_tecnico2, u1.apellidos as apellido_tecnico2
+		$sql = "select n.*, a.nombre_activo as maquina, u.nombres  as nombre_tecnico1, u.apellidos as apellido_tecnico1, u1.nombres  as nombre_tecnico2, u1.apellidos as apellido_tecnico2
 				from novedad as n
 				inner join activo_fisico as a on a.id =  n.activo_fisico_id
 				
@@ -80,7 +80,7 @@ class NovedadModel {
 	public function getNovedadById($id)
 	{
 		$model = new BaseModel();
-		$sql = "select a.nombre as maquina, u.nombres, u.apellidos, u.email
+		$sql = "select a.nombre_activo as maquina, u.nombres, u.apellidos, u.email
 				from novedad as n
 				inner join activo_fisico as a on a.id =  n.activo_fisico_id
 				inner join usuario as u on u.id = n.tecnico_asigna
