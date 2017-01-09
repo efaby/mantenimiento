@@ -103,7 +103,7 @@ $(document).ready(function() {
 			fecha_inicio: {
 				 validators: {
 					 notEmpty: {
-						 message: 'La fecha de inicio es requerida y no puede ser vacia'
+						 message: 'La fecha de inicio es requerida y no puede ser vacía'
 					 },
 					 date:{	 
 						    format: 'YYYY-MM-DD',
@@ -116,7 +116,7 @@ $(document).ready(function() {
 	        fecha_fin: {
 	        	 validators: {
 					 notEmpty: {
-						 message: 'La fecha de fin es requerida y no puede ser vacia'
+						 message: 'La fecha de fin es requerida y no puede ser vacía'
 					 },
 					 date: {
 						 format: 'YYYY-MM-DD',
@@ -127,7 +127,7 @@ $(document).ready(function() {
 			lab_docente_id: {
 				validators: {
 					notEmpty: {
-						message: 'Seleccione un Laboratorio'
+						message: 'Seleccione un Laboratorio.'
 					}
 				}
 			},
