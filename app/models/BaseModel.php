@@ -156,4 +156,31 @@ class BaseModel
 		$this->closeConexion();
 	}
 	
+	public function backupDataBase(){
+	
+	   $target_path = PATH_FILES.'/respaldos/';
+	   $now = date("Y-m-d");
+	   $outputfilename = DATABASE . '-' . $now . '.sql';
+	   $outputfilename = str_replace(" ", "-", $outputfilename);
+	   $save_path = $target_path .$outputfilename;
+	          
+	   $command = PATH_DUMP." --user=".USERNAME." --password=".PASSWORD." ".DATABASE." > $save_path";	   
+	   shell_exec($command);
+	 
+	            
+	   //Para forzar la descarga del navegador
+	   header('Content-Type: application/octet-stream');
+	   header("Content-Transfer-Encoding: Binary"); 
+	   header('Content-Disposition: attachment; filename='.basename($outputfilename));
+	   header('Content-Transfer-Encoding: binary');
+	   header("Content-Type: application/download");
+	   header("Content-Description: File Transfer"); 
+	   header("Content-Length: ".filesize($outputfilename));
+	   readfile($save_path);
+	         
+	   //Eliminar el archivo del servidor
+	   shell_exec('rm ' . $save_path);  
+ 
+	}
+	
 }

@@ -1,7 +1,7 @@
 <?php 	
 	define('HOSTNAME_DATABASE', 'localhost');
 	define('USERNAME', 'root');
-	define('PASSWORD', '123456');
+	define('PASSWORD', '');
 	define('DATABASE', 'mantenimiento'); 	 
 	define('URL_BASE', '/mantenimiento/');
 	define('PATH_MODELS', PATH_ROOT."/app/models");
@@ -13,7 +13,9 @@
 	define('PATH_IMAGES', PATH_BASE."/public/web/images");
 	define('PATH_TEMPLATE', PATH_ROOT."/public/template");
 	define('PATH_HELPERS', PATH_ROOT."/lib");
-	define('PATH_FILES', PATH_ROOT."/public/web/files/");
+	define('PATH_FILES', PATH_ROOT."/public/web/files");
+	define('PATH_DUMP', 'C:\\xampp\\mysql\\bin\\mysqldump.exe ');
+	define('PATH_DUMP_L', 'mysqldump');
 	
 	define('GUSER', 'sysmantauto@gmail.com'); // GMail username
 	define('GPWD', 'sysmantauto2016'); // GMail password
