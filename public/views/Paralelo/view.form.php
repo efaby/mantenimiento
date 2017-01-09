@@ -47,9 +47,27 @@ $(document).ready(function() {
 
 	jQuery( "#fecha_inicio" ).datepicker({  
 		dateFormat: "yy-mm-dd",
+		minDate: new Date(),
+		onClose: function(selectedDate) {
+	        $( "#datepicker" ).datepicker( "option", "minDate", selectedDate );
+	        $('#frmItem').formValidation('revalidateField', 'fecha_inicio');
+	      }  		
+	});
+	
+	jQuery( "#fecha_inicio" ).datepicker({  
+		dateFormat: "yy-mm-dd",
 		onClose: function( selectedDate ) {
 	        $( "#fecha_fin" ).datepicker( "option", "minDate", selectedDate );
 	        $('#frmItem').formValidation('revalidateField', 'fecha_inicio');
+	      }  		
+	});
+
+	jQuery( "#fecha_fin" ).datepicker({  
+		dateFormat: "yy-mm-dd",
+		minDate: new Date(),
+		onClose: function(selectedDate) {
+	        $( "#datepicker" ).datepicker( "option", "minDate", selectedDate );
+	        $('#frmItem').formValidation('revalidateField', 'fecha_fin');
 	      }  		
 	});
     

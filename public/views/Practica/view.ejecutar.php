@@ -19,7 +19,7 @@
 		<div id="texto"> <?php echo $item->maquina; ?></div>
 		<label class="control-label">Fecha de Práctica</label>
 		<div id="texto"> <?php echo $item->fecha; ?></div>
-		<label class="control-label">Hora de la practica</label>
+		<label class="control-label">Hora de la Práctica</label>
 		<div id="texto"> <?php echo date('G:i',strtotime($item->hora_inicio))." a ".date('G:i',strtotime($item->hora_fin)); ?></div>
 		<label class="control-label">Tiempo Estimado (Horas)</label>
 		<div id="texto"> <?php echo $item->tiempo_duracion; ?></div>
@@ -128,7 +128,7 @@ $(document).ready(function(){
 			<div class="modal-body">
 			<form id="frmItem" method="post" action="../guardarPractica/" enctype="multipart/form-data">
 				<div class="form-group  col-sm-12">
-					<label class="control-label">Tiempo de Ejecucion</label>
+					<label class="control-label">Tiempo de Ejecución</label>
 					<input type='text' name='duracion_practica' id='duracion_practica' class='form-control'
 						value="">			
 				</div>

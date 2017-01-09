@@ -74,11 +74,6 @@ $(document).ready(function() {
 							remote: {
 		                        message: 'El Número de Identificación ya existe.',
 		                        url: '../getUsuarioByIde/',
-		                      /*  data: {
-		                            type: 'identificacion',
-		                            		                            	
-		                        },*/
-
 		                        data: function(validator, $field, value) {
 		                            return {
 		                                id: validator.getFieldElements('id').val()
@@ -141,7 +136,7 @@ $(document).ready(function() {
 										message: 'El Nombre no puede ser vacío.'
 									},
 									regexp: {
-										regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ \.]+$/,
+										regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ \.\s]+$/,
 										message: 'Ingrese un Nombre válido.'
 									}
 								}
@@ -153,7 +148,7 @@ $(document).ready(function() {
 										message: 'El Apellido no puede ser vacío.'
 									},
 									regexp: {
-										regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ \.]+$/,
+										regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ \.\s]+$/,
 										message: 'Ingrese un Nombre válido.'
 									}
 								}

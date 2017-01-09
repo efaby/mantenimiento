@@ -1,7 +1,7 @@
 <form id="frmItem" method="post" action="../guardarReparar/" enctype="multipart/form-data">
 
 	<div class="form-group  col-sm-12">
-		<label class="control-label">Activo Fisico</label>
+		<label class="control-label">Activo Físico</label>
 		<div id="texto"> <?php echo $item->maquina; ?>
 		</div>
 	</div>
@@ -16,7 +16,7 @@
 		</div>
 	</div>
 	<div class="form-group  col-sm-12">
-		<label class="control-label">Solucion</label>
+		<label class="control-label">Solución</label>
 		<div id="texto"> <?php echo $item->solucion; ?>
 		</div>
 	</div>
@@ -34,7 +34,7 @@
 	</div>
 	
 	<div class="form-group col-sm-12">	
-		<label class="control-label">Observacion</label>
+		<label class="control-label">Observación</label>
 		<textarea name='observacion' id='observacion' class='form-control' ></textarea>	
 		
 	</div>

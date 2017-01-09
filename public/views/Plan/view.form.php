@@ -140,19 +140,19 @@ $(document).ready(function() {
 			estado_maquina: {
                 validators: {
                     notEmpty: {
-                        message: 'El Estado de la Maquina no puede ser vacio.'
+                        message: 'El Estado de la Máquina no puede ser vacío.'
                     }
                 }
             },
 			tiempo_ejecucion: {
-				message: 'El Tiempo de Ejecucion no es válido',
+				message: 'El Tiempo de Ejecución no es válido',
 				validators: {
 					notEmpty: {
-						message: 'El Tiempo de Ejecucion no puede ser vacío.'
+						message: 'El Tiempo de Ejecución no puede ser vacío.'
 					},					
 					regexp: {
 						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-\:]+$/,
-						message: 'Ingrese un Tiempo de Ejecucion válido.'
+						message: 'Ingrese un Tiempo de Ejecución válido.'
 					}
 				}
 			},
@@ -199,7 +199,7 @@ $(document).ready(function() {
 			procedimiento: {
                 validators: {
                     notEmpty: {
-                        message: 'El Procedimiento no puede ser vacio.'
+                        message: 'El Procedimiento no puede ser vacío.'
                     },
                     
                 }
@@ -207,7 +207,7 @@ $(document).ready(function() {
             observaciones: {
                 validators: {
                     notEmpty: {
-                        message: 'Las Observaciones no pueden ser vacias.'
+                        message: 'Las Observaciones no pueden ser vacías.'
                     },
                     
                 }
@@ -216,7 +216,7 @@ $(document).ready(function() {
 			usuario_id: {
 				validators: {
 					notEmpty: {
-						message: 'Seleccione un Tecnico'
+						message: 'Seleccione un Técnico'
 					}
 				}
 			},

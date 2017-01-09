@@ -19,11 +19,11 @@
 	</div>
 	
 	<div class="form-group  col-sm-12">
-		<label class="control-label">Hora de la practica</label>
+		<label class="control-label">Hora de la Práctica</label>
 		<div id="texto"> <?php echo date('G:i',strtotime($item->hora_inicio))." a ".date('G:i',strtotime($item->hora_fin)); ?></div>
 	</div>
 	<div class="form-group  col-sm-12">
-		<label class="control-label">Tiempo de duración (Horas)</label>
+		<label class="control-label">Tiempo de Duración (Horas)</label>
 		<div id="texto"> <?php echo $item->tiempo_duracion; ?></div>
 	</div>
 	<div class="form-group col-sm-12">

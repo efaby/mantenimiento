@@ -126,7 +126,7 @@ $(document).ready(function() {
 				message: 'El Código no es válido',
 				validators: {
 					notEmpty: {
-						message: 'El Codigo no puede ser vacío.'
+						message: 'El Código no puede ser vacío.'
 					},					
 					regexp: {
 						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-]+$/,
@@ -137,7 +137,7 @@ $(document).ready(function() {
 			introduccion: {
                 validators: {
                     notEmpty: {
-                        message: 'La Introducción no puede ser vacia.'
+                        message: 'La Introducción no puede ser vacía.'
                     },
                    
                 }
@@ -145,7 +145,7 @@ $(document).ready(function() {
             objetivos: {
                 validators: {
                     notEmpty: {
-                        message: 'Los Objetivos no pueden ser vacios.'
+                        message: 'Los Objetivos no pueden ser vacíos.'
                     },
                    
                 }

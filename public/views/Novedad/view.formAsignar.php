@@ -2,7 +2,7 @@
 
 
 	<div class="form-group  col-sm-12">
-		<label class="control-label">Activo Fisico</label>
+		<label class="control-label">Activo Físico</label>
 		<div id="texto"> <?php echo $item->maquina; ?>
 		</div>
 	</div>
@@ -23,7 +23,7 @@
 	</div>
 	
 	<div class="form-group  col-sm-12">
-		<label class="control-label">Asignar Tecnico</label>
+		<label class="control-label">Asignar Técnico</label>
 		<select class='form-control' name="usuario_id" id="usuario_id">
 			<option value="" >Seleccione</option>
 		<?php foreach ($tecnicos as $dato) { ?>
@@ -54,7 +54,7 @@ $(document).ready(function() {
 			usuario_id: {
 				validators: {
 					notEmpty: {
-						message: 'Seleccione un Tecnico'
+						message: 'Seleccione un Técnico'
 					}
 				}
 			},

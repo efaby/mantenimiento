@@ -258,7 +258,7 @@ $(document).ready(function() {
                                 id: validator.getFieldElements('id').val()
                             };
                         },
-                        message: 'Ya existe una practica en este horario.',
+                        message: 'Ya existe una práctica en este horario.',
                         type: 'POST'
                     },
                     notEmpty: {
