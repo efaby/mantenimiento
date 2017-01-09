@@ -25,7 +25,8 @@
 	    <tr>
 	    	<th>ID</th>
 		    <th>Nombre</th>
-		    <th>Fecha</th>
+		    <th>Fecha Inicio</th>
+		    <th>Fecha Fin</th>
 		    <th>Laboratorio</th>
 		    <th style="text-align: center; width: 20%">Acciones</th>
 	    </tr>
@@ -34,7 +35,8 @@
     	<?php foreach ($datos as $item) {
     		echo "<tr><td>".$item->id."</td>";
     		echo "<td>".$item->nombre."</td>";
-    		echo "<td>".$item->fecha_inicio." - ".$item->fecha_fin."</td>";    
+    		echo "<td>".$item->fecha_inicio."</td>";    
+    		echo "<td>".$item->fecha_fin."</td>";
     		echo "<td>".$item->laboratorio."</td>";
     		echo "<td align='center'><a href='javascript: loadModal(".$item->id.")' class='btn btn-warning btn-sm' title='Editar' ><i class='fa fa-pencil'></i></a>
 					  <a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a></td>";
