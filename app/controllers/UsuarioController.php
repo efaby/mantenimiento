@@ -49,8 +49,15 @@ class UsuarioController {
 	public function eliminar() {
 		$model = new UsuarioModel();
 		try {
-			$datos = $model->delUsuario();
-			$_SESSION ['message'] = "Datos eliminados correctamente.";
+			$usuario = $_GET['id'];
+			$id_sesion = $_SESSION['SESSION_USER']->id;
+			if($usuario <> $id_sesion){
+				$datos = $model->delUsuario();
+				$_SESSION ['message'] = "Datos eliminados correctamente.";
+			}
+			else{
+				$_SESSION ['message'] = "Usuario activo, no se puede eliminar.";
+			}
 		} catch ( Exception $e ) {
 			$_SESSION ['message'] = $e->getMessage ();
 		}
