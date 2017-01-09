@@ -5,12 +5,12 @@ class PracticaModel {
 
 	public function getlistadoPractica($docente){
 		$model = new BaseModel();	
-		$sql = "select p.*, a.nombre as maquina, l.nombre as laboratorio, pa.nombre as paralelo from practica as p
+		$sql = "select p.*, a.nombre_activo as maquina, l.nombre as laboratorio, pa.nombre as paralelo from practica as p
 				inner join lab_activo as la on la.id = p.lab_activo_id
 				inner join laboratorio as l on l.id = la.laboratorio_id				
 				inner join activo_fisico as a on a.id =  la.activo_fisico_id
 				inner join paralelo as pa on pa.id = p.paralelo_id
-				where p.eliminado = 0 and p.usuario_id = ".$docente;		
+				where p.eliminado = 0 and p.usuario_id = ".$docente;
 		return $model->execSql($sql, array(),true);
 	}	
 	
@@ -20,7 +20,7 @@ class PracticaModel {
 		$model = new BaseModel();		
 		if($practica > 0){
 			$sql = "select p.*, la.laboratorio_id from practica as p 
-					inner join lab_activo as la on la.id = p.lab_activo_id where eliminado = 0 and p.id = ?";
+					inner join lab_activo as la on la.id = p.lab_activo_id where p.eliminado = 0 and p.id = ?";
 			$result = $model->execSql($sql, array($practica));				
 		} else {
 			$result = (object) array('id'=>0,'nombre'=>'','fecha'=>'','hora_inicio'=>'','hora_fin'=>'', 'lab_activo_id' =>0, 'laboratorio_id' =>0,'url' => '','tiempo_duracion'=>'','paralelo_id' =>0);			
@@ -53,7 +53,7 @@ class PracticaModel {
 	
 	public function getMaquinas($laboratorio){
 		$model = new BaseModel();
-		$sql = "select la.id, a.nombre from activo_fisico as a
+		$sql = "select la.id, a.nombre_activo as nombre from activo_fisico as a
 				inner join lab_activo as la on la.activo_fisico_id = a.id
 				where la.laboratorio_id = ".$laboratorio;
 		return $model->execSql($sql, array(),true);

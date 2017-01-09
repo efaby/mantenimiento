@@ -148,6 +148,14 @@ $(document).ready(function() {
 					}
 				}
 			},
+			paralelo_id: {
+				message: 'El paralelo no es válido',
+				validators: {
+					notEmpty: {
+						message: 'El paralelo no puede ser vacío.'
+					}
+				}
+			},
 			fecha: {
 				 validators: {
 					 notEmpty: {
