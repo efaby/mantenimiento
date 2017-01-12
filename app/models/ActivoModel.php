@@ -84,9 +84,9 @@ class ActivoModel {
 		return $activo_id;		
 	}
 	
-	public function delEstudiante(){
+	public function delActivo(){
 		$estudiante = $_GET['id'];
-		$sql = "update estudiante set eliminado = 1 where id = ?";
+		$sql = "update activo_fisico set eliminado = 1 where id = ?";
 		$model = new BaseModel();
 		$result = $model->execSql($sql, array($estudiante),false,true);
 	}

@@ -81,9 +81,9 @@ class ActivoController {
 	}
 	
 	public function eliminar() {
-		$model = new EstudianteModel();
+		$model = new ActivoModel();
 		try {
-			$datos = $model->delEstudiante();
+			$datos = $model->delActivo();
 			$_SESSION ['message'] = "Datos eliminados correctamente.";
 		} catch ( Exception $e ) {
 			$_SESSION ['message'] = $e->getMessage ();
