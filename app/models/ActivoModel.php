@@ -85,10 +85,15 @@ class ActivoModel {
 	}
 	
 	public function delActivo(){
-		$estudiante = $_GET['id'];
+		$activo = $_GET['id'];
 		$sql = "update activo_fisico set eliminado = 1 where id = ?";
 		$model = new BaseModel();
-		$result = $model->execSql($sql, array($estudiante),false,true);
+		$result = $model->execSql($sql, array($activo),false,true);
+		
+		//Activo y Laboratorio
+		$sql = "update lab_activo set eliminado = 1 where activo_fisico_id = ?";
+		$result = $model->execSql($sql, array($activo),false,true);
+		
 	}
 
 	public function getCatalogo($tabla,$where=null){
