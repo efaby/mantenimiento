@@ -112,4 +112,13 @@ class ActivoModel {
 		$sql = "SELECT * FROM mantenimiento.laboratorio where eliminado=0";
 		return $model->execSql($sql, array(),true);
 	}
+	
+	public function  getLaboratoriosActivoVer(){
+		$activo = $_GET['id'];
+		$model = new BaseModel();
+		$sql = "SELECT l.nombre FROM laboratorio as l 
+				inner join lab_activo as la on la.laboratorio_id = l.id
+				where l.eliminado=0 and la.activo_fisico_id = ?";
+		return $model->execSql($sql, array($activo),true);
+	}
 }

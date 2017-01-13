@@ -27,7 +27,7 @@
 <br>
 <table class="table table-bordered" style="width: 90%">
 <tr><td><b>Tiempo ejecucion: </b><?php echo $item->tiempo_ejecucion?></td><td colspan="2"><b>Estado Máquina:</b> <?php echo ($item->estado_maquina)?'Encendida':'Apagada';?></td></tr>
-<tr><td colspan="3" style="text-align: center;"><?php echo $item->tarea;?></td></tr>
+<tr><td colspan="3" style="text-align: center;"><?php echo $item->tarea;?> - <?php echo $item->parte;?></td></tr>
 <tr><td style="width: 30%"><b>Herramientas: </b><br><?php echo $item->herramientas;?></td>
 <td style="width: 30%"><b>Materiales: </b><br><?php echo $item->materiales;?></td>
 <td style="width: 30%"><b>Equipo: </b><br><?php echo $item->equipo;?></td></tr>

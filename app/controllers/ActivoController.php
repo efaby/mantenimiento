@@ -90,4 +90,11 @@ class ActivoController {
 		}
 		header ( "Location: ../listar/" );
 	}
+	
+	public function ver(){
+		$model = new ActivoModel();
+		$laboratorios = $model->getLaboratoriosActivoVer();
+		require_once PATH_VIEWS."/Activo/view.ver.php";
+	}
+	
 }
