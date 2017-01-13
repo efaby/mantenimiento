@@ -14,7 +14,7 @@ class PartesModel {
 	public function getActivoName(){
 		$model = new BaseModel();
 		$activo = $_GET['id'];
-		$sql = "select a.id, a.nombre from activo_fisico as a				
+		$sql = "select a.id, a.nombre_activo as nombre from activo_fisico as a				
 				where a.id = ".$activo;
 		return $model->execSql($sql, array());
 	}

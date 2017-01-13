@@ -8,7 +8,8 @@ class EstudianteController {
 	
 	public function listar() {
 		$model = new EstudianteModel();
-		$datos = $model->getlistadoEstudiante();
+		$docente = $_SESSION['SESSION_USER']->id;
+		$datos = $model->getlistadoEstudiante($docente);
 		$message = "";
 		require_once PATH_VIEWS."/Estudiante/view.list.php";
 	}

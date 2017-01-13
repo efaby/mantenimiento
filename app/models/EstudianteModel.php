@@ -5,14 +5,15 @@ class EstudianteModel {
 
 	private $pattern = "------";
 	
-	public function getlistadoEstudiante(){		
+	public function getlistadoEstudiante($docente){		
 		$model = new BaseModel();	
 		$sql = "select u.id,u.cedula, u.nombres, u.apellidos,u.email, e.codigo, e.id as id_estudiante,p.nombre as paralelo
 				from usuario as u
 				inner join estudiante e on e.usuario_id = u.id
         		inner join matricula m on m.estudiante_id = e.id
         		inner join paralelo p on p.id = m.paralelo_id
-				where e.eliminado = 0";		
+				inner join lab_docente as ld on ld.id = p.lab_docente_id
+				where e.eliminado = 0 and ld.usuario_id = ".$docente;		
 		return $model->execSql($sql, array(),true);
 	}	
 	

@@ -28,7 +28,8 @@
     <thead>
 	    <tr>
 	    	<th>ID</th>
-		    <th>Plan</th>		    
+		    <th>Plan</th>		
+		    <th>Parte</th>	    
 		    <th>Frecuencia Mantenimiento</th>
 		    <th>Alerta Mantenimiento</th>
 		    <th>Horas Operando</th>
@@ -39,7 +40,8 @@
     <tbody>
     	<?php foreach ($datos as $item) {
     		echo "<tr><td>".$item->id."</td>";
-    		echo "<td>".$item->tarea."</td>";    		 
+    		echo "<td>".$item->tarea."</td>";   
+    		echo "<td>".$item->parte."</td>";
     		echo "<td> Cada ".$item->frecuencia_numero." ".$item->frecuencia."</td>";
     		$antes = ($item->frecuencia_id==1)?'Hora(s) Antes':'Día(s) antes';
     		echo "<td> Cada ".$item->alerta_numero." ".$antes."</td>";

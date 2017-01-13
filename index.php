@@ -13,14 +13,14 @@ if(!isset($app)){
 	$redirect = "login";
 }
 
-/*
+
 $urls = unserialize(PUBLIC_URLS);
 if (!isset($_SESSION['SESSION_USER'])){	
 	if(!in_array($app.$redirect, $urls)){
 		header("location: ".URL_BASE);
 		exit();
 	}	
-} else {	
+} /* else {	
 	$urls = unserialize(PRIVATE_URLS);
 	if((!in_array($app, $urls[$_SESSION['SESSION_USER']->clave]))&&(!in_array($app.$redirect, $urls[$_SESSION['SESSION_USER']->clave]))){
 		$app = 'Seguridad';

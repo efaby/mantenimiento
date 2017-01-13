@@ -11,6 +11,16 @@
 
 	</div>
 	<div class="form-group  col-sm-12">
+		<label class="control-label">Partes</label>
+		<select class='form-control' name="parte_maquina_id">
+			<option value="" >Seleccione</option>
+		<?php foreach ($partes as $dato) { ?>
+			<option value="<?php echo $dato->id;?>"  <?php if($item->parte_maquina_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
+		<?php }?>
+		</select>
+
+	</div>
+	<div class="form-group  col-sm-12">
 		<label class="control-label">Frecuencia</label>
 		<div class="form-group  col-sm-12">
 			<div class="form-group  col-sm-4">
@@ -102,6 +112,13 @@ $(document).ready(function() {
 				validators: {
 					notEmpty: {
 						message: 'Seleccione un Plan'
+					}
+				}
+			},
+			parte_maquina_id: {
+				validators: {
+					notEmpty: {
+						message: 'Seleccione una parte'
 					}
 				}
 			},

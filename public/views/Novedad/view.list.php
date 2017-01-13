@@ -16,7 +16,7 @@
 		<?php endif;?>
 <div class="row">
 
-	<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+	<table class="table table-striped table-bordered table-hover" id="dataTables-example1">
     <thead>
 	    <tr>
 	    	<th>ID</th>		   
@@ -77,7 +77,39 @@
 <script src="<?php echo PATH_JS; ?>/bootstrap.js"></script>
 <script src="<?php echo PATH_JS; ?>/currentList.js"></script>
 <link href="<?php echo PATH_CSS; ?>/bootstrapValidator.min.css" rel="stylesheet">
-
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#dataTables-example1').DataTable({
+    	 	order: [[ 0, "desc" ]],
+            responsive: true,
+            lengthChange: false,
+            // iDisplayLength: 2,
+            info: false,
+            oLanguage: {
+           	sProcessing:     "Procesando...",
+            sLengthMenu:     "Mostrar _MENU_ registros",
+            sZeroRecords:    "No se encontraron resultados",
+            sEmptyTable:     "Ningún dato disponible en esta tabla",
+            sInfo:           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            sInfoEmpty:      "Mostrando registros del 0 al 0 de un total de 0 registros",
+            sInfoFiltered:   "(filtrado de un total de _MAX_ registros)",
+            sInfoPostFix:    "",
+            sSearch:         "Buscar:",
+            sUrl:            "",
+            sInfoThousands:  ",",
+            sLoadingRecords: "Cargando...",
+           
+            oPaginate: {
+            sFirst:    "Primero",
+            sLast:     "Último",
+            sNext:     "Siguiente",
+            sPrevious: "Anterior"
+            },
+    fnInfoCallback: null,
+            }
+    });
+});
+</script>
 
 </body>
 </html>

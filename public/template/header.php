@@ -91,11 +91,19 @@
                         <a href="../../Seguridad/inicio/" class="<?php echo (strpos($url, 'Seguridad/inicio/'))?'active':'';?>"><i class="fa fa-dashboard fa-fw"></i>Inicio</a>
                     </li>
                     <?php foreach ($_SESSION['SESSION_USER']->links as $item1):?>
-                    <?php if($item1->menu == 1):?>
+                    <?php if($item1->menu >= 1):?>
 	                    <li>
 	                        <a href="../../<?php echo $item1->accion;?>" class="<?php echo (strpos($url, $item1->accion))?'active':'';?>"><i class="fa <?php echo $item1->icono;?> fa-fw"></i><?php echo $item1->titulo;?></a>
 	                    </li>  
-	                    <?php endif;?>                  
+	                    <?php if($item1->menu == 2):?>
+			                     </ul>
+		                    </li>
+	                     <?php endif;?>  
+	                <?php else:?>
+	                <li>
+	                	<a href="#" class="<?php echo (strpos($url, $item1->accion))?'active':'';?>"><i class="fa <?php echo $item1->icono;?> fa-fw"></i> <?php echo $item1->titulo;?><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">                                   
+	                <?php endif;?>                  
                     <?php endforeach;?>
                     
                 </ul>

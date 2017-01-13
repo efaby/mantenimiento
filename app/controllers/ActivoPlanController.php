@@ -18,6 +18,7 @@ class ActivoPlanController {
 		$item = $model->getActivoPlan($arrayId[1]);	
 		$frecuencias = $model->getFrecuencias();
 		$planes = $model->getPlanes($arrayId[0],$item->plan_mantenimiento_id);
+		$partes = $model->getPartes($arrayId[0]);
 		$activo_id = $arrayId[0];
 		$message = "";
 		require_once PATH_VIEWS."/ActivoPlan/view.form.php";
@@ -33,7 +34,7 @@ class ActivoPlanController {
 		$activoPlan ['fecha_registro'] = date('Y-m-d');
 		$activoPlan ['fecha_inicio'] = date('Y-m-d');
 		$activoPlan ['alerta_numero'] = $_POST ['alerta_numero'];
-		
+		$activoPlan ['parte_maquina_id'] = $_POST ['parte_maquina_id'];
 		
 		$model = new ActivoPlanModel();
 		try {
