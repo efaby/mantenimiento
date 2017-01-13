@@ -122,7 +122,7 @@
 		</div>		
 		<div class="form-group  col-sm-12">
 			<div class="form-group  col-sm-12" style="text-align: left;">
-				<label class="control-label">Construido con</label>
+				
 		 		<textarea name="caracteristicas" id="caracteristicas" rows="5" cols="120"><?php echo $item->caracteristicas; ?></textarea>
 			</div>			
 		</div>		
@@ -237,7 +237,7 @@
 		</div>		
 		<div class="form-group col-sm-12">
 			<div class="form-group col-sm-12">
-				<label class="control-label">Respado Digital</label> 
+				<label class="control-label">Guía de Operación</label> 
 					<?php if(isset($item->diagram_proceso_url) &&  $item->diagram_proceso_url != ''):?>
 						<input type='file' name='diagram_proceso_url1' id="diagram_proceso_url1" class="file">		
 							<a href="../downloadFile/<?php echo $item->diagram_proceso_url;?>">Descargar</a>

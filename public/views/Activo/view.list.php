@@ -26,9 +26,6 @@
 	    	<th>ID</th>
 		    <th>Código</th>
 		    <th>Nombre Activo</th>
-		    <th>Inventario</th>		    
-		    <th>Ficha</th>
-		    <th>Manual Fabricante</th>
 		    <th style="text-align: center; width: 20%">Acciones</th>
 	    </tr>
     </thead>
@@ -37,9 +34,6 @@
     		echo "<tr><td>".$item->id."</td>";
     		echo "<td>".$item->codigo."</td>";
     		echo "<td>".$item->nombre_activo."</td>";  		
-    		echo "<td>".$item->inventario."</td>";
-    		echo "<td>".$item->ficha."</td>";
-    		echo "<td>".$item->manual_fabricante."</td>";    
     		echo "<td align='center'>
 				<a href='../../Partes/listar/".$item->id."' class='btn btn-success btn-sm' title='Partes' ><i class='fa fa-cubes'></i></a>
 				<a href='../../ActivoPlan/listar/".$item->id."' class='btn btn-success btn-sm' title='Planes Asociados' ><i class='fa fa-gears'></i></a>

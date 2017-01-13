@@ -164,7 +164,7 @@ $(document).ready(function() {
 						message: 'Las Herramientas no pueden ser vacías.'
 					},											
 							regexp: {
-								regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-]+$/,
+								regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-\,]+$/,
 								message: 'Ingrese unas Herramientas válidas.'
 							}
 						}
@@ -177,7 +177,7 @@ $(document).ready(function() {
 								message: 'Los Materiales no pueden ser vacíos.'
 							},											
 									regexp: {
-										regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-]+$/,
+										regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-\,]+$/,
 										message: 'Ingrese unos Materiales válidos.'
 									}
 								}
@@ -190,7 +190,7 @@ $(document).ready(function() {
 										message: 'El Equipo no puede ser vacío.'
 									},											
 											regexp: {
-												regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-]+$/,
+												regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-\,]+$/,
 												message: 'Ingrese un Equipo válido.'
 											}
 										}
