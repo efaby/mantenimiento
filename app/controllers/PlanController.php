@@ -6,7 +6,7 @@ class PlanController {
 	
 	public function listar() {
 		$model = new PlanModel();
-		$datos = $model->getlistadoPlan();
+		$datos = $model->getlistadoPlan($_SESSION['SESSION_USER']->id);
 		$message = "";
 		require_once PATH_VIEWS."/Plan/view.list.php";
 	}
@@ -29,7 +29,7 @@ class PlanController {
 		$plan ['equipo'] = $_POST ['equipo'];
 		$plan ['procedimiento'] = $this->dataready($_POST ['procedimiento']);
 		$plan ['observaciones'] = $this->dataready($_POST ['observaciones']);
-		$plan ['usuario_id'] = $_POST ['usuario_id'];
+		$plan ['usuario_id'] = $_SESSION['SESSION_USER']->id;
 		
 		
 		$model = new PlanModel();

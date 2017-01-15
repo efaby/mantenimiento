@@ -38,6 +38,14 @@
 		<textarea name='observacion' id='observacion' class='form-control' ></textarea>	
 		
 	</div>
+	<div class="form-group  col-sm-12">
+
+		<label class="control-label">Tiempo ejecución</label>
+		<input type='text'
+			name='tiempo_ejecucion' id='tiempo_ejecucion' class='form-control'
+			value="">
+
+	</div>
 		<div class="form-group col-sm-12">
 		<label class="control-label">Imagen </label>	
 			<input type='file' name='url' id="url" class="file">	
@@ -99,6 +107,18 @@ $(document).ready(function() {
 							                    extension: 'png,jpg,gif',
 							                    message: 'Seleccione un archivo válido. (.png,.jpg,.gif)'
 							                }
+										}
+									},
+									tiempo_ejecucion: {
+										message: 'El Tiempo de Ejecucion no es válido',
+										validators: {
+											notEmpty: {
+												message: 'El Tiempo de Ejecucion no puede ser vacío.'
+											},					
+											regexp: {
+												regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-\:]+$/,
+												message: 'Ingrese un Tiempo de Ejecucion válido.'
+											}
 										}
 									},
 			

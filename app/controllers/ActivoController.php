@@ -8,7 +8,11 @@ class ActivoController {
 	
 	public function listar() {
 		$model = new ActivoModel();
-		$datos = $model->getlistadoActivos();
+		$usuario = 0;
+		if($_SESSION['SESSION_USER']->tipo > 1){
+			$usuario = $_SESSION['SESSION_USER']->id;
+		}
+		$datos = $model->getlistadoActivos($usuario);
 		$message = "";
 		require_once PATH_VIEWS."/Activo/view.list.php";
 	}

@@ -3,12 +3,12 @@ require_once(PATH_MODELS."/BaseModel.php");
 
 class PlanModel {
 
-	public function getlistadoPlan(){
+	public function getlistadoPlan($usuario){
 		$model = new BaseModel();	
 		$sql = "select p.*, u.nombres, u.apellidos from plan_mantenimiento as p	
 				inner join usuario as u on u.id = p.usuario_id
-				where p.eliminado = 0 ";		
-		return $model->execSql($sql, array(),true);
+				where p.eliminado = 0 and p.usuario_id = ?";		
+		return $model->execSql($sql, array($usuario),true);
 	}	
 	
 	public function getPlan()
@@ -21,7 +21,7 @@ class PlanModel {
 		} else {
 			$result = (object) array('id'=>0,'tarea'=>'','tiempo_ejecucion'=>'','estado_maquina'=>'', 'herramientas' =>'', 'equipo' =>'',  'materiales' =>'', 'procedimiento' =>'',  'observaciones' =>'', 'usuario_id' => 0);			
 		}
-		
+
 		return $result;
 	}
 	

@@ -20,40 +20,16 @@
 
 
 
-	<div class="form-group  col-sm-12">
-	<div class="form-group  col-sm-6">
-		<label class="control-label">Activo Físico</label>
-		<select class='form-control' name="activo_fisico_id" id="activo_fisico_id">
-			<option value="" >Seleccione</option>
-		<?php foreach ($maquinas as $dato) { ?>
-			<option value="<?php echo $dato->id;?>"  ><?php echo $dato->nombre;?></option>
-		<?php }?>
-		</select>
-</div>
-	</div>	
+	
 	
 	<div class="form-group col-sm-12">
 	<div class="form-group  col-sm-6">
-		<label class="control-label">Problema</label>
-		<textarea name='problema' id='problema' class='form-control' ></textarea>	
+		<label class="control-label">Detalle de la Novedad</label>
+		<textarea name='descripcion' id='descripcion' class='form-control' rows="15" ></textarea>	
 		</div>		
 	</div>
 	
 	<div class="form-group col-sm-12">
-	<div class="form-group  col-sm-6">
-		<label class="control-label">Causa</label>
-		<textarea name='causa' id='causa' class='form-control' ></textarea>		
-		</div>	
-	</div>
-	
-	<div class="form-group col-sm-12">
-	<div class="form-group  col-sm-6">
-		<label class="control-label">Solución</label>
-		<textarea name='solucion' id='solucion' class='form-control' ></textarea>	
-		</div>		
-	</div>
-	
-	<div class="form-group">
 	<input type='hidden' name='id' class='form-control' value="">
 		<button type="submit" class="btn btn-success">Guardar</button>
 	</div>
@@ -80,48 +56,21 @@ $(document).ready(function() {
 			validating: 'glyphicon glyphicon-refresh'
 		},
 		fields: {			
-			activo_fisico_id: {
-				validators: {
-					notEmpty: {
-						message: 'Seleccione un Activo Físico'
-					}
-				}
-			},
 			
 			
-			problema: {
-				message: 'El Problema no es válido',
+			descripcion: {
+				message: 'El Detalle de la Novedad no es válido',
 				validators: {	
 					notEmpty: {
-						message: 'El Problema no puede ser vacío.'
+						message: 'El Detalle de la Novedad no puede ser vacío.'
 					},												
 							regexp: {
 								regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-]+$/,
-								message: 'Ingrese un problema válido.'
+								message: 'Ingrese un Detalle de Novedad válido.'
 							}
 						}
 					},	
-					causa: {
-						message: 'La Causa no es válida',
-						validators: {	
-							notEmpty: {
-								message: 'La Causa no puede ser vacía.'
-							},												
-									regexp: {
-										regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-]+$/,
-										message: 'Ingrese una Causa válida.'
-									}
-								}
-							},
-							solucion: {
-								message: 'La Solución no es válido',
-								validators: {												
-											regexp: {
-												regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-]+$/,
-												message: 'Ingrese una Solución válida.'
-											}
-										}
-									},
+					
 		}
 	});
 });

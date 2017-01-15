@@ -18,7 +18,17 @@
 	
 	<form id="frmItem" method="post" action="../guardar/" >
 
-
+<div class="form-group  col-sm-12">
+<div class="form-group  col-sm-6">
+		<label class="control-label">Laboratorio</label>
+		<select class='form-control' name="laboratorio_id" id="laboratorio_id">
+			<option value="" >Seleccione</option>
+		<?php foreach ($laboratorios as $dato) { ?>
+			<option value="<?php echo $dato->id;?>"><?php echo $dato->nombre;?></option>
+		<?php }?>
+		</select>
+</div>
+	</div>
 
 	<div class="form-group  col-sm-12">
 	<div class="form-group  col-sm-6">
@@ -71,6 +81,14 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
+	$("#laboratorio_id").change(function () {
+		        $("#laboratorio_id option:selected").each(function () {
+		         opcion=$(this).val();
+		         $.post("../loadActivoFisico/", { opcion: opcion }, function(data){
+		         $("#activo_fisico_id").html(data);
+		         });            
+		     });
+			});
 	
     $('#frmItem').formValidation({
     	message: 'This value is not valid',
@@ -122,6 +140,13 @@ $(document).ready(function() {
 											}
 										}
 									},
+									laboratorio_id: {
+														validators: {
+															notEmpty: {
+																message: 'Seleccione un Laboratorio'
+															}
+														}
+													},
 		}
 	});
 });

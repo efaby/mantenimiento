@@ -45,16 +45,17 @@ class NovedadModel {
 		$result = $model->execSql($sql, array($paralelo),false,true);
 	}
 
-	public function getLaboratorios(){
+	public function getLaboratorios($usuario){
 		$model = new BaseModel();	
-		$sql = "select l.id, l.nombre from laboratorio as l where l.eliminado = 0";		
-		return $model->execSql($sql, array(),true);
+		$sql = "select l.id, l.nombre from laboratorio as l where l.eliminado = 0 and l.usuario_id = ?";		
+		return $model->execSql($sql, array($usuario),true);
 	}
 	
-	public function getMaquinas(){
+	public function getMaquinas($laboratorio){
 		$model = new BaseModel();
-		$sql = "select a.id, a.nombre_activo as nombre from activo_fisico as a				
-				where a.eliminado = 0 ";
+		$sql = "select a.id, a.nombre_activo as nombre from activo_fisico as a
+				
+				where a.laboratorio_id = ".$laboratorio;
 		return $model->execSql($sql, array(),true);
 	}
 	

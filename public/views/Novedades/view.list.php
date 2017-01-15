@@ -29,11 +29,10 @@
     </thead>
     <tbody>
     	<?php foreach ($datos as $item) {
-    		$usuario = ($item->es_estudiante)?"Estudiante":"Técnico";
-    		echo "<tr><td>".$item->id."</td>";    		
     		
+    		echo "<tr><td>".$item->id."</td>";      		
     		echo "<td>".$item->nombres. " ".$item->apellidos."</td>";    		
-    		echo "<td>".$item->fechas."</td>";
+    		echo "<td>".$item->fecha."</td>";
     		echo "<td>".$item->descripcion."</td>";
     		
     	}?>

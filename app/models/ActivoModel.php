@@ -5,12 +5,14 @@ class ActivoModel {
 
 	private $pattern = "------";
 	
-	public function getlistadoActivos(){		
+	public function getlistadoActivos($usuario){		
 		$model = new BaseModel();	
 		$sql="SELECT a.id, a.ficha,a.codigo, a.inventario,a.nombre_activo, a.manual_fabricante, l.nombre as laboratorio
 			  FROM activo_fisico a 
 				inner join laboratorio as l on l.id = a.laboratorio_id
-			  WHERE a.eliminado =0";
+			
+			 where a.eliminado = 0 and (l.usuario_id = ".$usuario." or 0 = ".$usuario.")";
+		
 		return $model->execSql($sql, array(),true);
 	}	
 	

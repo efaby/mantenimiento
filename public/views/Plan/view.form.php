@@ -34,8 +34,8 @@
 	<div class="form-group  col-sm-6">
 		<label class="control-label">Estado Máquina</label>
 		<div>
-		<label> <input type="radio" name="estado_maquina" value="0" <?php echo ($item->estado_maquina === 0)?'checked':''; ?>>Apagada</label>
-		 <label> <input type="radio" name="estado_maquina"value="1" <?php echo ($item->estado_maquina == 1)?'checked':''; ?>> Encendida</label>
+		<label> <input type="radio" name="estado_maquina" value="0" <?php echo ((int)$item->estado_maquina === 0)?'checked':''; ?>>Apagada</label>
+		 <label> <input type="radio" name="estado_maquina"value="1" <?php echo ((int)$item->estado_maquina === 1)?'checked':''; ?>> Encendida</label>
 </div>
 	</div>
 	</div>
@@ -77,17 +77,7 @@
 	</div>
 
 	
-	<div class="form-group  col-sm-12">
-	<div class="form-group  col-sm-6">
-		<label class="control-label">Asignar Técnico</label>
-		<select class='form-control' name="usuario_id" id="usuario_id">
-			<option value="" >Seleccione</option>
-		<?php foreach ($tecnicos as $dato) { ?>
-			<option value="<?php echo $dato->id;?>" <?php if($item->usuario_id==$dato->id):echo "selected"; endif;?> ><?php echo $dato->nombres.' '.$dato->apellidos;?></option>
-		<?php }?>
-		</select>
-	</div>
-	</div>
+	
 	
 	<div class="form-group">
 	<input type='hidden' name='id' class='form-control' value="<?php echo $item->id; ?>">
@@ -213,13 +203,7 @@ $(document).ready(function() {
                 }
             },
             
-			usuario_id: {
-				validators: {
-					notEmpty: {
-						message: 'Seleccione un Técnico'
-					}
-				}
-			},
+			
 			
 			
 		}

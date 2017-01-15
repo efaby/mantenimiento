@@ -51,13 +51,28 @@ class Email{
 					      <td>Estimado '.$name.',</td>
 					    </tr>
 					    <tr>
-					      <td><br> Se ha registrado un nuevo mantenimiento correctivo en el Activo F&iacute;sico '.$activo.'. Para asignar una t&eacute;cnico ingrese al sitema con sus credenciales en el siguiente <a target="_blank" href="'.$url.'">link</a>
+					      <td><br> Se ha registrado un nuevo mantenimiento correctivo en el Activo F&iacute;sico '.$activo.'. Para ingresar al sistema de click en el siguiente <a target="_blank" href="'.$url.'">link</a>
 					      	<br><br>
 					      	La Administraci&oacute;n.
 					      </td>
 					    </tr>
 					  </table>';
 		$this->sendMail($email, "Notificación de Matenimiento correctivo", $message);
+	}
+	
+	public function sendNotificacionArreglo($name,$email, $activo,$url){
+		$message = '<table>
+					    <tr>
+					      <td>Estimado '.$name.',</td>
+					    </tr>
+					    <tr>
+					      <td><br> Se ha registrado una atenci&oacute;n de un mantenimiento correctivo en el Activo F&iacute;sico '.$activo.'. Para ingresar al sistema de click en el siguiente <a target="_blank" href="'.$url.'">link</a>
+					      	<br><br>
+					      	La Administraci&oacute;n.
+					      </td>
+					    </tr>
+					  </table>';
+		$this->sendMail($email, "Notificación de Atención de Matenimiento correctivo", $message);
 	}
 	
 	public function sendNotificacionTecnico($name,$email, $activo, $url){		

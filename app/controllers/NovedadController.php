@@ -7,10 +7,22 @@ require_once (PATH_HELPERS. "/File.php");
 class NovedadController {
 	
 	public function ingreso(){
-		$model = new NovedadModel();		
-		$maquinas = $model->getMaquinas();		
+		$model = new NovedadModel();	
+		$laboratorios = $model->getLaboratorios($_SESSION['SESSION_USER']->id);				
 		$message = "";
 		require_once PATH_VIEWS."/Novedad/view.ingreso.php";
+	}
+	
+	public function loadActivoFisico(){
+				$opcion = $_POST ['opcion'];
+			$model = new NovedadModel();
+				$maquinas = $model->getMaquinas($opcion);
+				$html ='<option value="" >Seleccione</option>';
+				foreach ($maquinas as $dato) {
+						$html .='<option value="'.$dato->id.'" >'.$dato->nombre.'</option>';
+					}
+					$html .='</select>';
+					echo $html;
 	}
 	
 	public function guardar() {	
@@ -21,7 +33,8 @@ class NovedadController {
 		$novedad ['es_estudiante'] = 0;
 		$novedad ['activo_fisico_id'] = $_POST ['activo_fisico_id'];
 		$novedad ['usuario_registra'] = $_SESSION['SESSION_USER']->id; 
-	
+		$novedad ['tecnico_asigna'] = $_SESSION['SESSION_USER']->id;
+		
 		$model = new NovedadModel();
 		try {
 			$datos = $model->saveNovedad( $novedad );
@@ -109,9 +122,19 @@ class NovedadController {
 	
 		$model = new NovedadModel();
 		try {
-			$datos = $model->saveNovedad( $novedad );
+			$datos = $model->saveNovedad( $novedad );			
 			$_SESSION ['message'] = "Datos almacenados correctamente.";
-	
+			
+			// envio email
+			if(SENDEMAIL){
+				$email = new Email();
+				$supervisor = $model->getSupervisorById();
+				$novedad = $model->getNovedadById($novedad ['id']);
+				$email->sendNotificacionArreglo($supervisor->nombres ." ".$supervisor->apellidos, $supervisor->email, $novedad->maquina ,"http://" . $_SERVER['HTTP_HOST'] . PATH_BASE);
+					
+			}
+			
+			
 		} catch ( Exception $e ) {
 			$_SESSION ['message'] = $e->getMessage ();
 		}
