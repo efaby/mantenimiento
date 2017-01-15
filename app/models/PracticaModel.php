@@ -6,9 +6,8 @@ class PracticaModel {
 	public function getlistadoPractica($docente){
 		$model = new BaseModel();	
 		$sql = "select p.*, a.nombre_activo as maquina, l.nombre as laboratorio, pa.nombre as paralelo from practica as p
-				inner join lab_activo as la on la.id = p.lab_activo_id
-				inner join laboratorio as l on l.id = la.laboratorio_id				
-				inner join activo_fisico as a on a.id =  la.activo_fisico_id
+				inner join activo_fisico as a on a.id =  p.activo_id
+				inner join laboratorio as l on l.id = a.laboratorio_id				
 				inner join paralelo as pa on pa.id = p.paralelo_id
 				where p.eliminado = 0 and p.usuario_id = ".$docente;
 		return $model->execSql($sql, array(),true);
@@ -19,11 +18,13 @@ class PracticaModel {
 		$practica = $_GET['id'];
 		$model = new BaseModel();		
 		if($practica > 0){
-			$sql = "select p.*, la.laboratorio_id from practica as p 
-					inner join lab_activo as la on la.id = p.lab_activo_id where p.eliminado = 0 and p.id = ?";
+			$sql = "select p.*, a.laboratorio_id from practica as p 
+					inner join activo_fisico as a on a.id = p.activo_id 
+				
+					where p.eliminado = 0 and p.id = ?";
 			$result = $model->execSql($sql, array($practica));				
 		} else {
-			$result = (object) array('id'=>0,'nombre'=>'','fecha'=>'','hora_inicio'=>'','hora_fin'=>'', 'lab_activo_id' =>0, 'laboratorio_id' =>0,'url' => '','tiempo_duracion'=>'','paralelo_id' =>0);			
+			$result = (object) array('id'=>0,'nombre'=>'','fecha'=>'','hora_inicio'=>'','hora_fin'=>'', 'activo_id' =>0, 'laboratorio_id' =>0,'url' => '','tiempo_duracion'=>'','paralelo_id' =>0);			
 		}
 		
 		return $result;
@@ -45,7 +46,7 @@ class PracticaModel {
 
 	public function getLaboratorios($docente){
 		$model = new BaseModel();	
-		$sql = "select ld.id, l.nombre from laboratorio as l
+		$sql = "select l.id, l.nombre from laboratorio as l
 				inner join lab_docente as ld on l.id = ld.laboratorio_id				
 				where ld.usuario_id = ".$docente;		
 		return $model->execSql($sql, array(),true);
@@ -53,16 +54,15 @@ class PracticaModel {
 	
 	public function getMaquinas($laboratorio){
 		$model = new BaseModel();
-		$sql = "select la.id, a.nombre_activo as nombre from activo_fisico as a
-				inner join lab_activo as la on la.activo_fisico_id = a.id
-				where la.laboratorio_id = ".$laboratorio;
+		$sql = "select a.id, a.nombre_activo as nombre from activo_fisico as a				
+				where a.laboratorio_id = ".$laboratorio;
 		return $model->execSql($sql, array(),true);
 	}
 	
 	public function getLabs($hora_inicio,$hora_fin,$fecha,$activo, $id){
 		$model = new BaseModel();
 		$sql = "select count(id) as numero from practica
-				where eliminado = 0 and id <> ".$id." and fecha = '".$fecha."' and lab_activo_id = ".$activo." and (hora_fin >= '".$hora_inicio."' and hora_inicio <= '".$hora_fin."')";
+				where eliminado = 0 and id <> ".$id." and fecha = '".$fecha."' and activo_id = ".$activo." and (hora_fin >= '".$hora_inicio."' and hora_inicio <= '".$hora_fin."')";
 		return $model->execSql($sql, array(),true);
 	}
 	
@@ -81,9 +81,10 @@ class PracticaModel {
 	public function getlistadoPracticas($estudiante){
 		$model = new BaseModel();
 		$sql = "select p.*, a.nombre_activo as maquina, l.nombre as laboratorio, ev.duracion_practica, ev.nota_practica, ev.archivo_url, ev.ejecutado from practica as p
-				inner join lab_activo as la on la.id = p.lab_activo_id
-				inner join laboratorio as l on l.id = la.laboratorio_id
-				inner join activo_fisico as a on a.id =  la.activo_fisico_id
+				inner join activo_fisico as a on a.id =  p.activo_id
+				
+				inner join laboratorio as l on l.id = a.laboratorio_id
+				
 				inner join paralelo as pa on pa.id = p.paralelo_id
 				inner join matricula as m on m.paralelo_id = pa.id
 				inner join estudiante as e on e.id = m.estudiante_id
@@ -97,9 +98,9 @@ class PracticaModel {
 		$practica = $_GET['id'];
 		$model = new BaseModel();
 		$sql = "select p.*, p.id,  a.nombre_activo as maquina, a.id as maquina_id, l.nombre as laboratorio, ev.* , u.nombres, u.apellidos from practica as p
-				inner join lab_activo as la on la.id = p.lab_activo_id
-				inner join laboratorio as l on l.id = la.laboratorio_id
-				inner join activo_fisico as a on a.id =  la.activo_fisico_id	
+				inner join activo_fisico as a on a.id =  p.activo_id
+				inner join laboratorio as l on l.id = a.laboratorio_id
+					
 				inner join usuario as u on u.id =  p.usuario_id
 				left join evaluacion as ev on ev.practica_id = p.id and ev.estudiante_id = ".$estudiante ."
 				where p.eliminado = 0 and p.id = ?";
@@ -108,7 +109,7 @@ class PracticaModel {
 	
 	public function registroUso($duracion,$id){
 		$practica = $_GET['id'];
-		$sql = "update activo_plan set horas_operacion = horas_operacion + ".$duracion." where activo_fisico_id = ".$id;
+		$sql = "update activo_plan set horas_operacion = horas_operacion + ".$duracion." , horas_totales = horas_totales + ".$duracion." where activo_fisico_id = ".$id;
 		$model = new BaseModel();
 		$result = $model->execSql($sql, array(),false,true);
 	}
@@ -143,4 +144,14 @@ class PracticaModel {
 		return $model->execSql($sql, array($id));
 
 	}
+	
+	public function getEmailByIdActivo($id){
+		$model = new BaseModel();
+		$sql = "select u.nombres, u.apellidos, u.email from usuario as u
+				inner join laboratorio as l on l.usuario_id
+				inner join activo_fisico as a on a.laboratorio_id = l.id
+				where a.id = ".$id;
+		return $model->execSql($sql, array());
+	}
+	
 }

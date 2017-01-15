@@ -37,7 +37,7 @@ class PracticaController {
 		$practica ['hora_inicio'] = $_POST ['hora_inicio'];
 		$practica ['hora_fin'] = $_POST ['hora_fin'];
 		$practica ['tiempo_duracion'] = $_POST ['tiempo_duracion'];
-		$practica ['lab_activo_id'] = $_POST ['lab_activo_id'];	
+		$practica ['activo_id'] = $_POST ['activo_id'];	
 		$practica ['url'] = $this->uploadFile('pra','practicas');
 		$practica ['paralelo_id'] = $_POST ['paralelo_id'];
 		$practica ['usuario_id'] = $_SESSION['SESSION_USER']->id;
@@ -87,7 +87,7 @@ class PracticaController {
 	public function verificar(){
 		$hora_inicio = $_POST ['hora_inicio'];
 		$hora_fin = $_POST ['hora_fin'];
-		$activo = $_POST ['lab_activo_id'];
+		$activo = $_POST ['activo_id'];
 		$fecha = $_POST ['fecha'];
 		$id = $_POST ['id'];
 		$model = new PracticaModel();
@@ -134,7 +134,12 @@ class PracticaController {
 	
 		$practica ['id'] = 0;
 		$practica ['practica_id'] = $_POST ['id'];
-		$practica ['archivo_url'] = $this->uploadFile('pra','practicas');
+		
+		$practica ['archivo_url'] = '';
+		if($_FILES['url']['name']!=''){
+			$practica ['archivo_url'] = $this->uploadFile('pra','practicas');
+		} 
+		
 		$practica ['estudiante_id'] = $_SESSION['SESSION_USER']->id;
 		$practica ['duracion_practica'] = $_POST ['duracion_practica'];
 		
@@ -154,8 +159,10 @@ class PracticaController {
 				if(SENDEMAIL){
 					$email = new Email();
 					$supervisor = $model1->getSupervisorById();
-					$activo = $model1->getActivoById($_POST ['activo_fisico_id']);
+					$activo = $model1->getActivoById($_POST ['activo_fisico_id']);					
 					$email->sendNotificacionRegistro($supervisor->nombres ." ".$supervisor->apellidos, $supervisor->email, $activo->nombre ,"http://" . $_SERVER['HTTP_HOST'] . PATH_BASE);
+					$tecnico = $model->getEmailByIdActivo($_POST ['activo_fisico_id']);
+					$email->sendNotificacionTecnico($tecnico->nombres ." ".$tecnico->apellidos, $tecnico->email, $activo->nombre ,"http://" . $_SERVER['HTTP_HOST'] . PATH_BASE);
 						
 				}
 				

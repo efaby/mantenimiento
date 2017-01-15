@@ -26,10 +26,10 @@
 	</div>
 	<div class="form-group  col-sm-12">
 		<label class="control-label">Activo Físico</label>
-		<select class='form-control' name="lab_activo_id" id="lab_activo_id">
+		<select class='form-control' name="activo_id" id="activo_id">
 			<option value="" >Seleccione</option>
 		<?php foreach ($maquinas as $dato) { ?>
-			<option value="<?php echo $dato->id;?>"  <?php if($item->lab_activo_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
+			<option value="<?php echo $dato->id;?>"  <?php if($item->activo_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
 		<?php }?>
 		</select>
 
@@ -110,7 +110,7 @@ $(document).ready(function() {
         $("#laboratorio_id option:selected").each(function () {
          opcion=$(this).val();
          $.post("../loadActivoFisico/", { opcion: opcion }, function(data){
-         $("#lab_activo_id").html(data);
+         $("#activo_id").html(data);
          });            
      });
 	});
@@ -176,7 +176,7 @@ $(document).ready(function() {
 					}
 				}
 			},
-			lab_activo_id: {
+			activo_id: {
 				validators: {
 					notEmpty: {
 						message: 'Seleccione un Activo Físico'
@@ -213,7 +213,7 @@ $(document).ready(function() {
                             return {
                                 hora_inicio: validator.getFieldElements('hora_inicio').val(),
                                 hora_fin: validator.getFieldElements('hora_fin').val(),
-                                lab_activo_id: validator.getFieldElements('lab_activo_id').val(),
+                                activo_id: validator.getFieldElements('activo_id').val(),
                                 fecha: validator.getFieldElements('fecha').val(),
                                 id: validator.getFieldElements('id').val()
                             };
@@ -261,7 +261,7 @@ $(document).ready(function() {
                             return {
                                 hora_inicio: validator.getFieldElements('hora_inicio').val(),
                                 hora_fin: validator.getFieldElements('hora_fin').val(),
-                                lab_activo_id: validator.getFieldElements('lab_activo_id').val(),
+                                activo_id: validator.getFieldElements('activo_id').val(),
                                 fecha: validator.getFieldElements('fecha').val(),
                                 id: validator.getFieldElements('id').val()
                             };

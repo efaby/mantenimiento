@@ -194,9 +194,7 @@ $(document).ready(function(){
 			fields: {
 				url: {
 					validators: {
-						notEmpty: {
-							message: 'Seleccione un Archivo.'
-						},
+						
 						file: {
 		                    extension: 'pdf',
 		                    message: 'Seleccione un archivo válido. (pdf)'

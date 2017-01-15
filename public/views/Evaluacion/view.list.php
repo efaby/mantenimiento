@@ -20,6 +20,7 @@
     <thead>
 	    <tr>
 	    	<th>ID</th>
+	    	 <th>Activo</th>
 		    <th>Práctica</th>
 		    <th>Paralelo</th>
 		    <th>Estudiante</th>
@@ -31,6 +32,7 @@
     <tbody>
     	<?php foreach ($datos as $item) {
     		echo "<tr><td>".$item->id."</td>";
+    		echo "<td>".$item->nombre_activo."</td>";
     		echo "<td>".$item->nombre."</td>";
     		echo "<td>".$item->paralelo."</td>";    
     		echo "<td>".$item->nombres." ".$item->apellidos."</td>";

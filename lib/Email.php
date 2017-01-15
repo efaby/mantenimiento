@@ -82,7 +82,7 @@ class Email{
 					      <td>Estimado '.$name.',</td>
 					    </tr>
 					    <tr>
-					      <td><br> Le informámos que se le asignado a usted el mantenimiento correctivo del Activo F&iacute;sico '.$activo.'. Para poder dar atenci&oacute;n por favor ingrese al sistema con sus credenciales en el siguiente <a target="_blank" href="'.$url.'">link</a>.
+					      <td><br> Le informámos que se ha registrado un mantenimiento correctivo del Activo F&iacute;sico '.$activo.'. Para poder dar atenci&oacute;n por favor ingrese al sistema con sus credenciales en el siguiente <a target="_blank" href="'.$url.'">link</a>.
 					      		
 					      	<br><br>
 					      	La Administraci&oacute;n.
