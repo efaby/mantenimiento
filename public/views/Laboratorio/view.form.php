@@ -61,10 +61,24 @@
                <?php echo $item->seguridad; ?>
             </textarea>
 	</div>
-	
+	<div class="form-group  col-sm-12">
+			<div class="form-group  col-sm-6">
+				<label class="control-label">Docentes</label>
+			</div>	
+		
+		<div class="form-group  col-sm-12">
+			<?php foreach ($docentes as $data){?>
+				<div class="form-group  col-sm-3">
+					<input type="checkbox" name="docente_id[]" value="<?php echo $data->id;?>"
+					<?php if (isset($item->docentes) && (in_array($data->id, $item->docentes))) echo "checked";?>> 
+					<?php echo $data->nombres ." ".$data->apellidos;?>
+				</div>				
+			<?php }?>
+		</div>
+		</div>			
 	<div class="form-group  col-sm-12">
 	<div class="form-group  col-sm-6">
-		<label class="control-label">Docente</label>
+		<label class="control-label">Asignar Técnico</label>
 		<select class='form-control' name="usuario_id" id="usuario_id">
 			<option value="" >Seleccione</option>
 		<?php foreach ($tecnicos as $dato) { ?>
@@ -169,10 +183,17 @@ $(document).ready(function() {
 			usuario_id: {
 				validators: {
 					notEmpty: {
-						message: 'Seleccione un Docente'
+						message: 'Seleccione un Tecnico'
 					}
 				}
 			},
+			'docente_id[]': {
+                validators: {
+                    notEmpty: {
+                        message: 'Por favor escoja al menos un Docente.'
+                    }
+                }
+        }	
 			
 			
 		}

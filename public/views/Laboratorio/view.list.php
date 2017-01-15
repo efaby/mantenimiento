@@ -26,7 +26,7 @@
 	    	<th>ID</th>
 		    <th>Código</th>
 		    <th>Laboratorio</th>
-		    <th>Docente</th>		    
+		        
 		    <th style="text-align: center; width: 20%">Acciones</th>
 	    </tr>
     </thead>
@@ -35,15 +35,30 @@
     		echo "<tr><td>".$item->id."</td>";
     		echo "<td>".$item->codigo."</td>";
     		echo "<td>".$item->nombre."</td>";  		
-    		echo "<td>".$item->nombres." ".$item->apellidos."</td>";    
+    		
     		echo "<td align='center'>
+		<a href='javascript: loadModal(".$item->id.")' class='btn btn-info btn-sm' title='Docentes' ><i class='fa fa-users'></i></a>
 				<a href='../editar/".$item->id."' class='btn btn-warning btn-sm' title='Editar' ><i class='fa fa-pencil'></i></a>
 				<a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a></td>";
     	}?>
     </tbody>
     </table>
 </div>
+<div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="width: 400px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a class="close" data-dismiss="modal">×</a>
+				<h3>Docentes</h3>
+			</div>
 
+			<div class="modal-body"></div>
+
+		</div>
+
+	</div>
+</div>
 <?php include_once PATH_TEMPLATE.'/footer.php';?>   
 <link href="<?php echo PATH_CSS; ?>/dataTables.bootstrap.css" rel="stylesheet">
 <script src="<?php echo PATH_JS; ?>/jquery.dataTables.min.js"></script>
@@ -54,6 +69,16 @@
 <script src="<?php echo PATH_JS; ?>/currentList.js"></script>
 <link href="<?php echo PATH_CSS; ?>/bootstrapValidator.min.css" rel="stylesheet">
 
+<script type="text/javascript">
+
+	function loadModal(id){
+		$('.modal-body').load('../ver/' + id,function(result){
+		    $('#confirm-submit').modal({show:true});
+		});
+	}
+
+	
+</script>
 
 </body>
 </html>

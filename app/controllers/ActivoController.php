@@ -57,11 +57,11 @@ class ActivoController {
 		if((isset($_FILES['diagram_proceso_url']) && $_FILES['diagram_proceso_url']['name']!='')||(isset($_FILES['diagram_proceso_url1']) && $_FILES['diagram_proceso_url1']['name']!='')){
 			$activo ['diagram_proceso_url'] = $this->uploadFile('act','activos',$_FILES['diagram_proceso_url'], $_POST['filename2'],$_POST['diagram_proceso_url1']);
 		}
-		$laboratorios  = $_POST ['laboratorio_id'];
+		$activo ['laboratorio_id']  = $_POST ['laboratorio_id'];
 		
 		$model = new ActivoModel();
 		try {
-			$datos = $model->saveActivo($activo, $laboratorios);			
+			$datos = $model->saveActivo($activo);			
 			$_SESSION ['message'] = "Datos almacenados correctamente.";
 		} catch ( Exception $e ) {
 			$_SESSION ['message'] = $e->getMessage ();

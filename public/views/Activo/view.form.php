@@ -221,20 +221,20 @@
 					<?php endif;?>
 			</div>		
 		</div>	
+		
 		<div class="form-group  col-sm-12">
-			<div class="form-group  col-sm-6">
-				<label class="control-label">Seleccione el Laboratorio</label>
-			</div>	
-		</div>	
-		<div class="form-group  col-sm-12">
-			<?php foreach ($laboratorios as $lab){?>
-				<div class="form-group  col-sm-3">
-					<input type="checkbox" name="laboratorio_id[]" value="<?php echo $lab->id;?>"
-					<?php if (isset($item->laboratorios) && (in_array($lab->id, $item->laboratorios))) echo "checked";?>> 
-					<?php echo $lab->nombre;?>
-				</div>				
-			<?php }?>
-		</div>		
+		<div class="form-group  col-sm-6">
+		<label class="control-label">Laboratorio</label>
+		<select class='form-control' name="laboratorio_id">
+			<option value="" >Seleccione</option>
+		<?php foreach ($laboratorios as $dato) { ?>
+			<option value="<?php echo $dato->id;?>"  <?php if($item->laboratorio_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
+		<?php }?>
+		</select>
+	</div>
+	</div>
+		
+		
 		<div class="form-group col-sm-12">
 			<div class="form-group col-sm-12">
 				<label class="control-label">Guía de Operación</label> 
@@ -536,10 +536,10 @@ $(document).ready(function() {
 					}
 				}
 			},	
-			'laboratorio_id[]': {
+			laboratorio_id: {
 	                validators: {
 	                    notEmpty: {
-	                        message: 'Por favor escoja al menos un laboratorio.'
+	                        message: 'Seleccione un laboratorio.'
 	                    }
 	                }
 	        }			
