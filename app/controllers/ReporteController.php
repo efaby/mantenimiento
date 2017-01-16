@@ -32,5 +32,11 @@ class ReporteController {
 		require_once PATH_VIEWS."/Reporte/view.verCorrectivo.php";
 	}
 	
+	public function uso() {
+		$model = new ReporteModel();		
+		$datos = $model->getlistadoPraticas();
+		$message = "";
+		require_once PATH_VIEWS."/Reporte/view.orden.php";
+	}
 	
 }

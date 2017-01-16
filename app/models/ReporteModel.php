@@ -62,5 +62,19 @@ class ReporteModel {
 	
 	}
 	
+	public function getlistadoPraticas(){
+		$model = new BaseModel();
+		$sql = "select p.nombre as practica, p.fecha as fecha_practica, eva.duracion_practica, eva.nota_practica, u.nombres, u.apellidos, u1.nombres docente_nombre, u1.apellidos as docente_apellido, pa.nombre as paralelo, a.nombre_activo, a.id, l.nombre as laboratorio
+				from practica as p
+				inner join evaluacion as eva on eva.practica_id = p.id
+				inner join usuario as u on u.id =  eva.estudiante_id
+				inner join paralelo as pa on pa.id = p.paralelo_id
+				inner join activo_fisico as a on a.id = p.activo_id
+				inner join laboratorio as l on l.id = a.laboratorio_id
+				inner join usuario as u1 on u1.id = p.usuario_id 
+				";
+		
+		return $model->execSql($sql, array(),true);
+	}
 	
 }
