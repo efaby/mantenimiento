@@ -28,11 +28,12 @@ class OrdenModel {
 	{
 		$orden = $_GET['id'];
 		$model = new BaseModel();		
-		$sql = "select op.fecha_emision, op.activo_plan_id, op.id as orden_id, pq.nombre as parte, a.nombre_activo as maquina,f.nombre as frecuencia, pm.*, ap.horas_operacion, ap.activo_fisico_id, ap.frecuencia_numero 
+		$sql = "select op.fecha_emision, op.activo_plan_id, op.id as orden_id, pq.nombre as parte, a.nombre_activo as maquina, l.nombre as laboratorio, f.nombre as frecuencia, pm.*, ap.horas_operacion, ap.activo_fisico_id, ap.frecuencia_numero 
 				from orden_plan as op
 				inner join activo_plan as ap on op.activo_plan_id = ap.id
 				inner join plan_mantenimiento as pm on pm.id = ap.plan_mantenimiento_id
 				inner join activo_fisico as a on a.id = ap.activo_fisico_id	
+				inner join laboratorio as l on l.id = a.laboratorio_id
 				inner join frecuencia as f on f.id = ap.frecuencia_id
 				left join partes_maquina as pq on pq.id = ap.parte_maquina_id
 				where op.id =  ?";
@@ -52,14 +53,26 @@ class OrdenModel {
 	{
 		$orden = $_GET['id'];
 		$model = new BaseModel();
-		$sql = "select op.*, a.nombre_activo as maquina, pm.tarea, f.nombre as frecuencia, ap.horas_operacion, ap.activo_fisico_id, ap.frecuencia_numero
+		$sql = "select op.*, a.nombre_activo as maquina, pm.tarea, f.nombre as frecuencia, ap.horas_totales, ap.activo_fisico_id, ap.frecuencia_numero, l.nombre as laboratorio
 				from orden_plan as op
 				inner join activo_plan as ap on op.activo_plan_id = ap.id
 				inner join plan_mantenimiento as pm on pm.id = ap.plan_mantenimiento_id
 				inner join activo_fisico as a on a.id = ap.activo_fisico_id
+				inner join laboratorio as l on l.id = a.laboratorio_id
 				inner join frecuencia as f on f.id = ap.frecuencia_id
 				where op.id =  ?";
 		return $model->execSql($sql, array($orden));
 	}
 	
+	public function getSupervisorById(){
+		$model = new BaseModel();
+		$sql = "select nombres, apellidos, email from usuario where tipo_usuario_id = 1 and eliminado = 0 ";
+		return $model->execSql($sql, array());
+	}
+	
+	public function getActivoById($id){
+		$model = new BaseModel();
+		$sql = "select nombre_activo as nombre from activo_fisico where id = ".$id;
+		return $model->execSql($sql, array());
+	}
 }

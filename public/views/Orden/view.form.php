@@ -18,9 +18,9 @@
 <tr><td colspan="2" style="text-align: center;"><?php echo $item->maquina;?></td></tr>
 <tr><td style="text-align: center; ">Versión: <?php echo date('Y');?></td>
 <td style="text-align: center;">
-<?php foreach ($laboratorios as $data):?>
-<?php echo $data->nombre ." </br>";?>
-<?php endforeach;?>
+
+<?php echo $item->laboratorio ." </br>";?>
+
 </td>
 <td style="text-align: center; width: 15%;">Frecuencia: <?php echo " Cada ".$item->frecuencia_numero." ".$item->frecuencia; ?></td></tr>
 </table>
@@ -54,6 +54,7 @@
 	<div class="form-group">
 		<input type='hidden' name='id' class='form-control' value="<?php echo $item->orden_id; ?>">
 		<input type='hidden' name='activo_plan_id' class='form-control' value="<?php echo $item->activo_plan_id; ?>">
+		<input type='hidden' name='activo_fisico_id' class='form-control' value="<?php echo $item->activo_fisico_id; ?>">
 		<button type="submit" class="btn btn-success">Guardar</button>
 	</div>
 </form>

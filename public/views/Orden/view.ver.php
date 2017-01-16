@@ -1,5 +1,9 @@
 	<div class="row">
 	<div class="form-group  col-sm-12">
+		<label class="control-label">Laboratorio</label>
+		<div id="texto"> <?php echo $item->laboratorio; ?></div>
+	</div>
+	<div class="form-group  col-sm-12">
 		<label class="control-label">Activo Físico</label>
 		<div id="texto"> <?php echo $item->maquina; ?></div>
 	</div>
@@ -15,7 +19,7 @@
 	
 	<div class="form-group  col-sm-6">
 		<label class="control-label">Horas Operando</label>
-		<div id="texto"> <?php echo $item->horas_operacion; ?></div>
+		<div id="texto"> <?php echo $item->horas_totales; ?></div>
 	</div>
 	<div class="form-group  col-sm-6">
 		<label class="control-label">Fecha Emisión</label>

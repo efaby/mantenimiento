@@ -1,5 +1,6 @@
 <?php
 require_once (PATH_MODELS . "/OrdenModel.php");
+require_once (PATH_HELPERS . "/Email.php");
 
 
 class OrdenController {
@@ -15,7 +16,7 @@ class OrdenController {
 	public function editar(){
 		$model = new OrdenModel();		
 		$item = $model->getOrden();		
-		$laboratorios = $model->getlistadoLaboratorios($item->activo_fisico_id);
+		//$laboratorios = $model->getlistadoLaboratorios($item->activo_fisico_id);
 		$message = "";
 		require_once PATH_VIEWS."/Orden/view.form.php";
 	}
@@ -36,6 +37,18 @@ class OrdenController {
 		try {
 			$datos = $model->saveOrden( $orden, $activo );
 			$_SESSION ['message'] = "Datos almacenados correctamente.";
+			
+			// envio email
+			if(SENDEMAIL){
+				$email = new Email();
+				$supervisor = $model->getSupervisorById();
+				$activo = $model->getActivoById($_POST ['activo_fisico_id']);				
+				$email->sendNotificacionArreglo($supervisor->nombres ." ".$supervisor->apellidos, $supervisor->email, $activo->nombre ,"http://" . $_SERVER['HTTP_HOST'] . PATH_BASE,'Preventivo');
+					
+			}
+				
+			
+			
 		} catch ( Exception $e ) {
 			$_SESSION ['message'] = $e->getMessage ();
 		}
