@@ -2,17 +2,36 @@
 require_once(PATH_MODELS."/BaseModel.php");
 
 class DocumentoModel {
-
 	
 	public function getlistadoActivos(){		
 		$model = new BaseModel();	
 		$sql="SELECT a.id, a.ficha,a.codigo, a.inventario,a.nombre_activo, a.manual_fabricante, l.nombre as laboratorio, l.id as laboratorio_id, a.diagram_proceso_url
 			  FROM activo_fisico a
-				inner join lab_activo as la on la.activo_fisico_id = a.id
-				inner join laboratorio as l on l.id = la.laboratorio_id
+				inner join laboratorio as l on l.id = a.laboratorio_id
 			  WHERE a.eliminado =0";
 		return $model->execSql($sql, array(),true);
-	}	
+	}
+	
+	public function getDatosLaboratorio($activo){
+		$model = new BaseModel();
+		$sql ="SELECT * FROM laboratorio as l
+			   INNER JOIN activo_fisico as a ON a.laboratorio_id=l.id
+			   WHERE a.id=? and a.eliminado=0";
+		$result = $model->execSql($sql, array($activo),true);
+		return $result;
+	}
+	
+	public function getMotor(){
+		$model = new BaseModel();
+		$sql = "SELECT * FROM tipo_motor";
+		return $model->execSql($sql, array(),true);
+	}
+	
+	public function getPartesMotor($activo){
+		$model = new BaseModel();
+		$sql = "select * from partes_maquina where activo_id = ?";
+		return $model->execSql($sql, array($activo),true);
+	}
 	
 	public function getActivo()
 	{
@@ -47,13 +66,6 @@ class DocumentoModel {
 			}
 			return $laboratorios;
 		}
-	}
-	
-	public function getPartesMotor()
-	{
-		$model = new BaseModel();
-		$result = (object) array('id'=>0,'denominacion'=>'','url'=>'');
-		return $result;
 	}
 	
 	public function saveActivo($activo, $laboratorios){
@@ -101,12 +113,6 @@ class DocumentoModel {
 		$model = new BaseModel();
 		return $model->getCatalogo($tabla,$where);
 	}	
-	
-	public function getMotor(){
-		$model = new BaseModel();
-		$sql = "SELECT * FROM mantenimiento.tipo_motor";
-		return $model->execSql($sql, array(),true);
-	}
 	
 	public function  getLaboratorios(){
 		$model = new BaseModel();

@@ -31,7 +31,7 @@
     		echo "<td>".$item->laboratorio."</td>";
     		echo "<td>".$item->nombre_activo."</td>";  		
     		echo "<td align='center'>
-				<a href='../general/".$item->id."-".$item->laboratorio_id."' class='btn btn-info btn-sm' title='General' ><i class='fa fa-file-pdf-o'></i></a>
+				<a href='../general/".$item->id."' class='btn btn-info btn-sm' title='General' ><i class='fa fa-file-pdf-o'></i></a>
 				<a href='../planes/".$item->id."' class='btn btn-info btn-sm' title='Planes Asociados' ><i class='fa fa-file-pdf-o'></i></a>
 				<a href='../practicas/".$item->id."' class='btn btn-info btn-sm' title='Laboratorios' ><i class='fa fa-file-pdf-o'></i></a>
 				<a href='../download/".$item->diagram_proceso_url."' class='btn btn-info btn-sm' title='Diagrama Proceso' ><i class='fa fa-file-pdf-o'></i></a>						
