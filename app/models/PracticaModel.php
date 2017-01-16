@@ -147,7 +147,7 @@ class PracticaModel {
 	
 	public function getEmailByIdActivo($id){
 		$model = new BaseModel();
-		$sql = "select u.nombres, u.apellidos, u.email from usuario as u
+		$sql = "select u.id, u.nombres, u.apellidos, u.email from usuario as u
 				inner join laboratorio as l on l.usuario_id
 				inner join activo_fisico as a on a.laboratorio_id = l.id
 				where a.id = ".$id;

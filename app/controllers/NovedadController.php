@@ -34,6 +34,7 @@ class NovedadController {
 		$novedad ['activo_fisico_id'] = $_POST ['activo_fisico_id'];
 		$novedad ['usuario_registra'] = $_SESSION['SESSION_USER']->id; 
 		$novedad ['tecnico_asigna'] = $_SESSION['SESSION_USER']->id;
+		$novedad ['fecha_ingreso'] = date('Y-m-d');
 		
 		$model = new NovedadModel();
 		try {
@@ -113,8 +114,11 @@ class NovedadController {
 		$novedad ['id'] = $_POST ['id'];
 		$novedad ['proceso'] = $_POST ['proceso'];
 		$novedad ['elementos'] = $_POST ['elementos'];
+		$novedad ['tiempo_ejecucion'] = $_POST ['tiempo_ejecucion'];
 		$novedad ['observaciones'] = $_POST ['observacion'];
 		$novedad ['tecnico_repara'] = $_SESSION['SESSION_USER']->id; 
+		$novedad ['fecha_atencion'] = date('Y-m-d');
+		
 		if($_FILES['url']['name']!=''){
 			$novedad ['url'] = $this->uploadFile('nov','novedades');
 		}

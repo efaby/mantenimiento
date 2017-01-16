@@ -147,6 +147,8 @@ class PracticaController {
 		try {
 			$datos = $model->savePracticaEvaluacion( $practica );
 			if($_POST['opcion']==1){
+				
+				$tecnico = $model->getEmailByIdActivo($_POST ['activo_fisico_id']);
 				$novedad['id'] = 0;
 				$novedad ['problema'] = $_POST ['problema'];
 				$novedad ['causa'] = $_POST ['causa'];
@@ -154,6 +156,9 @@ class PracticaController {
 				$novedad ['es_estudiante'] = 1;
 				$novedad ['activo_fisico_id'] = $_POST ['activo_fisico_id'];
 				$novedad ['usuario_registra'] = $_SESSION['SESSION_USER']->id; // Estudiante
+				$novedad ['tecnico_asigna'] = $tecnico->id;
+				$novedad ['fecha_ingreso'] = date('Y-m-d');
+				
 				$model1 = new NovedadModel();
 				$datos = $model1->saveNovedad( $novedad );
 				if(SENDEMAIL){
@@ -161,7 +166,7 @@ class PracticaController {
 					$supervisor = $model1->getSupervisorById();
 					$activo = $model1->getActivoById($_POST ['activo_fisico_id']);					
 					$email->sendNotificacionRegistro($supervisor->nombres ." ".$supervisor->apellidos, $supervisor->email, $activo->nombre ,"http://" . $_SERVER['HTTP_HOST'] . PATH_BASE);
-					$tecnico = $model->getEmailByIdActivo($_POST ['activo_fisico_id']);
+					
 					$email->sendNotificacionTecnico($tecnico->nombres ." ".$tecnico->apellidos, $tecnico->email, $activo->nombre ,"http://" . $_SERVER['HTTP_HOST'] . PATH_BASE);
 						
 				}

@@ -71,9 +71,10 @@ class ActivoModel {
 		$result = $model->execSql($sql, array($activo),false,true);
 		
 		//Activo y Laboratorio
+		/*
 		$sql = "update lab_activo set eliminado = 1 where activo_fisico_id = ?";
 		$result = $model->execSql($sql, array($activo),false,true);
-		
+		*/
 	}
 
 	public function getCatalogo($tabla,$where=null){

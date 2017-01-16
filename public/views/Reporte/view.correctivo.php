@@ -4,7 +4,7 @@
 <!-- Main row -->
 <div class="row">
 	<div class="col-lg-12">
-    	<h1 class="page-header">Mantenimiento Correctivo</h1>
+    	<h1 class="page-header">Reporte Mantenimientos Correctivos</h1>
    	</div>
 </div>
 <?php if (isset($_SESSION['message'])&& ($_SESSION['message'] != '')):?>
@@ -20,38 +20,30 @@
     <thead>
 	    <tr>
 	    	<th>ID</th>		   
-		    
+		    <th>Laboratorio</th>
 		    <th>Activo Físico</th>
-		    <th>Usuario</th>	
-		    <th>Problema</th>
-		    <th>Fecha Ingreso</th>
-		    <th>Fecha Atención</th>
+		    <th>Orden</th>
+		    <th>Técnico</th>	
+		    <th>Tiempo Reparación</th>
+		    <th>Fecha</th>
 		    <th style="text-align: center; width: 20%">Acciones</th>
 	    </tr>
     </thead>
     <tbody>
     	<?php foreach ($datos as $item) {
-    		$usuario = ($item->es_estudiante)?"Estudiante":"Técnico";
-    		echo "<tr><td>".$item->id."</td>";    		
     		
-    		echo "<td>".$item->maquina."</td>";    		
-    		echo "<td>".$usuario."</td>";
+    		echo "<tr><td>".$item->id."</td>";    		
+    		echo "<td>".$item->laboratorio."</td>";
+    		echo "<td>".$item->maquina."</td>";    
     		echo "<td>".substr ( $item->problema , 0 ,20 )."</td>";
-    		echo "<td>".$item->fecha_ingreso."</td>";
+    		echo "<td>".$item->nombres." ".$item->apellidos."</td>";
+    		echo "<td>".$item->tiempo_ejecucion."</td>";
     		echo "<td>".$item->fecha_atencion."</td>";
-    		$tecnico = ($item->tecnico_asigna > 0)?'disabled':'';
-    		$repara = ($item->tecnico_repara > 0)?'disabled':'';
-    		if($_SESSION['SESSION_USER']->tipo == 1){
-    			echo "<td align='center'>
-					<a href='../ver/".$item->id."' class='btn btn-info btn-sm' title='Ver Problema' ><i class='fa fa-info-circle '></i></a>
-					<a href='javascript: loadModalAction(".$item->id.",\"asignar\")' class='btn btn-warning btn-sm ".$tecnico."' title='Asignar Técnico' ><i class='fa fa-user'></i></a>					
-					</td>";
-    		} else {
+    		
 	    		echo "<td align='center'>				
-					<a href='../ver/".$item->id."' class='btn btn-info btn-sm' title='Ver Problema' ><i class='fa fa-info-circle '></i></a>					
-					<a href='javascript: loadModalAction(".$item->id.",\"reparar\")' class='btn btn-warning btn-sm ".$repara."' title='Atender' ><i class='fa fa-edit'></i></a>
+					<a href='../verCorrectivo/".$item->id."' class='btn btn-info btn-sm' title='Ver Problema' ><i class='fa fa-info-circle '></i></a>					
 					</td>";
-    		}
+    		
     	}?>
     </tbody>
     </table>
