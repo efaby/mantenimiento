@@ -21,10 +21,6 @@ class DocumentoController {
 		return $upload->download($nombre,'activos');
 	}
 	
-	/*
-	 * 
-	 * */
-	
 	public function general(){
 		$activoId = $_GET['id'];
 		$model = new DocumentoModel();
@@ -192,7 +188,97 @@ class DocumentoController {
 		$dompdf = new Dompdf();
 		$dompdf->load_html($html);
 		$dompdf->render();
-		$dompdf->stream('general'.$activoId);				
+		$dompdf->stream('general'.$activoId);
 	}
 	
+	public function planes(){
+		$activoId = $_GET['id'];
+		$model = new DocumentoModel();
+		$activo = $model->getActivoById($activoId);
+		$partes_maq = $model->getPartesMaqByAct($activoId);
+		$planes = $partes_maq[0]->planes;
+		$planes_ind = array();
+		foreach ($planes as $plan){
+			$planes_ind[] =$model->getPlanById($plan->id)[0];	
+		}		
+		
+		$html="<html><head>
+				<style=txt/css>
+					body {
+						margin: 20px 20px 20px 50px; 
+					}				
+					table{
+					   border-collapse: collapse; width: 100%;
+					}
+					
+					td{
+					   border:1px solid #ccc; padding:1px;
+					   font-size:9pt;
+					}
+				</style> 				 				
+				</head>
+				<body>
+					<table style='width:100%'>
+						<tr>
+							<td colspan=2 style='text-align:center'><b>EQUIPO O MÁQUINA</b></td>
+							<td style='text-align:center'><b>CÓDIGO</b></td>
+						</tr>
+						<tr>
+							<td colspan=2>".$activo[0]->nombre_activo."</td>
+							<td>".$activo[0]->codigo."</td>
+						</tr>
+						<tr>
+							<td style='text-align:center'><b>PARTES IMPORTANTES</b></td>
+							<td style='text-align:center'><b>TAREA DE MANTENIMIENTO</b></td>
+							<td style='text-align:center'><b>FRECUENCIA</b></td>
+						</tr>";
+						foreach ($partes_maq as $parte){
+							$html.="<tr><td style='text-align:center'>".$parte->nombre."</td>
+									<td style='text-align:center'>";
+								foreach ($planes as $plan){
+									$html.=$plan->tarea."<br>";			
+								}	
+							$html.="</td><td style='text-align:center'>";
+							foreach ($planes as $plan){
+								$html.=$plan->frecuencia."<br>";
+							}
+							$html.="</td></tr>";
+						}		
+				foreach ($planes_ind as $item){					
+				$html.="</table><table style='page-break-after:always;'></br></table><br>
+						<table style='width: 100%'>
+							<tr>
+								<td rowspan='2' style='text-align: center; width: 15%'>
+									<img src=".PATH_FILES."../images/espoch.jpg height= 80px width=80px>
+								</td>
+								<td colspan=2 style='text-align: center;'><b>EJECUCIÓN DE TAREAS DE MANTENIMIENTO</b></td>
+							</tr>
+							<tr><td colspan=2 style='text-align: center;'><b>BANCO DE PRUEBAS PARA EL ANÁLISIS DE ".strtoupper($item->maquina)."</b></td></tr>
+							<tr><td align=center><strong>Versión:".date('Y')."</strong></td>
+								<td style='text-align: center;'><b>".strtoupper($item->laboratorio)."</b></br></td>
+								<td style='text-align: center; width: 30%;'><b>Frecuencia:</b>Cada ".$item->frecuencia_numero." ".$item->frecuencia."</td>
+							</tr>
+						</table>
+						<br>
+						<table style='width: 100%'>
+							<tr><td><b>Tiempo de Ejecución: </b>".$item->tiempo_ejecucion."</td>
+								<td colspan=2><b>Estado Máquina:</b>";
+								$estado = $item->estado_maquina?'Encendida':'Apagada';
+								$html.=$estado."</td>
+							</tr>
+							<tr><td colspan=3 style='text-align: center;'>".$item->tarea." - ".$item->parte."</td></tr>
+							<tr><td style='width: 33%'><b>Herramientas: </b><br>".$item->herramientas."</td>
+								<td style='width: 33%'><b>Materiales: </b><br>".$item->materiales."</td>
+								<td style='width: 34%'><b>Equipo: </b><br>".$item->equipo."</td>
+							</tr>
+							<tr><td colspan=3 align=justify><b>Procedimiento:</b><br>".htmlspecialchars_decode($item->procedimiento)."</td></tr>
+							<tr><td colspan=3 align=justify><b>Observaciones:</b><br>".htmlspecialchars_decode($item->observaciones)."</td></tr>
+						</table>";
+					}
+				$html.="</body></html>";	
+		$dompdf = new Dompdf();
+		$dompdf->load_html($html);
+		$dompdf->render();
+		$dompdf->stream('planes'.$activoId);
+	}
 }

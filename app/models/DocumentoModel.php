@@ -33,6 +33,43 @@ class DocumentoModel {
 		return $model->execSql($sql, array($activo),true);
 	}
 	
+	public function getActivoById($activo){
+		$model = new BaseModel();
+		$sql = "select nombre_activo, codigo from activo_fisico where id=?";
+		return $model->execSql($sql, array($activo),true);
+	}
+	
+	public function getPartesMaqByAct($activo){
+		$model = new BaseModel();
+		$sql = "select distinct(pm.id), pm.nombre
+				from partes_maquina as pm
+				inner join activo_plan ap on ap.parte_maquina_id=pm.id
+				where activo_fisico_id =?";
+		$partes = $model->execSql($sql, array($activo),true);
+		foreach ($partes as $parte){
+			$sql = "select plm.id, tarea,  concat(frecuencia_numero,' ' ,f.nombre) as frecuencia
+					from plan_mantenimiento as plm
+					inner join activo_plan apl on plm.id=apl.plan_mantenimiento_id
+					inner join frecuencia f on f.id = apl.frecuencia_id
+					where parte_maquina_id =?";
+			$parte->planes = $model->execSql($sql, array($parte->id),true);			
+		}
+		return $partes;	
+	}
+	
+	public function getPlanById($plan){
+		$model = new BaseModel();
+		$sql = "select  pq.nombre as parte, a.nombre_activo as maquina, l.nombre as laboratorio, f.nombre as frecuencia, pm.*, ap.horas_operacion, ap.activo_fisico_id, ap.frecuencia_numero 
+				from  activo_plan as ap 
+        		inner join plan_mantenimiento as pm on pm.id = ap.plan_mantenimiento_id
+				inner join activo_fisico as a on a.id = ap.activo_fisico_id	
+				inner join laboratorio as l on l.id = a.laboratorio_id
+				inner join frecuencia as f on f.id = ap.frecuencia_id
+				left join partes_maquina as pq on pq.id = ap.parte_maquina_id
+                where pm.id=?";
+		return $model->execSql($sql, array($plan),true);
+	}
+	
 	public function getActivo()
 	{
 		$activo = $_GET['id'];
