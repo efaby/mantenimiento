@@ -224,8 +224,8 @@ class DocumentoController {
 							<td style='text-align:center'><b>CÓDIGO</b></td>
 						</tr>
 						<tr>
-							<td colspan=2>".$activo[0]->nombre_activo."</td>
-							<td>".$activo[0]->codigo."</td>
+							<td colspan=2 style='text-align:center'>".$activo[0]->nombre_activo."</td>
+							<td style='text-align:center'>".$activo[0]->codigo."</td>
 						</tr>
 						<tr>
 							<td style='text-align:center'><b>PARTES IMPORTANTES</b></td>
