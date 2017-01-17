@@ -16,9 +16,11 @@
 		<?php endif;?>
 <div class="row">
 	<div class="col-lg-12">
+	<?php if($_SESSION['SESSION_USER']->tipo == 1){?>
 		<a href="../editar/0" class="btn btn-primary" id="nuevo" >
 			<i class="glyphicon glyphicon-plus"></i> Nuevo
 		</a>
+		<?php }?>
 	</div>
 	<table class="table table-striped table-bordered table-hover" id="dataTables-example">
     <thead>
