@@ -33,15 +33,29 @@
     		echo "<td align='center'>
 				<a href='../general/".$item->id."' class='btn btn-info btn-sm' title='General' ><i class='fa fa-file-pdf-o'></i></a>
 				<a href='../planes/".$item->id."' class='btn btn-info btn-sm' title='Planes Mantenimiento' ><i class='fa fa-file-pdf-o'></i></a>
-				<a href='../practicas/".$item->id."' class='btn btn-info btn-sm' title='Practicas' ><i class='fa fa-file-pdf-o'></i></a>
-				<a href='../download/".$item->diagram_proceso_url."' class='btn btn-info btn-sm' title='Flujo de Operacion' ><i class='fa fa-file-pdf-o'></i></a>	
+				<a href='javascript: loadModal(".$item->id.")' class='btn btn-info btn-sm' title='Practicas' ><i class='fa fa-file-pdf-o'></i></a>
+				<a href='../downloadFile/".$item->diagram_proceso_url."' class='btn btn-info btn-sm' title='Flujo de Operacion' ><i class='fa fa-file-pdf-o'></i></a>	
 				<a href='../laboratorios/".$item->laboratorio_id."' class='btn btn-info btn-sm' title='Inventario Laboratorio' ><i class='fa fa-file-pdf-o'></i></a>
 				</td>";
     	}?>
     </tbody>
     </table>
 </div>
+<div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="width: 450px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a class="close" data-dismiss="modal">×</a>
+				<h3>Prácticas</h3>
+			</div>
 
+			<div class="modal-body"></div>
+
+		</div>
+
+	</div>
+</div>
 <?php include_once PATH_TEMPLATE.'/footer.php';?>   
 <link href="<?php echo PATH_CSS; ?>/dataTables.bootstrap.css" rel="stylesheet">
 <script src="<?php echo PATH_JS; ?>/jquery.dataTables.min.js"></script>
@@ -52,6 +66,16 @@
 <script src="<?php echo PATH_JS; ?>/currentList.js"></script>
 <link href="<?php echo PATH_CSS; ?>/bootstrapValidator.min.css" rel="stylesheet">
 
+<script type="text/javascript">
+
+	function loadModal(id){
+		$('.modal-body').load('../../Reporte/practicas/' + id,function(result){
+		    $('#confirm-submit').modal({show:true});
+		});
+	}
+
+	
+</script>
 
 </body>
 </html>

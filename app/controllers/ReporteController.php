@@ -39,4 +39,11 @@ class ReporteController {
 		require_once PATH_VIEWS."/Reporte/view.orden.php";
 	}
 	
+	public function practicas(){
+		$model = new ReporteModel();
+		$practicas = $model->getlistadoPraticasByActivo();
+		$message = "";
+		require_once PATH_VIEWS."/Documento/view.ver.php";
+	}
+	
 }
