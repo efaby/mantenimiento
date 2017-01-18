@@ -77,4 +77,15 @@ class ReporteModel {
 		return $model->execSql($sql, array(),true);
 	}
 	
+	public function getlistadoPraticasByActivo(){
+		$activo = $_GET['id'];
+		$model = new BaseModel();
+		$sql = "select p.*
+				from practica as p
+				where p.activo_id = ?
+				";
+	
+		return $model->execSql($sql, array($activo),true);
+	}
+	
 }
