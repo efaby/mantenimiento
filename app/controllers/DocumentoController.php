@@ -1,8 +1,10 @@
 <?php
 use Dompdf\Dompdf;
+use Dompdf\FontMetrics;
 require_once (PATH_MODELS . "/DocumentoModel.php");
 require_once (PATH_HELPERS. "/File.php");
 require_once (PATH_HELPERS. "/dompdf/autoload.inc.php");
+require_once (PATH_HELPERS. "/dompdf/src/FontMetrics.php");
 
 
 
@@ -186,8 +188,12 @@ class DocumentoController {
 		$html.="</table><br><br><table width=100%><tr><td width=20%><b>Función:</b></td><td width=80%>".$datos[0]->funcion."</td></tr>
 						</table></body></html>";		
 		$dompdf = new Dompdf();
-		$dompdf->load_html($html);
+		$dompdf->load_html($html);		
 		$dompdf->render();
+		$canvas = $dompdf->get_canvas();
+		$font = FontMetrics::getFont("helvetica", "bold");
+		$canvas->page_text(550, 750, "Pág. {PAGE_NUM}/{PAGE_COUNT}", $font, 6, array(0,0,0)); //header
+		$canvas->page_text(270, 770, "Copyright © 2017 - SAM - W&L", $font, 6, array(0,0,0)); //footer		
 		$dompdf->stream('general'.$activoId);
 	}
 	
@@ -279,6 +285,10 @@ class DocumentoController {
 		$dompdf = new Dompdf();
 		$dompdf->load_html($html);
 		$dompdf->render();
+		$canvas = $dompdf->get_canvas();
+		$font = FontMetrics::getFont("helvetica", "bold");
+		$canvas->page_text(550, 750, "Pág. {PAGE_NUM}/{PAGE_COUNT}", $font, 6, array(0,0,0)); //header
+		$canvas->page_text(270, 770, "Copyright © 2017 - SAM - W&L", $font, 6, array(0,0,0)); //footer
 		$dompdf->stream('planes'.$activoId);
 	}
 	
@@ -317,10 +327,16 @@ class DocumentoController {
 							<td style='width: 34%'>".$lab->nombre_lab."</td>
 						</tr>";
 		}
-		$html.="</table><body></html>";
+		
+		$html.="</table><body></html>";		
 		$dompdf = new Dompdf();
 		$dompdf->load_html($html);
 		$dompdf->render();
+		$canvas = $dompdf->get_canvas();		
+		$font = FontMetrics::getFont("helvetica", "bold");
+		$canvas->page_text(550, 750, "Pág. {PAGE_NUM}/{PAGE_COUNT}", $font, 6, array(0,0,0)); //header
+		$canvas->page_text(270, 770, "Copyright © 2017 - SAM - W&L", $font, 6, array(0,0,0)); //footer
+		header("Content-type: application/pdf");		
 		$dompdf->stream('laboratorios'.$laboratorioId);
 	}	
 }
