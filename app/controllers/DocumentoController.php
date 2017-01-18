@@ -281,4 +281,46 @@ class DocumentoController {
 		$dompdf->render();
 		$dompdf->stream('planes'.$activoId);
 	}
+	
+	public function laboratorios(){
+		$laboratorioId = $_GET['id'];
+		$model = new DocumentoModel();
+		$laboratorios = $model->getLaboratoriosId($laboratorioId);
+		$html="	<html>
+				<head>
+					<style=txt/css>
+						body {
+						margin: 20px 20px 20px 50px;
+					}
+					table{
+					border-collapse: collapse; width: 100%;
+					}
+						
+					td{
+					border:1px solid #ccc; padding:1px;
+					font-size:9pt;
+					}
+					</style>
+				</head>
+				<body>
+					 <center><h3>Listado de Activos</h3></center>
+					 <table style='width:100%'>
+						<tr>
+							<td style='text-align:center'><b>CÓDIGO</b></td>
+							<td style='text-align:center'><b>NOMBRE DEL ACTIVO</b></td>
+							<td style='text-align:center'><b>LABORATORIO</b></td>
+						</tr>";
+		foreach ($laboratorios as $lab){
+		$html.="		<tr>
+							<td style='width: 33%'>".$lab->codigo."</td>
+							<td style='width: 33%'>".$lab->nombre_activo."</td>
+							<td style='width: 34%'>".$lab->nombre_lab."</td>
+						</tr>";
+		}
+		$html.="</table><body></html>";
+		$dompdf = new Dompdf();
+		$dompdf->load_html($html);
+		$dompdf->render();
+		$dompdf->stream('laboratorios'.$laboratorioId);
+	}	
 }
