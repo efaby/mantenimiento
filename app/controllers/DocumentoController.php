@@ -46,7 +46,7 @@ class DocumentoController {
 				</head>
 				<body>
 					<table border=0 >
-						<tr><td align=center><img src=".PATH_FILES."../images/caratula.jpg width=650 height=900></td></tr>
+						<tr><td align=center><img src=".PATH_FILES."../images/caratula.png width=650 height=900></td></tr>
 						<tr><td align=center><br><br><b>INDICE</b><br><br></td></tr>
 						<tr><td>1.Introducción</td></tr>
 						<tr><td>&nbsp;</td></tr>
