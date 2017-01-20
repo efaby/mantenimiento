@@ -288,7 +288,7 @@ $(document).ready(function() {
 						message: 'El nombre del activo no puede ser vacío.'
 					},					
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese un nombre de activo válido.'
 					}
 				}
@@ -300,7 +300,7 @@ $(document).ready(function() {
 						message: 'El alias no puede ser vacío.'
 					},					
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese un alias válido.'
 					}
 				}
@@ -312,7 +312,7 @@ $(document).ready(function() {
 						message: 'El ficha no puede ser vacía.'
 					},					
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese una ficha válido.'
 					}
 				}
@@ -324,7 +324,7 @@ $(document).ready(function() {
 						message: 'El Codigo no puede ser vacío.'
 					},					
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese un Código válido.'
 					}
 				}
@@ -336,7 +336,7 @@ $(document).ready(function() {
 						message: 'El manual de fabricante no puede ser vacío.'
 					},					
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese un manual de fabricante válido.'
 					}
 				}
@@ -345,7 +345,7 @@ $(document).ready(function() {
 				message: 'El inventario no es válido',
 				validators: {
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese un inventario válido.'
 					}
 				}
@@ -354,7 +354,7 @@ $(document).ready(function() {
 				message: 'El color no es válido',
 				validators: {
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese un color válido.'
 					}
 				}
@@ -363,7 +363,7 @@ $(document).ready(function() {
 				message: 'El país de origen no es válido',
 				validators: {
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese un país de origen válido.'
 					}
 				}
@@ -372,7 +372,7 @@ $(document).ready(function() {
 				message: 'La capacidad no es válida',
 				validators: {
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese una capacidad válida.'
 					}
 				}
@@ -381,7 +381,7 @@ $(document).ready(function() {
 				message: 'La marca de la máquina no es válida',
 				validators: {
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese una  marca de la máquina válida.'
 					}
 				}
@@ -390,7 +390,7 @@ $(document).ready(function() {
 				message: 'El modelo de la máquina no es válida',
 				validators: {
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese un modelo de la máquina válida.'
 					}
 				}
@@ -399,7 +399,7 @@ $(document).ready(function() {
 				message: 'La serie no es válida',
 				validators: {
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese una serie válida.'
 					}
 				}
@@ -408,7 +408,7 @@ $(document).ready(function() {
 				message: 'La marca del motor no es válida',
 				validators: {
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese una  marca del motor válida.'
 					}
 				}
@@ -417,7 +417,7 @@ $(document).ready(function() {
 				message: 'El tipo HE no es válida',
 				validators: {
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese un tipo HE válido.'
 					}
 				}
@@ -426,7 +426,7 @@ $(document).ready(function() {
 				message: 'El número de fases no es válida',
 				validators: {
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese un número de fases válido.'
 					}
 				}
@@ -435,7 +435,7 @@ $(document).ready(function() {
 				message: 'El RPM no es válida',
 				validators: {
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese un RPM válido.'
 					}
 				}
@@ -444,7 +444,7 @@ $(document).ready(function() {
 				message: 'El voltaje no es válida',
 				validators: {
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese un voltaje válido.'
 					}
 				}
@@ -453,7 +453,7 @@ $(document).ready(function() {
 				message: 'El HZ no es válida',
 				validators: {
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese un HZ válido.'
 					}
 				}
@@ -462,7 +462,7 @@ $(document).ready(function() {
 				message: 'Los amperios no es válida',
 				validators: {
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese amperios válido.'
 					}
 				}
@@ -471,7 +471,7 @@ $(document).ready(function() {
 				message: 'El kw no es válida',
 				validators: {
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese un kw válido.'
 					}
 				}
@@ -483,7 +483,7 @@ $(document).ready(function() {
 						message: 'El manual de fabricante no puede ser vacío.'
 					},
 					regexp: {
-						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\s]+$/,
+						regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\s]+$/,
 						message: 'Ingrese una función válido.'
 					}
 				}

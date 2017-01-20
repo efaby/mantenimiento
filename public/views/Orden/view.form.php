@@ -95,7 +95,7 @@ $(document).ready(function() {
 								message: 'El Tiempo de Ejecucion no puede ser vacío.'
 							},					
 							regexp: {
-								regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\_\-\:]+$/,
+								regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-\:]+$/,
 								message: 'Ingrese un Tiempo de Ejecucion válido.'
 							}
 						}
