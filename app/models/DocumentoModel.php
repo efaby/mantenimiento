@@ -86,7 +86,7 @@ class DocumentoModel {
 	
 	public function  getLaboratorios(){
 		$model = new BaseModel();
-		$sql = "SELECT * FROM mantenimiento.laboratorio where eliminado=0";
+		$sql = "SELECT * FROM laboratorio where eliminado=0";
 		return $model->execSql($sql, array(),true);
 	}
 }

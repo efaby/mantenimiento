@@ -38,7 +38,7 @@ class ActivoModel {
 	private function getLaboratoriosActivo($activo){
 		$model = new BaseModel();
 		if($activo > 0){
-			$sql = "SELECT l.id FROM mantenimiento.activo_fisico a
+			$sql = "SELECT l.id FROM activo_fisico a
         			INNER JOIN lab_activo la ON la.activo_fisico_id = a.id
         			INNER JOIN laboratorio l ON l.id = la.laboratorio_id
     				WHERE la.eliminado=0 and a.id = ?";
@@ -84,13 +84,13 @@ class ActivoModel {
 	
 	public function getMotor(){
 		$model = new BaseModel();
-		$sql = "SELECT * FROM mantenimiento.tipo_motor";
+		$sql = "SELECT * FROM tipo_motor";
 		return $model->execSql($sql, array(),true);
 	}
 	
 	public function  getLaboratorios(){
 		$model = new BaseModel();
-		$sql = "SELECT * FROM mantenimiento.laboratorio where eliminado=0";
+		$sql = "SELECT * FROM laboratorio where eliminado=0";
 		return $model->execSql($sql, array(),true);
 	}
 	
