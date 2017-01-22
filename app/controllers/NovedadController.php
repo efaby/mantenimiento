@@ -118,6 +118,7 @@ class NovedadController {
 		$novedad ['observaciones'] = $_POST ['observacion'];
 		$novedad ['tecnico_repara'] = $_SESSION['SESSION_USER']->id; 
 		$novedad ['fecha_atencion'] = date('Y-m-d');
+		$novedad ['atendido'] = 1;
 		
 		if($_FILES['url']['name']!=''){
 			$novedad ['url'] = $this->uploadFile('nov','novedades');

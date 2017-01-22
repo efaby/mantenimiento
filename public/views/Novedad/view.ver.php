@@ -58,6 +58,12 @@
 	</div>
 	<div class="form-group col-sm-12">
 	<div class="form-group  col-sm-6">
+		<label class="control-label">Estado</label>
+		<div id="texto"> <?php echo ($item->atendido==1)?'Cerrado':'Abierto'; ?></div>
+	</div>
+	</div>
+	<div class="form-group col-sm-12">
+	<div class="form-group  col-sm-6">
 		<label class="control-label">Proceso</label>
 		<div id="texto"> <?php echo $item->proceso; ?>
 		</div>

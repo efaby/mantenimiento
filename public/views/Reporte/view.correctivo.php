@@ -26,6 +26,7 @@
 		    <th>Técnico</th>	
 		    <th>Tiempo Reparación</th>
 		    <th>Fecha</th>
+		    <th>Estado</th>
 		    <th style="text-align: center; width: 20%">Acciones</th>
 	    </tr>
     </thead>
@@ -39,7 +40,8 @@
     		echo "<td>".$item->nombres." ".$item->apellidos."</td>";
     		echo "<td>".$item->tiempo_ejecucion."</td>";
     		echo "<td>".$item->fecha_atencion."</td>";
-    		
+    		$estado = ($item->atendido==1)?'Cerrado':'Abierto';
+    		echo "<td>".$estado."</td>"; 
 	    		echo "<td align='center'>				
 					<a href='../verCorrectivo/".$item->id."' class='btn btn-info btn-sm' title='Ver Problema' ><i class='fa fa-info-circle '></i></a>					
 					</td>";

@@ -26,6 +26,7 @@
 		    <th>Problema</th>
 		    <th>Fecha Ingreso</th>
 		    <th>Fecha Atención</th>
+		    <th>Estado</th>
 		    <th style="text-align: center; width: 20%">Acciones</th>
 	    </tr>
     </thead>
@@ -39,6 +40,8 @@
     		echo "<td>".substr ( $item->problema , 0 ,20 )."</td>";
     		echo "<td>".$item->fecha_ingreso."</td>";
     		echo "<td>".$item->fecha_atencion."</td>";
+    		$estado = ($item->atendido==1)?'Cerrado':'Abierto';
+    		echo "<td>".$estado."</td>";
     		$tecnico = ($item->tecnico_asigna > 0)?'disabled':'';
     		$repara = ($item->tecnico_repara > 0)?'disabled':'';
     		if($_SESSION['SESSION_USER']->tipo == 1){

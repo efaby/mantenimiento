@@ -25,6 +25,7 @@
 		    <th>Horas Operando</th>
 		    <th>Fecha Emisión</th>
 		    <th>Fecha Atención</th>
+		    <th>Estado</th>
 		    <th style="text-align: center; ">Acciones</th>
 	    </tr>
     </thead>
@@ -41,6 +42,8 @@
     		echo "<td>".$item->horas_operacion."</td>";
     		echo "<td>".$item->fecha_emision."</td>";
     		echo "<td>".$item->fecha_atencion."</td>";
+    		$estado = ($item->atendido==1)?'Cerrado':'Abierto';
+    		echo "<td>".$estado."</td>";
     		echo "<td align='center'>
 						<a href='../editar/".$item->id."' class='btn btn-warning btn-sm ".$disabled."' title='Ejecutar Mantenimiento' ><i class='fa fa-pencil'></i></a>
 		    		<a href='javascript: loadModal(".$item->id.")' class='btn btn-info btn-sm' title='Ver Orden' ><i class='fa fa-info-circle'></i></td>";

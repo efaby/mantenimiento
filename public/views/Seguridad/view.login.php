@@ -21,8 +21,10 @@
 
 <div id="temafondo">
 		<div id="logoindex">
+		<div id="logoEspoch"><img src="<?php echo PATH_IMAGES; ?>/logoEspoch.png" height="100px"></div>
 		<div class="titulo">SAM-W&L</div>
 		<div id="logo"><img src="<?php echo PATH_IMAGES; ?>/logo.png" height="50px"></div>
+		
 		</div>
         <div id="logosombra">
 		</div>

@@ -374,4 +374,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
 	font-size: 38px;	
 }
 
-
+#logoEspoch{
+	float: right;
+	padding-right: 50px;
+	
+}

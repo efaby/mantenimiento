@@ -26,6 +26,7 @@
 		    <th>Técnico</th>
 		    <th>Fecha Mantenimiento</th>
 		    <th>Tiempo Uso</th>
+		     <th>Estado</th>
 		    <th style="text-align: center; ">Acciones</th>
 	    </tr>
     </thead>
@@ -39,7 +40,9 @@
     		echo "<td>".$item->tiempo_ejecucion."</td>";
     		echo "<td>".$item->nombres." ".$item->apellidos."</td>";
     		echo "<td>".$item->fecha_atencion."</td>";
-    		echo "<td>".$item->horas_totales."</td>";   		
+    		echo "<td>".$item->horas_totales."</td>"; 
+    		$estado = ($item->atendido==1)?'Cerrado':'Abierto';
+    		echo "<td>".$estado."</td>";
     		echo "<td align='center'>						
 		    		<a href='javascript: loadModal(".$item->id.")' class='btn btn-info btn-sm' title='Ver Orden' ><i class='fa fa-info-circle'></i></td>";
     	}?>

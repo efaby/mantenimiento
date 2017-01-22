@@ -17,12 +17,16 @@
 		<div id="texto"> <?php echo " Cada ".$item->nombres." ".$item->apellidos; ?></div>
 	</div>	
 	
-	<div class="form-group  col-sm-6">
+	<div class="form-group  col-sm-4">
 		<label class="control-label">Fecha Emisión</label>
 		<div id="texto"> <?php echo $item->fecha_emision; ?></div>
 	</div>	
 	
-	<div class="form-group  col-sm-6">
+	<div class="form-group  col-sm-4">
+		<label class="control-label">Estado</label>
+		<div id="texto"> <?php echo ($item->atendido==1)?'Cerrado':'Abierto'; ?></div>
+	</div>
+	<div class="form-group  col-sm-4">
 		<label class="control-label">Fecha Atención</label>
 		<div id="texto"> <?php echo $item->fecha_atencion; ?></div>
 	</div>
