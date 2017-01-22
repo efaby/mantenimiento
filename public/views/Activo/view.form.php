@@ -69,7 +69,7 @@
 					<?php if(isset($item->imagen_maquina_url) &&  $item->imagen_maquina_url != ''):?>
 						<input type='file' name='imagen_maquina_url1' id="imagen_maquina_url1" class="file">		
 							<a href="../downloadFile/<?php echo $item->imagen_maquina_url;?>">Descargar</a>
-						<input type="hidden" name="fileName" value="<?php echo $item->imagen_maquina_url;?>">
+						<input type="hidden" name="filename" value="<?php echo $item->imagen_maquina_url;?>">
 					<?php else :?>
 						<input type='file' name='imagen_maquina_url' id="imagen_maquina_url" class="file">	
 					<?php endif;?>
@@ -209,19 +209,6 @@
 					value="<?php echo $item->funcion; ?>">
 			</div>
 		</div>	
-		<div class="form-group col-sm-12">
-			<div class="form-group col-sm-12">
-				<label class="control-label">Nomenclatura</label> 
-					<?php if(isset($item->diagram_proceso_url) &&  $item->diagram_proceso_url != ''):?>
-						<input type='file' name='nomenglatura_url1' id="nomenglatura_url1" class="file">		
-							<a href="../downloadFile/<?php echo $item->nomenglatura_url;?>">Descargar</a>
-						<input type="hidden" name="fileName1" value="<?php echo $item->nomenglatura_url;?>">
-					<?php else :?>
-						<input type='file' name='nomenglatura_url' id="nomenglatura_url" class="file">	
-					<?php endif;?>
-			</div>		
-		</div>	
-		
 		<div class="form-group  col-sm-12">
 		<div class="form-group  col-sm-6">
 		<label class="control-label">Laboratorio</label>
@@ -506,15 +493,12 @@ $(document).ready(function() {
 	                }
 				}
 			},
-			nomenglatura_url: {
-					validators: {
-						notEmpty: {
-							message: 'Seleccione una Nomenclatura.'
-						},
-						file: {
-		                    extension: 'jpg, gif, jpeg, png',
-		                    message: 'Seleccione una nomenclatura válido. (jpg, jpeg, gif, png)'
-		               }
+			imagen_maquina_url1: {
+				validators: {					
+					file: {
+	                    extension: 'jpg, gif, jpeg, png',
+	                    message: 'Seleccione una imagen válido. (jpg, jpeg, gif, png)'
+	                }
 				}
 			},
 			diagram_proceso_url:{
@@ -528,6 +512,14 @@ $(document).ready(function() {
 		                }
 				}
 			},	
+			diagram_proceso_url1:{
+				validators: {
+					file: {
+	                    extension: 'pdf,docx,doc',
+	                    message: 'Seleccione un archivo válido. (pdf, doc, docx)'
+	                }
+				}
+			},
 			tipo_motor_id:{
 				message: 'El tipo de motor no es válido',
 				validators: {

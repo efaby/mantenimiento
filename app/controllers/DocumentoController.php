@@ -165,7 +165,7 @@ class DocumentoController {
 		$font = FontMetrics::getFont("helvetica", "bold");
 		$canvas->page_text(550, 750, "Pág. {PAGE_NUM}/{PAGE_COUNT}", $font, 6, array(0,0,0)); //header
 		$canvas->page_text(270, 770, "Copyright © 2017 - SAM - W&L", $font, 6, array(0,0,0)); //footer		
-		$dompdf->stream('general'.$activoId);
+		$dompdf->stream('general'.$activoId, array("Attachment"=>false));
 	}
 	
 	public function general_laboratorio(){
@@ -225,7 +225,7 @@ class DocumentoController {
 		$font = FontMetrics::getFont("helvetica", "bold");
 		$canvas->page_text(550, 750, "Pág. {PAGE_NUM}/{PAGE_COUNT}", $font, 6, array(0,0,0)); //header
 		$canvas->page_text(270, 770, "Copyright © 2017 - SAM - W&L", $font, 6, array(0,0,0)); //footer
-		$dompdf->stream('general'.$activoId);
+		$dompdf->stream('general'.$activoId, array("Attachment"=>false));
 	}
 	
 	
@@ -325,7 +325,7 @@ class DocumentoController {
 		$font = FontMetrics::getFont("helvetica", "bold");
 		$canvas->page_text(550, 750, "Pág. {PAGE_NUM}/{PAGE_COUNT}", $font, 6, array(0,0,0)); //header
 		$canvas->page_text(270, 770, "Copyright © 2017 - SAM - W&L", $font, 6, array(0,0,0)); //footer
-		$dompdf->stream('planes'.$activoId);
+		$dompdf->stream('planes'.$activoId,  array("Attachment"=>false));
 	}
 	
 	public function laboratorios(){
@@ -382,7 +382,7 @@ class DocumentoController {
 		$canvas->page_text(550, 750, "Pág. {PAGE_NUM}/{PAGE_COUNT}", $font, 6, array(0,0,0)); //header
 		$canvas->page_text(270, 770, "Copyright © 2017 - SAM - W&L", $font, 6, array(0,0,0)); //footer
 		header("Content-type: application/pdf");		
-		$dompdf->stream('laboratorios'.$laboratorioId);
+		$dompdf->stream('laboratorios'.$laboratorioId, array("Attachment"=>false));
 	}	
 	
 	public function labByTecnico(){
@@ -439,6 +439,6 @@ class DocumentoController {
 		$canvas->page_text(550, 750, "Pág. {PAGE_NUM}/{PAGE_COUNT}", $font, 6, array(0,0,0)); //header
 		$canvas->page_text(270, 770, "Copyright © 2017 - SAM - W&L", $font, 6, array(0,0,0)); //footer
 		header("Content-type: application/pdf");
-		$dompdf->stream('laboratorios'.$laboratorioId);
+		$dompdf->stream('laboratorios'.$laboratorioId, array("Attachment"=>false));
 	}
 }

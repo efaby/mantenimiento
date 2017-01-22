@@ -78,7 +78,7 @@
 		</div>			
 	<div class="form-group  col-sm-12">
 	<div class="form-group  col-sm-6">
-		<label class="control-label">Asignar Técnico</label>
+		<label class="control-label">Asignar Responsable de Laboratorio/Centro de Simulación /Taller</label>
 		<select class='form-control' name="usuario_id" id="usuario_id">
 			<option value="" >Seleccione</option>
 		<?php foreach ($tecnicos as $dato) { ?>
@@ -87,7 +87,18 @@
 		</select>
 	</div>
 	</div>
-	
+	<div class="form-group col-sm-12">
+			<div class="form-group col-sm-12">
+				<label class="control-label">Nomenclatura</label> 
+					<?php if(isset($item->nomenglatura_url) &&  $item->nomenglatura_url != ''):?>
+						<input type='file' name='nomenglatura_url1' id="nomenglatura_url1" class="file">		
+							<a href="../downloadFile/<?php echo $item->nomenglatura_url;?>">Descargar</a>
+						<input type="hidden" name="filename1" value="<?php echo $item->nomenglatura_url;?>">
+					<?php else :?>
+						<input type='file' name='nomenglatura_url' id="nomenglatura_url" class="file">	
+					<?php endif;?>
+			</div>		
+	</div>	
 	<div class="form-group">
 	<input type='hidden' name='id' class='form-control' value="<?php echo $item->id; ?>">
 	<input type='hidden' name='idLab' class='form-control' value="<?php echo $item->idLab; ?>">
@@ -179,7 +190,26 @@ $(document).ready(function() {
                     },
                     
                 }
-            },				
+            },
+            nomenglatura_url: {
+				validators: {
+					notEmpty: {
+						message: 'Seleccione una Nomenclatura.'
+					},
+					file: {
+	                    extension: 'jpg, gif, jpeg, png',
+	                    message: 'Seleccione una nomenclatura válido. (jpg, jpeg, gif, png)'
+	               }
+				}
+			},				
+			nomenglatura_url1: {
+					validators: {
+						file: {
+		                    extension: 'jpg, gif, jpeg, png',
+		                    message: 'Seleccione una nomenclatura válido. (jpg, jpeg, gif, png)'
+		               }
+					}
+				},
 			usuario_id: {
 				validators: {
 					notEmpty: {

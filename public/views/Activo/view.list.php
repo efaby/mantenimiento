@@ -4,7 +4,7 @@
 <!-- Main row -->
 <div class="row">
 	<div class="col-lg-12">
-    	<h1 class="page-header">Activos</h1>
+    	<h1 class="page-header">Activos Físicos</h1>
    	</div>
 </div>
 <?php if (isset($_SESSION['message'])&& ($_SESSION['message'] != '')):?>

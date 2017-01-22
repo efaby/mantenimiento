@@ -54,8 +54,8 @@ class File {
 	
 	public function uploadFileGeneric($prefix,$folder,$url, $filename, $url1){
 		$key = $url;
-		if(isset($filename)){				
-			if($_FILES[$url1]['name']!=''){
+		if(isset($filename)){
+			if($url1 !=''){
 				$key = $url1;
 				unlink(PATH_FILES.$folder.'/'.$filename);
 			} else {
@@ -67,11 +67,10 @@ class File {
 	
 	private function uploadFileToServerGeneric($prefix,$key,$path){
 		$name = $key['name'];
-		$name_tmp = $key['tmp_name'];
-		$name = explode('.', $name);
+		$name_tmp = $key['tmp_name'];		
+		$name = explode('.', $name);		
 		$nombre = $prefix.rand().".".$name[1];
-		@move_uploaded_file($name_tmp, $path . $nombre);
+		@move_uploaded_file($name_tmp, $path . $nombre);		
 		return $nombre;
-	}	
-	
+	}		
 }

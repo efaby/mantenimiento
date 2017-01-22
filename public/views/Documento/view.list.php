@@ -31,10 +31,10 @@
     		echo "<td>".$item->laboratorio."</td>";
     		echo "<td>".$item->nombre_activo."</td>";  		
     		echo "<td align='center'>
-				<a href='../general/".$item->id."' class='btn btn-info btn-sm' title='FICHA TÉCNICA' ><i class='fa fa-file-pdf-o'></i></a>
-				<a href='../planes/".$item->id."' class='btn btn-info btn-sm' title='PLANES DE MANTENIMENTO EQUIPO/INSTALACIONES' ><i class='fa fa-file-pdf-o'></i></a>
-				<a href='javascript: loadModal(".$item->id.")' class='btn btn-info btn-sm' title='GUÍA DE PRÁCTICAS' ><i class='fa fa-file-pdf-o'></i></a>
-				<a href='../downloadFile/".$item->diagram_proceso_url."' class='btn btn-info btn-sm' title='FLUJO DE OPERACIÓN' ><i class='fa fa-file-pdf-o'></i></a>				
+				<a href='../general/".$item->id."' target='_blank' class='btn btn-info btn-sm' title='FICHA TÉCNICA' ><i class='fa fa-file-pdf-o'></i></a>
+				<a href='../planes/".$item->id."' target='_blank' class='btn btn-info btn-sm' title='PLANES DE MANTENIMENTO EQUIPO/INSTALACIONES' ><i class='fa fa-file-pdf-o'></i></a>
+				<a href='javascript: loadModal(".$item->id.")' target='_blank' class='btn btn-info btn-sm' title='GUÍA DE PRÁCTICAS' ><i class='fa fa-file-pdf-o'></i></a>
+				<a href='../downloadFile/".$item->diagram_proceso_url."' target='_blank' class='btn btn-info btn-sm' title='FLUJO DE OPERACIÓN' ><i class='fa fa-file-pdf-o'></i></a>				
 				</td>";
     	}?>
     </tbody>

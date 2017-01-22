@@ -36,7 +36,7 @@ class ActivoController {
 		$activo ['manual_fabricante'] = $_POST ['manual_fabricante'];
 		$activo ['seccion'] = $_POST ['seccion'];
 		if((isset($_FILES['imagen_maquina_url']) && $_FILES['imagen_maquina_url']['name']!='') || (isset($_FILES['imagen_maquina_url1']) && $_FILES['imagen_maquina_url1']['name']!='')){
-			$activo ['imagen_maquina_url'] = $this->uploadFile('act','activos',$_FILES['imagen_maquina_url'],$_POST['filename'],$_POST['imagen_maquina_url1']);
+			$activo ['imagen_maquina_url'] = $this->uploadFile('act','activos',$_FILES['imagen_maquina_url'],$_POST['filename'],$_FILES['imagen_maquina_url1']);
 		}
 		$activo ['marca_maquina'] = $_POST ['marca_maquina'];
 		$activo ['modelo_maquina'] = $_POST ['modelo_maquina'];
@@ -54,12 +54,9 @@ class ActivoController {
 		$activo ['amperios_motor'] = $_POST ['amperios_motor'];
 		$activo ['kw'] = $_POST ['kw'];
 		$activo ['tipo_motor_id'] = $_POST ['tipo_motor_id'];
-		$activo ['funcion'] = $_POST ['funcion'];
-		if((isset($_FILES['nomenglatura_url']) && $_FILES['nomenglatura_url']['name']!='')||(isset($_FILES['nomenglatura_url1']) && $_FILES['nomenglatura_url1']['name']!='')){
-			$activo ['nomenglatura_url'] = $this->uploadFile('act','activos',$_FILES['nomenglatura_url'], $_POST['filename1'],$_POST['nomenglatura_url1']);
-		}
+		$activo ['funcion'] = $_POST ['funcion'];	
 		if((isset($_FILES['diagram_proceso_url']) && $_FILES['diagram_proceso_url']['name']!='')||(isset($_FILES['diagram_proceso_url1']) && $_FILES['diagram_proceso_url1']['name']!='')){
-			$activo ['diagram_proceso_url'] = $this->uploadFile('act','activos',$_FILES['diagram_proceso_url'], $_POST['filename2'],$_POST['diagram_proceso_url1']);
+			$activo ['diagram_proceso_url'] = $this->uploadFile('act','activos',$_FILES['diagram_proceso_url'], $_POST['filename2'],$_FILES['diagram_proceso_url1']);
 		}
 		$activo ['laboratorio_id']  = $_POST ['laboratorio_id'];
 		
