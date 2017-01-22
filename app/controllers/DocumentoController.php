@@ -47,35 +47,6 @@ class DocumentoController {
 				</style>
 				</head>
 				<body>
-					<table border=0 >
-						<tr><td align=center><img src=".PATH_FILES."../images/caratula.png width=650 height=900></td></tr>
-						<tr><td align=center><br><br><b>INDICE</b><br><br></td></tr>
-						<tr><td>1.Introducción</td></tr>
-						<tr><td>&nbsp;</td></tr>
-						<tr><td>2.Objetivos</td></tr>
-						<tr><td>&nbsp;</td></tr>								
-						<tr><td>3.Nomenclatura</td></tr>
-						<tr><td>&nbsp;</td></tr>
-						<tr><td>4.Generalidades</td></tr>
-						<tr><td>&nbsp;</td></tr>
-						<tr><td>5.Seguridad</td></tr>
-						<tr><td>&nbsp;</td></tr>
-						<tr><td>6.Ficha Técnica</td></tr></table>
-					<table style='page-break-after:always;'></br></table>
-					<table width= 100% border=0>
-						<tr><td><b>1. Introducción</b></td></tr>
-						<tr><td align=justify>".htmlspecialchars_decode($datos[0]->introduccion)."</td></tr>
-						<tr><td><b>2. Objetivos</b></td></tr><tr><td align=justify>".htmlspecialchars_decode($datos[0]->objetivos)."</td></tr>
-						<tr><td><b>3. Nomenclatura</b></td></tr>
-						<tr><td><img src=".PATH_FILES."activos/".$datos[0]->nomenglatura_url." width=400 height=400></td></tr>
-						<tr><td><b>4. Generalidades</b></td></tr>
-						<tr><td align=justify>".htmlspecialchars_decode($datos[0]->generalidades)."</td></tr>
-						<tr><td><b>5. Seguridad</b></td></tr>
-						<tr><td align=justify>".htmlspecialchars_decode($datos[0]->seguridad)."</td></tr>
-						<tr><td><b>6. Ficha Técnina del Banco de Pruebas</b></td></tr>		
-					</table>
-					<table style='page-break-after:always;'></br></table>
-					<br>			
 					<table width= 100%>
 						<tr>
 							<td rowspan=4 align=center width= 15%>
@@ -197,6 +168,67 @@ class DocumentoController {
 		$dompdf->stream('general'.$activoId);
 	}
 	
+	public function general_laboratorio(){
+		$activoId = $_GET['id'];
+		$model = new DocumentoModel();
+		$datos = $model->getLaboratorios($activoId);
+		
+		$html="<html>
+				<head>
+				<style=txt/css>
+					body {
+						margin: 20px 20px 20px 50px;
+					}
+					table{
+					   border-collapse: collapse; width: 100%;
+					}
+			
+					td{
+					   border:1px solid #ccc; padding:1px;
+					   font-size:9pt;
+					}
+				</style>
+				</head>
+				<body>
+					<table border=0 >
+						<tr><td align=center><img src=".PATH_FILES."../images/caratula.png width=650 height=900></td></tr>
+						<tr><td align=center><br><br><b>INDICE</b><br><br></td></tr>
+						<tr><td>1.Introducción</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>2.Objetivos</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>3.Nomenclatura</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>4.Generalidades</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>5.Seguridad</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>6.Ficha Técnica</td></tr></table>
+					<table style='page-break-after:always;'></br></table>
+					<table width= 100% border=0>
+						<tr><td><b>1. Introducción</b></td></tr>
+						<tr><td align=justify>".htmlspecialchars_decode($datos[0]->introduccion)."</td></tr>
+						<tr><td><b>2. Objetivos</b></td></tr><tr><td align=justify>".htmlspecialchars_decode($datos[0]->objetivos)."</td></tr>
+						<tr><td><b>3. Nomenclatura</b></td></tr>
+						<tr><td><img src=".PATH_FILES."activos/".$datos[0]->nomenglatura_url." width=400 height=400></td></tr>
+						<tr><td><b>4. Generalidades</b></td></tr>
+						<tr><td align=justify>".htmlspecialchars_decode($datos[0]->generalidades)."</td></tr>
+						<tr><td><b>5. Seguridad</b></td></tr>
+						<tr><td align=justify>".htmlspecialchars_decode($datos[0]->seguridad)."</td></tr>
+						<tr><td><b>6. Ficha Técnina del Banco de Pruebas</b></td></tr>
+					</table>					
+					</body></html>";
+		$dompdf = new Dompdf();
+		$dompdf->load_html($html);
+		$dompdf->render();
+		$canvas = $dompdf->get_canvas();
+		$font = FontMetrics::getFont("helvetica", "bold");
+		$canvas->page_text(550, 750, "Pág. {PAGE_NUM}/{PAGE_COUNT}", $font, 6, array(0,0,0)); //header
+		$canvas->page_text(270, 770, "Copyright © 2017 - SAM - W&L", $font, 6, array(0,0,0)); //footer
+		$dompdf->stream('general'.$activoId);
+	}
+	
+	
 	public function planes(){
 		$activoId = $_GET['id'];
 		$model = new DocumentoModel();
@@ -224,15 +256,19 @@ class DocumentoController {
 				</style> 				 				
 				</head>
 				<body>
+					<table width= 100%>
+						<tr>
+							<td rowspan=2 align=center width= 15%>
+								<img src=".PATH_FILES."../images/espoch.jpg height= 80px width=80px>
+							</td>
+							<td colspan='2' rowspan=2 align='center'><b>".$activo[0]->nombre_activo."</b></td>							
+							<td width=25% align='center'><img src=".PATH_FILES."../images/automotriz.png 80px width=80px></td>			
+						</tr>
+						<tr>
+							<td width=25%><b>Código:</b> ".$activo[0]->codigo."</td>
+						</tr>
+					 </table><br>					
 					<table style='width:100%'>
-						<tr>
-							<td colspan=2 style='text-align:center'><b>EQUIPO O MÁQUINA</b></td>
-							<td style='text-align:center'><b>CÓDIGO</b></td>
-						</tr>
-						<tr>
-							<td colspan=2 style='text-align:center'>".$activo[0]->nombre_activo."</td>
-							<td style='text-align:center'>".$activo[0]->codigo."</td>
-						</tr>
 						<tr>
 							<td style='text-align:center'><b>PARTES IMPORTANTES</b></td>
 							<td style='text-align:center'><b>TAREA DE MANTENIMIENTO</b></td>
@@ -313,18 +349,27 @@ class DocumentoController {
 					</style>
 				</head>
 				<body>
-					 <center><h3>Listado de Activos</h3></center>
+					 <table width= 100%>
+						<tr>
+							<td align=center width= 15%>
+								<img src=".PATH_FILES."../images/espoch.jpg height= 80px width=80px>
+							</td>
+							<td colspan='2' align='center'><b>LISTADO DE ACTIVOS</b></td>							
+							<td width=25% align='center'><img src=".PATH_FILES."../images/automotriz.png 80px width=80px></td>			
+									
+						</tr>						
+					 </table><br>					
 					 <table style='width:100%'>
 						<tr>
 							<td style='text-align:center'><b>CÓDIGO</b></td>
-							<td style='text-align:center'><b>NOMBRE DEL ACTIVO</b></td>
 							<td style='text-align:center'><b>LABORATORIO</b></td>
+							<td style='text-align:center'><b>NOMBRE DEL ACTIVO</b></td>									
 						</tr>";
 		foreach ($laboratorios as $lab){
 		$html.="		<tr>
-							<td style='width: 33%'>".$lab->codigo."</td>
-							<td style='width: 33%'>".$lab->nombre_activo."</td>
+							<td style='width: 33%'>".$lab->codigo."</td>							
 							<td style='width: 34%'>".$lab->nombre_lab."</td>
+							<td style='width: 33%'>".$lab->nombre_activo."</td>
 						</tr>";
 		}
 		
@@ -339,4 +384,61 @@ class DocumentoController {
 		header("Content-type: application/pdf");		
 		$dompdf->stream('laboratorios'.$laboratorioId);
 	}	
+	
+	public function labByTecnico(){
+		$laboratorioId = $_GET['id'];
+		$model = new DocumentoModel();
+		$laboratorios = $model->getLaboratoriosByTecnico($laboratorioId);
+		$html="	<html>
+				<head>
+					<style=txt/css>
+						body {
+						margin: 20px 20px 20px 50px;
+					}
+					table{
+					border-collapse: collapse; width: 100%;
+					}
+	
+					td{
+					border:1px solid #ccc; padding:1px;
+					font-size:9pt;
+					}
+					</style>
+				</head>
+				<body>
+					 <table width= 100%>
+						<tr>
+							<td align=center width= 15%>
+								<img src=".PATH_FILES."../images/espoch.jpg height= 80px width=80px>
+							</td>
+							<td colspan='2' align='center'><b>REPORTE DE LABORATORIOS</b></td>
+							<td width=25% align='center'><img src=".PATH_FILES."../images/automotriz.png 80px width=80px></td>
+					
+						</tr>
+					 </table><br>
+					 <table style='width:100%'>
+						<tr>
+							<td style='text-align:center'><b>ID</b></td>
+							<td style='text-align:center'><b>NOMBRE DEL LABORATORIO</b></td>
+							<td style='text-align:center'><b>NOMBRE DEL TÉCNICO</b></td>
+						</tr>";
+						foreach ($laboratorios as $lab){
+		$html.="		<tr>
+							<td style='width: 33%'>".$lab->id."</td>
+							<td style='width: 34%'>".$lab->laboratorio."</td>
+							<td style='width: 33%'>".$lab->tecnico."</td>
+						</tr>";
+						}
+	
+		$html.="</table><body></html>";
+		$dompdf = new Dompdf();
+		$dompdf->load_html($html);
+		$dompdf->render();
+		$canvas = $dompdf->get_canvas();
+		$font = FontMetrics::getFont("helvetica", "bold");
+		$canvas->page_text(550, 750, "Pág. {PAGE_NUM}/{PAGE_COUNT}", $font, 6, array(0,0,0)); //header
+		$canvas->page_text(270, 770, "Copyright © 2017 - SAM - W&L", $font, 6, array(0,0,0)); //footer
+		header("Content-type: application/pdf");
+		$dompdf->stream('laboratorios'.$laboratorioId);
+	}
 }

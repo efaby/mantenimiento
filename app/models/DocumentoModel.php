@@ -21,6 +21,7 @@ class DocumentoModel {
 		return $result;
 	}
 	
+	
 	public function getMotor(){
 		$model = new BaseModel();
 		$sql = "SELECT * FROM tipo_motor";
@@ -87,6 +88,14 @@ class DocumentoModel {
 	public function  getLaboratorios(){
 		$model = new BaseModel();
 		$sql = "SELECT * FROM laboratorio where eliminado=0";
+		return $model->execSql($sql, array(),true);
+	}
+	
+	public function getLaboratoriosByTecnico(){
+		$model = new BaseModel();
+		$sql = "SELECT l.id, nombre as laboratorio, concat(u.nombres,' ',u.apellidos) as tecnico
+				FROM laboratorio l
+				INNER JOIN usuario u ON l.usuario_id=u.id where l.eliminado=0";
 		return $model->execSql($sql, array(),true);
 	}
 }

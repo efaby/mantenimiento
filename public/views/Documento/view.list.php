@@ -31,11 +31,10 @@
     		echo "<td>".$item->laboratorio."</td>";
     		echo "<td>".$item->nombre_activo."</td>";  		
     		echo "<td align='center'>
-				<a href='../general/".$item->id."' class='btn btn-info btn-sm' title='General' ><i class='fa fa-file-pdf-o'></i></a>
-				<a href='../planes/".$item->id."' class='btn btn-info btn-sm' title='Planes Mantenimiento' ><i class='fa fa-file-pdf-o'></i></a>
-				<a href='javascript: loadModal(".$item->id.")' class='btn btn-info btn-sm' title='Practicas' ><i class='fa fa-file-pdf-o'></i></a>
-				<a href='../downloadFile/".$item->diagram_proceso_url."' class='btn btn-info btn-sm' title='Flujo de Operacion' ><i class='fa fa-file-pdf-o'></i></a>	
-				<a href='../laboratorios/".$item->laboratorio_id."' class='btn btn-info btn-sm' title='Inventario Laboratorio' ><i class='fa fa-file-pdf-o'></i></a>
+				<a href='../general/".$item->id."' class='btn btn-info btn-sm' title='FICHA TÉCNICA' ><i class='fa fa-file-pdf-o'></i></a>
+				<a href='../planes/".$item->id."' class='btn btn-info btn-sm' title='PLANES DE MANTENIMENTO EQUIPO/INSTALACIONES' ><i class='fa fa-file-pdf-o'></i></a>
+				<a href='javascript: loadModal(".$item->id.")' class='btn btn-info btn-sm' title='GUÍA DE PRÁCTICAS' ><i class='fa fa-file-pdf-o'></i></a>
+				<a href='../downloadFile/".$item->diagram_proceso_url."' class='btn btn-info btn-sm' title='FLUJO DE OPERACIÓN' ><i class='fa fa-file-pdf-o'></i></a>				
 				</td>";
     	}?>
     </tbody>

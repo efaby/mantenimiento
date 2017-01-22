@@ -20,6 +20,9 @@
 			<i class="glyphicon glyphicon-plus"></i> Nuevo
 		</a>
 	</div>
+	<div class="col-lg-12">
+		<a href='../../Documento/labByTecnico/ class='btn btn-info btn-sm' title='INVENTARIO DE LABORATORIO/CENTRO DE SIMULACION/TALLER' ><i class='fa fa-file-pdf-o'></i></a>
+	</div>
 	<table class="table table-striped table-bordered table-hover" id="dataTables-example">
     <thead>
 	    <tr>
@@ -37,7 +40,9 @@
     		echo "<td>".$item->nombre."</td>";  		
     		
     		echo "<td align='center'>
-		<a href='javascript: loadModal(".$item->id.")' class='btn btn-info btn-sm' title='Docentes' ><i class='fa fa-users'></i></a>
+				<a href='../../Documento/general_laboratorio/".$item->id."' class='btn btn-info btn-sm' title='NORMATIVA/SEGURIDAD' ><i class='fa fa-file-pdf-o'></i></a>
+    			<a href='../../Documento/laboratorios/".$item->id."' class='btn btn-info btn-sm' title='ACTIVOS' ><i class='fa fa-file-pdf-o'></i></a>
+				<a href='javascript: loadModal(".$item->id.")' class='btn btn-info btn-sm' title='Docentes' ><i class='fa fa-users'></i></a>
 				<a href='../editar/".$item->id."' class='btn btn-warning btn-sm' title='Editar' ><i class='fa fa-pencil'></i></a>
 				<a href='javascript:if(confirm(\"Está seguro que desea eliminar el elemento seleccionado?\")){redirect(".$item->id.");}' class='btn btn-danger btn-sm' title='Eliminar'><i class='fa fa-trash'></i></a></td>";
     	}?>
