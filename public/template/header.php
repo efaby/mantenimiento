@@ -28,6 +28,20 @@
     <!-- Custom Fonts -->
     <link href="<?php echo PATH_CSS; ?>/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="<?php echo PATH_CSS; ?>/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+    body,html{
+		height:100%; /*Siempre es necesario cuando trabajamos con alturas*/
+	}
+	 #inferior{
+				
+		position:absolute; 
+		left:0px; 
+		right:0px; 
+		bottom:10px; 
+		width: 250px;
+		z-index:0;
+	 }
+    </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -112,6 +126,21 @@
         </div>
     </nav>
 
+	<?php if($_SESSION['SESSION_USER']->tipo < 3): ?>
+	<div id="inferior">
+		<ul class="nav" id="side-menu">
+			<?php if($_SESSION['SESSION_USER']->tipo == 1): ?>
+			<li >
+                <a href="../../Respaldo/crear/" style="background: #eee"><i class="fa fa-database fa-fw"></i>Respaldar Datos</a>
+            </li>
+            <?php else:?>
+            <li >
+                <a href="../../Novedades/ingreso/" style="background: #eee"><i class="fa fa-pencil fa-fw"></i>Ingreso Novedad</a>
+            </li>
+            <?php endif;?>
+		</ul>
+	</div>
+	<?php endif;?>
     <!-- Page Content -->
     <div id="page-wrapper">
         <div class="container-fluid">
