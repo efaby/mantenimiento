@@ -25,7 +25,7 @@
 		    <th>Tiempo Mantenimiento</th>
 		    <th>Técnico</th>
 		    <th>Fecha Mantenimiento</th>
-		    <th>Tiempo Uso</th>
+		    <th>Horas / Tiempo de Operación</th>
 		     <th>Estado</th>
 		    <th style="text-align: center; ">Acciones</th>
 	    </tr>
