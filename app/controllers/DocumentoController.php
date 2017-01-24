@@ -354,7 +354,7 @@ class DocumentoController {
 							<td align=center width= 15%>
 								<img src=".PATH_FILES."../images/espoch.jpg height= 80px width=80px>
 							</td>
-							<td colspan='2' align='center'><b>LISTADO DE ACTIVOS</b></td>							
+							<td colspan='2' align='center'><b>LISTADO DE ACTIVOS FÍSICOS</b></td>							
 							<td width=25% align='center'><img src=".PATH_FILES."../images/automotriz.png 80px width=80px></td>			
 									
 						</tr>						
@@ -363,7 +363,7 @@ class DocumentoController {
 						<tr>
 							<td style='text-align:center'><b>CÓDIGO</b></td>
 							<td style='text-align:center'><b>LABORATORIO</b></td>
-							<td style='text-align:center'><b>NOMBRE DEL ACTIVO</b></td>									
+							<td style='text-align:center'><b>NOMBRE DEL ACTIVO FÍSICOS</b></td>									
 						</tr>";
 		foreach ($laboratorios as $lab){
 		$html.="		<tr>
