@@ -363,7 +363,7 @@ class DocumentoController {
 						<tr>
 							<td style='text-align:center'><b>CÓDIGO</b></td>
 							<td style='text-align:center'><b>LABORATORIO</b></td>
-							<td style='text-align:center'><b>NOMBRE DEL ACTIVO FÍSICOS</b></td>									
+							<td style='text-align:center'><b>NOMBRE DEL ACTIVO FÍSICO</b></td>									
 						</tr>";
 		foreach ($laboratorios as $lab){
 		$html.="		<tr>
