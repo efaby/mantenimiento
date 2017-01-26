@@ -31,7 +31,7 @@ class SeguridadModel {
 	
 	public function getAcceso($id){
 		$model = new BaseModel();
-		$sql = "select * from acceso where rol_id = ".$id." order by orden";
+		$sql = "select * from acceso where eliminado=0 and rol_id = ".$id." order by orden";
 		return $model->execSql($sql,array(),true);
 	}
 	
@@ -59,6 +59,5 @@ class SeguridadModel {
 	{
 		$model = new BaseModel();
 		return $model->saveDatos($orden,'orden_plan');
-	}
-	
+	}	
 }
