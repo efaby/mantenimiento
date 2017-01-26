@@ -32,6 +32,7 @@ class DocumentoController {
 		
 		$html="<html>
 				<head>
+				<link href='http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css' rel='stylesheet'/>
 				<style=txt/css>
 					body {
 						margin: 20px 20px 20px 50px; 
@@ -138,8 +139,8 @@ class DocumentoController {
 						</tr><tr>";
 						foreach ($motor as $tipo)
 						{
-							$val = ($tipo->id==$datos[0]->tipo_motor_id)?"checked":"";
-							$html.="<td>".$tipo->nombre."<input type=checkbox name=tipo_motor_id ".$val."></td>";
+							$val = ($tipo->id==$datos[0]->tipo_motor_id)?"<img src=".PATH_FILES."../images/check.png height= 15px width=15px>":"<img src=".PATH_FILES."../images/descheck.png height= 15px width=15px>";
+							$html.="<td>".$tipo->nombre." ".$val."</td>";
 						}
 						$html.="</tr></table>
 						<table width= 100% class='table table-bordered'><tr><td colspan=2 align=center><b>PARTES IMPORTANTES</b></td></tr>";
