@@ -5,7 +5,9 @@ class AccesoModel {
 
 	public function getlistadoAcceso($docente){
 		$model = new BaseModel();	
-		$sql = "SELECT * FROM acceso where eliminado=0";		
+		$sql = "SELECT a.id, a.rol_id,a.accion,a.icono,a.titulo,a.orden,a.menu,t.nombre FROM acceso a
+				INNER JOIN tipo_usuario t ON a.rol_id = t.id
+				WHERE eliminado=0";		
 		return $model->execSql($sql, array(),true);
 	}
 	
@@ -40,6 +42,13 @@ class AccesoModel {
 		$listMenu[]=$menu;
 		return $listMenu;
 	}
+	
+	public function getRoles(){
+		$model = new BaseModel();
+		$sql="SELECT id, nombre FROM tipo_usuario";
+		return $model->execSql($sql, array(),true);
+	}
+	
 	public function saveAcceso($acceso)
 	{
 		$model = new BaseModel();

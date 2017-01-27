@@ -36,7 +36,7 @@
     <tbody>
     	<?php foreach ($datos as $item) {
     		echo "<tr><td>".$item->id."</td>";
-    		echo "<td>".$item->rol_id."</td>";
+    		echo "<td>".$item->nombre."</td>";
 			echo "<td>".$item->accion."</td>";
     		echo "<td>".$item->icono."</td>";
     		echo "<td>".$item->titulo."</td>";

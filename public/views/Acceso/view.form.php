@@ -1,9 +1,14 @@
 <form id="frmAcceso" method="post" action="../guardar/">
 <div style="overflow: auto;">
 	<div class="form-group col-sm-6">
-		<label class="control-label">Rol</label> <input type='text'
-			name='rol_id' class='form-control'
-			value="<?php echo $item->rol_id; ?>" id="rol_id">
+		<label class="control-label">Rol</label> 
+			<select class='form-control' name="rol_id">
+				<option value="" >Seleccione</option>
+			<?php foreach ($listRoles as $dato) { ?>
+				<option value="<?php echo $dato->id;?>"  <?php if($item->rol_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
+			<?php }?>
+			</select>
+			
 	</div>
 	<div class="form-group col-sm-6">
 		<label class="control-label">Acción</label> <input type='text'
@@ -56,13 +61,9 @@ $(document).ready(function() {
 			rol_id: {
 				message: 'El Número de Rol no es válido',
 				validators: {
-							notEmpty: {
-								message: 'El Número de Rol no puede ser vacío.'
-							},	
-							regexp: {
-								regexp: /^[0-9]+$/,
-								message: 'Ingrese un Número de Rol válido.'
-							}
+					notEmpty: {
+						message: 'Seleccione una Opción del Rol'
+					}
 				}
 			},											
 			accion: {

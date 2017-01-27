@@ -16,6 +16,7 @@ class AccesoController {
 		$model = new AccesoModel();
 		$item = $model->getAcceso();
 		$listMenu = $model->getListMenu();
+		$listRoles = $model->getRoles();
 		$message = "";
 		require_once PATH_VIEWS."/Acceso/view.form.php";
 	}
