@@ -5,7 +5,7 @@ class AccesoModel {
 
 	public function getlistadoAcceso($docente){
 		$model = new BaseModel();	
-		$sql = "SELECT * FROM mantenimiento.acceso where eliminado=0";		
+		$sql = "SELECT * FROM acceso where eliminado=0";		
 		return $model->execSql($sql, array(),true);
 	}
 	
@@ -14,7 +14,7 @@ class AccesoModel {
 		$acceso = $_GET['id'];
 		$model = new BaseModel();
 		if($acceso > 0){
-			$sql = "SELECT * FROM mantenimiento.acceso where eliminado=0
+			$sql = "SELECT * FROM acceso where eliminado=0
 					and id = ?";
 			$result = $model->execSql($sql, array($acceso));
 			
