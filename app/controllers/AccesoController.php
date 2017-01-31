@@ -16,7 +16,7 @@ class AccesoController {
 		$model = new AccesoModel();
 		$item = $model->getAcceso();
 		$listMenu = $model->getListMenu();
-		$listRoles = $model->getRoles();
+		$listRoles = $model->getRoles();		
 		$message = "";
 		require_once PATH_VIEWS."/Acceso/view.form.php";
 	}
@@ -29,7 +29,7 @@ class AccesoController {
 		$acceso ['titulo'] = $_POST ['titulo'];
 		$acceso ['orden'] = $_POST ['orden'];
 		$acceso ['menu'] = $_POST ['menu'];
-	
+		
 		$model = new AccesoModel();
 		try {
 			$datos = $model->saveAcceso($acceso);

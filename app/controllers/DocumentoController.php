@@ -50,8 +50,9 @@ class DocumentoController {
 				<body>
 					<table width= 100%>
 						<tr>
-							<td rowspan=4 align=center width= 15%>
+							<td rowspan=4 align=center width= 25%>
 								<img src=".PATH_FILES."../images/espoch.jpg height= 80px width=80px>
+								<img src=".PATH_FILES."../images/automotriz.png 80px width=80px>
 							</td>
 							<td rowspan='2' colspan='2' align='center'><b>BANCO DE PRUEBAS PARA EL ANÁLISIS DE ".strtoupper($datos[0]->nombre_activo)."</b></td>
 							<td width=25%>Ficha:".$datos[0]->ficha."</td>
@@ -140,7 +141,7 @@ class DocumentoController {
 						foreach ($motor as $tipo)
 						{
 							$val = ($tipo->id==$datos[0]->tipo_motor_id)?"<img src=".PATH_FILES."../images/check.png height= 15px width=15px>":"<img src=".PATH_FILES."../images/descheck.png height= 15px width=15px>";
-							$html.="<td>".$tipo->nombre." ".$val."</td>";
+                            $html.="<td>".$tipo->nombre." ".$val."</td>";
 						}
 						$html.="</tr></table>
 						<table width= 100% class='table table-bordered'><tr><td colspan=2 align=center><b>PARTES IMPORTANTES</b></td></tr>";
@@ -149,7 +150,7 @@ class DocumentoController {
 							if(isset($value->url) && $value->url != null){
 								$html.="<tr>
 										<td align=center colspan=2>
-										<img src=".PATH_FILES."activos/".$value->url." width=20 height=20></td></tr>";
+										<img src=".PATH_FILES."partes/".$value->url." height=100></td></tr>";
 							}
 						}
 						$html.="<tr><td align=center><b>#</b></td><td align=center><b>DENOMINACIÓN</b></td></tr>";
@@ -165,8 +166,10 @@ class DocumentoController {
 		$canvas = $dompdf->get_canvas();
 		$font = FontMetrics::getFont("helvetica", "bold");
 		$canvas->page_text(550, 750, "Pág. {PAGE_NUM}/{PAGE_COUNT}", $font, 6, array(0,0,0)); //header
-		$canvas->page_text(270, 770, "Copyright © 2017 - SAM - W&L", $font, 6, array(0,0,0)); //footer		
-		$dompdf->stream('general'.$activoId, array("Attachment"=>false));
+		$canvas->page_text(270, 770, "Copyright © 2017 - SAM - W&L", $font, 6, array(0,0,0)); //footer	
+			
+		$dompdf->stream('general'.$activoId, array("Attachment"=>false)); 
+		
 	}
 	
 	public function general_laboratorio(){
@@ -184,8 +187,8 @@ class DocumentoController {
 					   border-collapse: collapse; width: 100%;
 					}
 			
-					td{
-					   border:1px solid #ccc; padding:1px;
+					div{
+					  
 					   font-size:9pt;
 					}
 				</style>
@@ -206,18 +209,17 @@ class DocumentoController {
 						<tr><td>&nbsp;</td></tr>
 						<tr><td>6.Ficha Técnica</td></tr></table>
 					<table style='page-break-after:always;'></br></table>
-					<table width= 100% border=0>
-						<tr><td><b>1. Introducción</b></td></tr>
-						<tr><td align=justify>".htmlspecialchars_decode($datos[0]->introduccion)."</td></tr>
-						<tr><td><b>2. Objetivos</b></td></tr><tr><td align=justify>".htmlspecialchars_decode($datos[0]->objetivos)."</td></tr>
-						<tr><td><b>3. Nomenclatura</b></td></tr>
-						<tr><td><img src=".PATH_FILES."activos/".$datos[0]->nomenglatura_url." width=400 height=400></td></tr>
-						<tr><td><b>4. Generalidades</b></td></tr>
-						<tr><td align=justify>".htmlspecialchars_decode($datos[0]->generalidades)."</td></tr>
-						<tr><td><b>5. Seguridad</b></td></tr>
-						<tr><td align=justify>".htmlspecialchars_decode($datos[0]->seguridad)."</td></tr>
-						<tr><td><b>6. Ficha Técnina del Banco de Pruebas</b></td></tr>
-					</table>					
+					<div style='text-align: justify'><b>1. Introducción</b></div>
+					<div style='text-align: justify'>".htmlspecialchars_decode($datos[0]->introduccion)."</div>
+					<div style='text-align: justify'><b>2. Objetivos</div>
+					<div style='text-align: justify'>".htmlspecialchars_decode($datos[0]->objetivos)."</div>
+					<div style='text-align: justify'><b>3. Nomenclatura</b></div>
+					<div style='text-align: justify'><img src=".PATH_FILES."laboratorios/".$datos[0]->nomenglatura_url." width=400 height=400></div>
+					<div style='text-align: justify'><b>4. Generalidades</b></div>
+					<div style='text-align: justify'>".htmlspecialchars_decode($datos[0]->generalidades)."</div>				
+					<div><b>5. Seguridad</div>
+					<div style='text-align: justify'>".htmlspecialchars_decode($datos[0]->seguridad)."</div>
+					<div><b>6. Ficha Técnina del Banco de Pruebas</b></div>					
 					</body></html>";
 		$dompdf = new Dompdf();
 		$dompdf->load_html($html);
@@ -291,8 +293,9 @@ class DocumentoController {
 				$html.="</table><table style='page-break-after:always;'></br></table><br>
 						<table style='width: 100%'>
 							<tr>
-								<td rowspan='2' style='text-align: center; width: 15%'>
+								<td rowspan='2' style='text-align: center; width: 25%'>
 									<img src=".PATH_FILES."../images/espoch.jpg height= 80px width=80px>
+									<img src=".PATH_FILES."../images/automotriz.png 80px width=80px>
 								</td>
 								<td colspan=2 style='text-align: center;'><b>EJECUCIÓN DE TAREAS DE MANTENIMIENTO</b></td>
 							</tr>
@@ -355,22 +358,22 @@ class DocumentoController {
 							<td align=center width= 15%>
 								<img src=".PATH_FILES."../images/espoch.jpg height= 80px width=80px>
 							</td>
-							<td colspan='2' align='center'><b>LISTADO DE ACTIVOS FÍSICOS</b></td>							
+							<td colspan='2' align='center'><b>LISTA DE ACTIVOS FÍSICOS</b></td>							
 							<td width=25% align='center'><img src=".PATH_FILES."../images/automotriz.png 80px width=80px></td>			
 									
 						</tr>						
 					 </table><br>					
 					 <table style='width:100%'>
 						<tr>
-							<td style='text-align:center'><b>CÓDIGO</b></td>
-							<td style='text-align:center'><b>LABORATORIO</b></td>
-							<td style='text-align:center'><b>NOMBRE DEL ACTIVO FÍSICO</b></td>									
+							<td style='text-align:center'><b>CÓDIGO</b></td>							
+							<td style='text-align:center'><b>NOMBRE DEL ACTIVO FÍSICO</b></td>
+							<td style='text-align:center'><b>LAB/CSIN/TALL</b></td>
 						</tr>";
 		foreach ($laboratorios as $lab){
 		$html.="		<tr>
-							<td style='width: 33%'>".$lab->codigo."</td>							
-							<td style='width: 34%'>".$lab->nombre_lab."</td>
+							<td style='width: 33%'>".$lab->codigo."</td>													
 							<td style='width: 33%'>".$lab->nombre_activo."</td>
+							<td style='width: 34%'>".$lab->nombre_lab."</td>									
 						</tr>";
 		}
 		
@@ -412,20 +415,20 @@ class DocumentoController {
 							<td align=center width= 15%>
 								<img src=".PATH_FILES."../images/espoch.jpg height= 80px width=80px>
 							</td>
-							<td colspan='2' align='center'><b>REPORTE DE LABORATORIOS</b></td>
+							<td colspan='2' align='center'><b>LABORATORIOS/CENTROS DE SIMULACIÓN/TALLERES</b></td>
 							<td width=25% align='center'><img src=".PATH_FILES."../images/automotriz.png 80px width=80px></td>
 					
 						</tr>
 					 </table><br>
 					 <table style='width:100%'>
 						<tr>
-							<td style='text-align:center'><b>ID</b></td>
+							<td style='text-align:center'><b>CÓDIGO DEL LAB/CSIM/TALL</b></td>
 							<td style='text-align:center'><b>NOMBRE DEL LABORATORIO</b></td>
 							<td style='text-align:center'><b>NOMBRE DEL TÉCNICO</b></td>
 						</tr>";
 						foreach ($laboratorios as $lab){
 		$html.="		<tr>
-							<td style='width: 33%'>".$lab->id."</td>
+							<td style='width: 33%'>".$lab->codigo."</td>
 							<td style='width: 34%'>".$lab->laboratorio."</td>
 							<td style='width: 33%'>".$lab->tecnico."</td>
 						</tr>";

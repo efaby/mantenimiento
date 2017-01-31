@@ -5,32 +5,24 @@
 			<select class='form-control' name="rol_id">
 				<option value="" >Seleccione</option>
 			<?php foreach ($listRoles as $dato) { ?>
-				<option value="<?php echo $dato->id;?>"  <?php if($item->rol_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
+				<option value="<?php echo $dato->id;?>" <?php if($item->rol_id==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
 			<?php }?>
-			</select>
-			
+			</select>			
 	</div>
 	<div class="form-group col-sm-6">
-		<label class="control-label">Acción</label> <input type='text'
-			name='accion' class='form-control'
-			value="<?php echo $item->accion; ?>" id="accion">
-	</div>
-	<div class="form-group col-sm-6">
-		<label class="control-label">Icono</label> <input type='text'
-			name='icono' class='form-control' 
-			value="<?php echo $item->icono; ?>" id="icono">
+		<label class="control-label">Acción</label>
+		<select class='form-control' name="accion">
+				<option value="" >Seleccione</option>
+			<?php $accesos = unserialize(ACCESS_URL); 
+				foreach ($accesos as $dato) { ?>
+					<option value="<?php echo $dato['id'];?>" <?php if($item->accion==$dato['id']):echo "selected"; endif;?>><?php echo $dato['nombre']?></option>
+			<?php }?>
+		</select>
 	</div>
 	<div class="form-group col-sm-6">
 		<label class="control-label">Título</label> <input type='text'
 			name='titulo' class='form-control' 
 			value="<?php echo $item->titulo; ?>" id="titulo">
-	</div>
-	<div class="form-group col-sm-6">
-		<label class="control-label">Orden</label>
-		<input type="text"
-			name='orden' class='form-control'
-			value="<?php echo $item->orden; ?>">
-
 	</div>
 	<div class="form-group col-sm-6">
 			<label class="control-label">Menú</label>			
@@ -40,6 +32,31 @@
 				<option value="<?php echo $dato->id;?>"  <?php if($item->menu==$dato->id):echo "selected"; endif;?>><?php echo $dato->nombre;?></option>
 			<?php }?>
 			</select>
+	</div>	
+	<div class="form-group col-sm-6">
+		<label class="control-label">Orden</label>
+		<input type="text"
+			name='orden' class='form-control'
+			value="<?php echo $item->orden; ?>">
+
+	</div>
+	<div class="form-group col-sm-5">
+		<label class="control-label">Icono</label> 		
+		<select class='form-control' name="icono" id="icono">
+				<option value="" >Seleccione</option>
+			<?php $iconos = unserialize(ICONS_URL); 
+				foreach ($iconos as $dato) { ?>
+					<option value="<?php echo $dato['id'];?>" <?php if($item->icono==$dato['id']):echo "selected"; endif;?>>
+						<?php echo $dato['nombre'];?></i>
+					</option>
+			<?php }?>
+		</select>
+	</div>
+	<div class="form-group col-sm-1">
+		<br>
+		<br>
+		<i id="ico" class="fa <?php echo $item->icono; ?>"></i>
+		<br>		
 	</div>
 	<div class="form-group">
 		<input type='hidden' name='id' class='form-control' value="<?php echo $item->id; ?>">		
@@ -50,6 +67,12 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	$('#icono').change(function(){
+		jQuery("#ico:last").removeClass();		
+		var icono = jQuery("#icono").val();		
+		jQuery("#ico").addClass("fa "+icono);
+	});
+	
     $('#frmAcceso').formValidation({
     	message: 'This value is not valid',
 		feedbackIcons: {
@@ -67,29 +90,21 @@ $(document).ready(function() {
 				}
 			},											
 			accion: {
-				message: 'La Acción no es válido',
+				message: 'El Número de Acción no es válido',
 				validators: {
-							notEmpty: {
-								message: 'La Acción no puede ser vacía.'
-							},
-							regexp: {
-								regexp: /^[a-zA-Z\/]+$/,
-								message: 'Ingrese una Acción válido.'
-						}
+					notEmpty: {
+						message: 'Seleccione una Opción del Acción'
+					}
 				}
 			},
 			icono: {
-						message: 'El Icono no es válido',
-						validators: {
-										notEmpty: {
-										message: 'El Icono no puede ser vacío.'
-									},
-									regexp: {
-										regexp: /^[0-9a-zA-Z\-]+$/,
-										message: 'Ingrese un Icono válido.'
-									}
-							}
-					},
+				message: 'El Icono no es válido',
+				validators: {
+					notEmpty: {
+						message: 'El Icono no puede ser vacío.'
+					}
+				}
+			},
 			orden: {
 						message: 'El Orden no es válido',
 						validators: {
