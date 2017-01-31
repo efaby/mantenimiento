@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `mantenimiento` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `mantenimiento`;
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+-- MySQL dump 10.16  Distrib 10.1.16-MariaDB, for Win32 (AMD64)
 --
--- Host: 127.0.0.1    Database: mantenimiento
+-- Host: localhost    Database: mantenimiento
 -- ------------------------------------------------------
--- Server version	5.5.5-10.1.19-MariaDB
+-- Server version	10.1.16-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -33,7 +31,7 @@ CREATE TABLE `acceso` (
   `orden` int(11) NOT NULL,
   `menu` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +40,7 @@ CREATE TABLE `acceso` (
 
 LOCK TABLES `acceso` WRITE;
 /*!40000 ALTER TABLE `acceso` DISABLE KEYS */;
-INSERT INTO `acceso` VALUES (1,1,'Novedad/listar/','fa-book','Mantenimiento Correctivo',5,1),(2,1,'Usuario/listar/','fa-user','Usuarios',1,1),(3,1,'Laboratorio/listar/','fa-tasks','Laboratorios',2,1),(4,1,'Plan/listar/','fa-wrench','Planes Mantenimiento',5,2),(5,2,'Novedad/listar/','fa-book','Mantenimiento Correctivo',4,1),(6,2,'Orden/listar/','fa-bell','Mantenimiento Preventivo',4,2),(7,2,'Novedad/ingreso/','fa-edit ','Ingreso Novedad',1,1),(8,3,'Practica/listar/','fa-copy','Prácticas',1,1),(9,3,'Paralelo/listar/','fa-link ','Paralelos',2,1),(10,3,'Estudiante/listar/','fa-users','Estudiantes',3,1),(11,3,'Evaluacion/listar/','fa-pencil','Calificar Prácticas',4,1),(12,4,'Practica/practicas/','fa-list','Mis Prácticas',1,1),(13,1,'Activo/listar/','fa-cog','Activos Físicos',3,1),(14,1,'Auditoria/listar/','fa-exclamation-triangle','Auditoría',5,1),(15,1,'Respaldo/crear/','fa-database','Respaldar Datos',6,1),(16,1,'#','fa fa-sitemap','Mantenimiento',4,0),(17,2,'#','fa fa-sitemap','Mantenimiento',3,0),(18,1,'Documento/listar/','fa-files-o','Documentos',7,1);
+INSERT INTO `acceso` VALUES (1,5,'Novedad/listar/','fa-book','Manteniminetos Correctivos',5,1),(2,1,'Usuario/listar/','fa-user','Usuarios',1,1),(3,1,'Laboratorio/listar/','fa-tasks','Laboratorios',2,1),(4,2,'Plan/listar/','fa-wrench','Planes Mantenimiento',3,1),(5,2,'Novedad/listar/','fa-book','Mantenimiento Correctivo',5,1),(6,2,'Orden/listar/','fa-bell','Mantenimiento Preventivo',5,2),(7,2,'Novedad/ingreso/','fa-edit ','Ingreso Man. Correctivo',2,1),(8,3,'Practica/listar/','fa-copy','Prácticas',1,1),(9,3,'Paralelo/listar/','fa-link ','Paralelos',2,1),(10,3,'Estudiante/listar/','fa-users','Estudiantes',3,1),(11,3,'Evaluacion/listar/','fa-pencil','Calificar Prácticas',4,1),(12,4,'Practica/practicas/','fa-list','Mis Prácticas',1,1),(13,1,'Activo/listar/','fa-cog','Activos Físicos',3,1),(14,1,'Auditoria/listar/','fa-exclamation-triangle','Auditoría',5,1),(15,1,'Respaldo/crear/','fa-database','Respaldar Datos',6,1),(17,2,'#','fa fa-sitemap','Mantenimiento',4,0),(18,1,'Documento/listar/','fa-files-o','Documentos',7,1),(19,1,'#','fa fa-sitemap','Reportes',8,0),(20,1,'Reporte/uso/','fa-pencil-square-o','Uso Maquina',9,1),(21,1,'Reporte/correctivo/','fa-pencil-square-o','Mantenimiento Correctivo',10,1),(22,1,'Novedades/listar/','fa-exclamation-triangle','Novedades',12,1),(23,1,'Reporte/preventivo/','fa-pencil-square-o','Mantenimiento Preventivo',11,2),(24,2,'Activo/listar/','fa-cog','Mis Activos',3,1),(25,2,'Novedades/ingreso/','fa-pencil','Ingreso Novedad',1,1),(26,2,'#','fa fa-sitemap','Reportes',6,0),(27,2,'Reporte/uso/','fa-pencil-square-o','Uso Maquina',7,2);
 /*!40000 ALTER TABLE `acceso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,10 +82,13 @@ CREATE TABLE `activo_fisico` (
   `diagram_proceso_url` varchar(256) DEFAULT NULL,
   `alias` varchar(512) NOT NULL,
   `eliminado` tinyint(4) NOT NULL DEFAULT '0',
+  `laboratorio_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_activo_fisico_tipo_motor1` (`tipo_motor_id`),
-  CONSTRAINT `fk_activo_fisico_tipo_motor1` FOREIGN KEY (`tipo_motor_id`) REFERENCES `tipo_motor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  KEY `fk_activo_fisico_lab_id_idx` (`laboratorio_id`),
+  CONSTRAINT `fk_activo_fisico_tipo_motor1` FOREIGN KEY (`tipo_motor_id`) REFERENCES `tipo_motor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_lab_id` FOREIGN KEY (`laboratorio_id`) REFERENCES `laboratorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,7 +97,7 @@ CREATE TABLE `activo_fisico` (
 
 LOCK TABLES `activo_fisico` WRITE;
 /*!40000 ALTER TABLE `activo_fisico` DISABLE KEYS */;
-INSERT INTO `activo_fisico` VALUES (1,'','maquina 1','','001',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'/images',1,NULL,NULL,NULL,'',0),(3,'','prueba','as','as','as','as','','','','','','','','<p>wdsdada</p>\r\n','','','','','','','','','act9519.jpg',2,'act22332.jpg','asasasas','act7365.pdf','prueba',0);
+INSERT INTO `activo_fisico` VALUES (6,'','Maquina 1','1111','111','','111','','','','','','','','<p>zxzx</p>\r\n','','','','','','','','','act26719.jpg',1,'act4780.jpg','mi funcion','act2933.pdf','maquina 1',0,4);
 /*!40000 ALTER TABLE `activo_fisico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,6 +120,7 @@ CREATE TABLE `activo_plan` (
   `fecha_inicio` date NOT NULL,
   `alerta_numero` int(11) NOT NULL,
   `parte_maquina_id` int(11) NOT NULL DEFAULT '0',
+  `horas_totales` decimal(5,2) DEFAULT '0.00',
   PRIMARY KEY (`id`),
   KEY `fk_activo_plan_plan_mantenimiento1` (`plan_mantenimiento_id`),
   KEY `fk_activo_plan_activo_fisico1` (`activo_fisico_id`),
@@ -126,7 +128,7 @@ CREATE TABLE `activo_plan` (
   CONSTRAINT `fk_activo_plan_activo_fisico1` FOREIGN KEY (`activo_fisico_id`) REFERENCES `activo_fisico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_activo_plan_plan_mantenimiento1` FOREIGN KEY (`plan_mantenimiento_id`) REFERENCES `plan_mantenimiento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_frecuencia_id` FOREIGN KEY (`frecuencia_id`) REFERENCES `frecuencia` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -135,7 +137,7 @@ CREATE TABLE `activo_plan` (
 
 LOCK TABLES `activo_plan` WRITE;
 /*!40000 ALTER TABLE `activo_plan` DISABLE KEYS */;
-INSERT INTO `activo_plan` VALUES (2,2,1,2.00,2,1,0,'2017-01-05','2017-01-05',1,0),(3,1,1,2.00,3,2,0,'2017-01-05','2017-01-05',1,0),(4,1,3,0.00,2,1,0,'2017-01-13','2017-01-13',1,3);
+INSERT INTO `activo_plan` VALUES (6,1,6,1.87,2,1,0,'2017-01-15','2017-01-15',1,4,1.87);
 /*!40000 ALTER TABLE `activo_plan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,7 +182,7 @@ CREATE TABLE `auditoria` (
   `detalle` varchar(2048) NOT NULL,
   `tipo_usuario` varchar(1024) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,7 +191,7 @@ CREATE TABLE `auditoria` (
 
 LOCK TABLES `auditoria` WRITE;
 /*!40000 ALTER TABLE `auditoria` DISABLE KEYS */;
-INSERT INTO `auditoria` VALUES (1,'2','2016-12-10','Registro una Novedad','2'),(2,'2','2017-01-08','Registro una Novedad \"teste 3\"','2'),(3,'ga wej','2017-01-08','Registro una Novedad \"teste teste\"','Técnico');
+INSERT INTO `auditoria` VALUES (1,'2','2016-12-10','Registro una Novedad','2'),(2,'2','2017-01-08','Registro una Novedad \"teste 3\"','2'),(3,'ga wej','2017-01-08','Registro una Novedad \"teste teste\"','Técnico'),(4,'ga wej','2017-01-15','Registro una Novedad \"teste\"','Técnico'),(5,'ga wej','2017-01-15','Registro una Novedad \"problema\"','Técnico'),(6,'sdsd Perez','2017-01-15','Registro una Novedad \"nuevo problema\"','Estudiante');
 /*!40000 ALTER TABLE `auditoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,7 +210,7 @@ CREATE TABLE `estudiante` (
   PRIMARY KEY (`id`),
   KEY `fk_estudiante_usuario1` (`usuario_id`),
   CONSTRAINT `fk_estudiante_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -217,7 +219,7 @@ CREATE TABLE `estudiante` (
 
 LOCK TABLES `estudiante` WRITE;
 /*!40000 ALTER TABLE `estudiante` DISABLE KEYS */;
-INSERT INTO `estudiante` VALUES (9,'sdsd',25,0),(12,'sdsd',26,0),(13,'sdsd',27,0),(15,'sdsd',26,0),(16,'4444',29,0),(17,'0988',31,0);
+INSERT INTO `estudiante` VALUES (9,'sdsd',25,0),(12,'sdsd',26,0),(13,'sdsd',27,0),(15,'sdsd',26,0),(16,'4444',29,0),(17,'0988',31,0),(18,'sdsd',26,0);
 /*!40000 ALTER TABLE `estudiante` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,7 +246,7 @@ CREATE TABLE `evaluacion` (
   KEY `fk_evaluacion_estudiante1_idx` (`estudiante_id`),
   CONSTRAINT `fk_evaluacion_1` FOREIGN KEY (`practica_id`) REFERENCES `practica` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_evaluacion_estudiante1` FOREIGN KEY (`estudiante_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,7 +255,7 @@ CREATE TABLE `evaluacion` (
 
 LOCK TABLES `evaluacion` WRITE;
 /*!40000 ALTER TABLE `evaluacion` DISABLE KEYS */;
-INSERT INTO `evaluacion` VALUES (2,27,6,'lab966520740.pdf','00:50:01','ninguna',5.00,'2016-12-31',3,1),(3,27,6,'lab1317023215.pdf','02:00:02','ninguna',6.00,'2016-12-30',3,1),(4,27,6,'lab417198010.pdf','02:00:02','dsfdfdfdf',9.50,'2016-12-30',3,1),(5,26,8,'pra725055146.pdf','00:00:01',NULL,NULL,NULL,NULL,1),(6,29,8,'pra1100864505.pdf','02:00:02',NULL,NULL,NULL,NULL,1),(7,29,9,'pra23073.pdf','02:00:04','ninguna',9.00,'2017-01-04',3,1),(8,26,9,'pra28372.pdf','01:00:01',NULL,NULL,NULL,NULL,1),(9,29,10,'pra1718509545.pdf','01:00:03',NULL,NULL,NULL,NULL,1),(10,26,10,'pra2075474913.pdf','01:00:01',NULL,NULL,NULL,NULL,1);
+INSERT INTO `evaluacion` VALUES (13,26,11,'pra23365.pdf','00:50:02',NULL,NULL,NULL,NULL,1);
 /*!40000 ALTER TABLE `evaluacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -283,36 +285,6 @@ INSERT INTO `frecuencia` VALUES (1,'Horas','Horas'),(2,'Meses','Meses'),(3,'Año
 UNLOCK TABLES;
 
 --
--- Table structure for table `lab_activo`
---
-
-DROP TABLE IF EXISTS `lab_activo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `lab_activo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `activo_fisico_id` int(11) NOT NULL,
-  `laboratorio_id` int(11) NOT NULL,
-  `eliminado` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `fk_lab_activo_activo_fisico1` (`activo_fisico_id`),
-  KEY `fk_lab_activo_laboratorio1` (`laboratorio_id`),
-  CONSTRAINT `fk_lab_activo_activo_fisico1` FOREIGN KEY (`activo_fisico_id`) REFERENCES `activo_fisico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_lab_activo_laboratorio1` FOREIGN KEY (`laboratorio_id`) REFERENCES `laboratorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `lab_activo`
---
-
-LOCK TABLES `lab_activo` WRITE;
-/*!40000 ALTER TABLE `lab_activo` DISABLE KEYS */;
-INSERT INTO `lab_activo` VALUES (1,1,1,0),(2,1,2,0),(3,3,1,0);
-/*!40000 ALTER TABLE `lab_activo` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `lab_docente`
 --
 
@@ -328,7 +300,7 @@ CREATE TABLE `lab_docente` (
   KEY `fk_lab_docente_2_idx` (`usuario_id`),
   CONSTRAINT `fk_lab_docente_1` FOREIGN KEY (`laboratorio_id`) REFERENCES `laboratorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_lab_docente_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -337,7 +309,7 @@ CREATE TABLE `lab_docente` (
 
 LOCK TABLES `lab_docente` WRITE;
 /*!40000 ALTER TABLE `lab_docente` DISABLE KEYS */;
-INSERT INTO `lab_docente` VALUES (1,1,3),(2,2,3),(3,3,30);
+INSERT INTO `lab_docente` VALUES (8,4,3),(9,4,30);
 /*!40000 ALTER TABLE `lab_docente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -357,8 +329,9 @@ CREATE TABLE `laboratorio` (
   `generalidades` longtext NOT NULL,
   `seguridad` longtext NOT NULL,
   `eliminado` tinyint(4) NOT NULL DEFAULT '0',
+  `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -367,7 +340,7 @@ CREATE TABLE `laboratorio` (
 
 LOCK TABLES `laboratorio` WRITE;
 /*!40000 ALTER TABLE `laboratorio` DISABLE KEYS */;
-INSERT INTO `laboratorio` VALUES (1,'001','Laboratorio 1','introduccion','objetivos','generalidades','seguriodad',0),(2,'003','laboratorio 3','&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,&lt;/p&gt;\r\n\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,&lt;/p&gt;','&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,&lt;/p&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,&lt;/p&gt;','&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,&lt;/p&gt;','&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,&lt;/p&gt;',0),(3,'cd004','lab 4','&lt;p&gt;ssd&lt;/p&gt;','&lt;p&gt;sdsd&lt;/p&gt;','&lt;p&gt;sdsd&lt;/p&gt;','&lt;p&gt;sdsd&lt;/p&gt;',0);
+INSERT INTO `laboratorio` VALUES (4,'c001','laboratorio 1','&lt;p&gt;asasa&lt;/p&gt;','&lt;p&gt;sdadsdsd&lt;/p&gt;','&lt;p&gt;asasas&lt;/p&gt;','&lt;p&gt;asasas&lt;/p&gt;',0,2);
 /*!40000 ALTER TABLE `laboratorio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -389,7 +362,7 @@ CREATE TABLE `matricula` (
   KEY `fk_matricula_paralelo` (`paralelo_id`),
   CONSTRAINT `fk_matricula_estudiante` FOREIGN KEY (`estudiante_id`) REFERENCES `estudiante` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_matricula_paralelo` FOREIGN KEY (`paralelo_id`) REFERENCES `paralelo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -398,7 +371,7 @@ CREATE TABLE `matricula` (
 
 LOCK TABLES `matricula` WRITE;
 /*!40000 ALTER TABLE `matricula` DISABLE KEYS */;
-INSERT INTO `matricula` VALUES (14,9,1),(15,12,1),(16,13,2),(17,15,4),(18,16,4),(19,17,5);
+INSERT INTO `matricula` VALUES (20,18,6);
 /*!40000 ALTER TABLE `matricula` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -424,9 +397,11 @@ CREATE TABLE `novedad` (
   `tecnico_repara` int(11) DEFAULT NULL,
   `usuario_registra` int(11) NOT NULL,
   `url` varchar(128) DEFAULT NULL,
+  `tiempo_ejecucion` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_novedades_activo_fisico1` (`activo_fisico_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+  KEY `fk_novedades_activo_fisico1` (`activo_fisico_id`),
+  CONSTRAINT `fk_lab_activo_fisico_id` FOREIGN KEY (`activo_fisico_id`) REFERENCES `activo_fisico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -435,8 +410,34 @@ CREATE TABLE `novedad` (
 
 LOCK TABLES `novedad` WRITE;
 /*!40000 ALTER TABLE `novedad` DISABLE KEYS */;
-INSERT INTO `novedad` VALUES (1,'problame prueba','causa prueba','','sdsdsd','sdsdsd','sdsdsd',2,1,1,0,2,2,NULL),(2,'otro vez','cxcxc','','cvcv','c vcv','cvcv',2,1,1,0,2,2,'nov79378553.jpg'),(3,'teste','tese','',' vcvcv','cvcv','cv cv',2,1,1,0,2,2,NULL),(4,'dfdf','dfcdfdf','dfdf',NULL,NULL,NULL,NULL,NULL,1,0,NULL,2,NULL),(5,'problema','problema','',NULL,NULL,NULL,NULL,NULL,1,1,NULL,26,NULL),(6,'se daño','se daño','no se',NULL,NULL,NULL,NULL,NULL,1,1,NULL,29,NULL),(7,'problem 1','causa 1','',NULL,NULL,NULL,2,1,1,0,NULL,2,NULL),(8,'novedad estudiante','causa estudiante','',NULL,NULL,NULL,NULL,NULL,1,1,NULL,29,NULL),(9,'estudiate 2','causa estudiante 2','',NULL,NULL,NULL,NULL,NULL,1,1,NULL,26,NULL),(10,'asasas','asasas','asas',NULL,NULL,NULL,NULL,NULL,1,1,NULL,29,NULL),(11,'test','test','test',NULL,NULL,NULL,NULL,NULL,1,0,NULL,2,NULL),(12,'test 2','test 2','test 2',NULL,NULL,NULL,NULL,NULL,1,0,NULL,2,NULL),(13,'teste 3','teste 3','teste',NULL,NULL,NULL,NULL,NULL,1,0,NULL,2,NULL),(14,'teste teste','mi causa','mi solucion',NULL,NULL,NULL,NULL,NULL,1,0,NULL,2,NULL),(15,'teste teste','mi causa','mi solucion',NULL,NULL,NULL,NULL,NULL,1,0,NULL,2,NULL),(16,'teste teste','mi causa','mi solucion',NULL,NULL,NULL,NULL,NULL,1,0,NULL,2,NULL),(17,'teste teste','mi causa','mi solucion',NULL,NULL,NULL,NULL,NULL,1,0,NULL,2,NULL);
+INSERT INTO `novedad` VALUES (19,'problema','casusa','solucion','mi proceso','mi elemeorn','sdd',2,NULL,6,0,2,2,NULL,NULL),(20,'nuevo problema','mi cauda','',NULL,NULL,NULL,NULL,NULL,6,1,NULL,26,NULL,NULL);
 /*!40000 ALTER TABLE `novedad` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `novedades`
+--
+
+DROP TABLE IF EXISTS `novedades`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `novedades` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario_id` int(11) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `descripcion` varchar(2048) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `novedades`
+--
+
+LOCK TABLES `novedades` WRITE;
+/*!40000 ALTER TABLE `novedades` DISABLE KEYS */;
+INSERT INTO `novedades` VALUES (1,NULL,NULL,'registro de las novedades'),(2,2,'2017-01-15','preuab de novedad');
+/*!40000 ALTER TABLE `novedades` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -468,7 +469,6 @@ CREATE TABLE `orden_plan` (
 
 LOCK TABLES `orden_plan` WRITE;
 /*!40000 ALTER TABLE `orden_plan` DISABLE KEYS */;
-INSERT INTO `orden_plan` VALUES (6,2,'2017-01-05',NULL,2,NULL,NULL,NULL,0);
 /*!40000 ALTER TABLE `orden_plan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -489,7 +489,7 @@ CREATE TABLE `paralelo` (
   PRIMARY KEY (`id`),
   KEY `fk_paralelo_1_idx` (`lab_docente_id`),
   CONSTRAINT `fk_paralelo_1` FOREIGN KEY (`lab_docente_id`) REFERENCES `lab_docente` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -498,7 +498,7 @@ CREATE TABLE `paralelo` (
 
 LOCK TABLES `paralelo` WRITE;
 /*!40000 ALTER TABLE `paralelo` DISABLE KEYS */;
-INSERT INTO `paralelo` VALUES (1,'pac','2016-12-15','2016-12-30',1,'1'),(2,'pa','2016-12-15','2016-12-29',1,'0'),(3,'sexto A','2016-12-31','2017-01-02',1,'0'),(4,'paralelo prueba','2017-01-04','2017-01-31',2,'0'),(5,'paralelo FV1','2017-01-13','2017-01-31',3,'0');
+INSERT INTO `paralelo` VALUES (6,'paralelo A','2017-01-15','2017-01-31',9,'0');
 /*!40000 ALTER TABLE `paralelo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -517,7 +517,7 @@ CREATE TABLE `partes_maquina` (
   PRIMARY KEY (`id`),
   KEY `fk_activo_id` (`activo_id`),
   CONSTRAINT `fk_activo_id` FOREIGN KEY (`activo_id`) REFERENCES `activo_fisico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -526,7 +526,7 @@ CREATE TABLE `partes_maquina` (
 
 LOCK TABLES `partes_maquina` WRITE;
 /*!40000 ALTER TABLE `partes_maquina` DISABLE KEYS */;
-INSERT INTO `partes_maquina` VALUES (1,'parte1',NULL,NULL),(2,'partes 11',NULL,3),(3,'partes 12',NULL,3);
+INSERT INTO `partes_maquina` VALUES (4,'parte 1',NULL,6);
 /*!40000 ALTER TABLE `partes_maquina` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -550,7 +550,7 @@ CREATE TABLE `plan_mantenimiento` (
   `usuario_id` int(11) NOT NULL,
   `eliminado` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -559,7 +559,7 @@ CREATE TABLE `plan_mantenimiento` (
 
 LOCK TABLES `plan_mantenimiento` WRITE;
 /*!40000 ALTER TABLE `plan_mantenimiento` DISABLE KEYS */;
-INSERT INTO `plan_mantenimiento` VALUES (1,'15',1,'herramioentas','materias','equipos','&lt;p&gt;xccxc&lt;/p&gt;','&lt;p&gt;xdcxcxc&lt;/p&gt;','tarea 1',2,0),(2,'10 min',0,'alguna','algunas','algunas','&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,&lt;/p&gt;','&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,&lt;/p&gt;','plan 3',2,0);
+INSERT INTO `plan_mantenimiento` VALUES (1,'15',1,'herramioentas','materias','equipos','&lt;p&gt;xccxc&lt;/p&gt;','&lt;p&gt;xdcxcxc&lt;/p&gt;','tarea 1',2,0),(2,'10 min',0,'alguna','algunas','algunas','&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,&lt;/p&gt;','&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,&lt;/p&gt;','plan 3',2,0),(3,'2 horas',0,'heramoer','sasasas','asas','&lt;p&gt;z,n,m,zxz&lt;/p&gt;','&lt;p&gt;dlkfjd.fd.f&lt;/p&gt;','plan 4',2,0);
 /*!40000 ALTER TABLE `plan_mantenimiento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -575,17 +575,17 @@ CREATE TABLE `practica` (
   `nombre` varchar(128) NOT NULL,
   `fecha` date NOT NULL,
   `tiempo_duracion` int(11) NOT NULL,
-  `lab_activo_id` int(11) NOT NULL,
   `url` varchar(512) NOT NULL,
   `eliminado` tinyint(4) NOT NULL DEFAULT '0',
   `usuario_id` int(11) NOT NULL,
   `hora_inicio` time NOT NULL,
   `hora_fin` time NOT NULL,
   `paralelo_id` int(11) NOT NULL,
+  `activo_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_practicas_activo_fisico1` (`lab_activo_id`),
-  CONSTRAINT `fk_practica_1` FOREIGN KEY (`lab_activo_id`) REFERENCES `lab_activo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+  KEY `fk_activo_id_idx` (`activo_id`),
+  CONSTRAINT `fk_activo_fisico_id` FOREIGN KEY (`activo_id`) REFERENCES `activo_fisico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -594,7 +594,7 @@ CREATE TABLE `practica` (
 
 LOCK TABLES `practica` WRITE;
 /*!40000 ALTER TABLE `practica` DISABLE KEYS */;
-INSERT INTO `practica` VALUES (1,'practica','2016-12-25',0,1,'lab170061769.',0,0,'00:00:00','00:00:00',0),(2,'practica 1','2016-12-25',3,1,'lab49451839.pdf',0,3,'00:00:00','00:00:00',0),(3,'prectica','2016-12-25',4,1,'lab1098347432.pdf',0,3,'00:00:00','00:00:00',0),(4,'practica 3','2016-12-27',1,1,'lab1078829698.pdf',0,3,'15:15:00','16:15:00',1),(5,'2323','2016-12-28',2,1,'lab1868047202.pdf',0,3,'16:00:00','17:15:00',2),(6,'practica 4','2016-12-30',3,1,'lab1664524394.pdf',0,3,'09:15:00','10:40:00',2),(7,'Practica 5','2016-12-31',4,1,'pra1660178785.pdf',0,3,'12:00:00','12:30:00',1),(8,'practica prueba','2017-01-04',1,2,'pra1168150249.pdf',0,3,'14:00:00','14:50:00',4),(9,'practica 1','2017-01-04',1,1,'pra23549.pdf',0,3,'21:30:00','22:00:00',4),(10,'practica emal','2017-01-05',2,1,'pra1232277027.pdf',0,3,'14:00:00','15:00:00',4);
+INSERT INTO `practica` VALUES (11,'practica 1','2017-01-15',2,'pra24356.pdf',0,30,'03:30:00','04:45:00',6,6);
 /*!40000 ALTER TABLE `practica` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -676,7 +676,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'1111111111','Jane ale','Concha','fcea920f7412b5da7be0cf42b8c93759','efaby10@hotmail.com',0,1),(2,'2222222222','ga','wej','e10adc3949ba59abbe56e057f20f883e','efaby10@gmail.com',0,2),(3,'3333333333','wewe','wew','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',0,3),(4,'0603108770','sdsd','sdd','e10adc3949ba59abbe56e057f20f883e','sdds',1,1),(6,'4444244444','2323','2323','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',1,4),(7,'0602567802','dsd','sdsd','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',1,4),(25,'0600034202','sdsd','Perez','8b522136773385655e6140faeaac1e4e','lajane2020@hotmail.com',1,4),(26,'0600034201','sdsd','Perez','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',0,4),(27,'6666666666','sdsd','Perez','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',0,4),(28,'0603718571','Juan122','Perez','202cb962ac59075b964b07152d234b70','lajane2020@hotmail.com',0,1),(29,'0603718572','Fabian','Villa','8e57010f041a36616c747808e9bfa2dd','efaby10@hotmail.com',0,4),(30,'0603718578','Fabian','Villa','e10adc3949ba59abbe56e057f20f883e','efaby10@hotmail.com',0,3),(31,'0601815327','Estudiante','estudiante','4870f6e049592a12e88534e668fd72c6','mail@mail.com',0,4);
+INSERT INTO `usuario` VALUES (1,'1111111111','Jane ale','Concha','fcea920f7412b5da7be0cf42b8c93759','efaby10@hotmail.com',0,1),(2,'2222222222','ga','wej','e10adc3949ba59abbe56e057f20f883e','efaby10@gmail.com',0,2),(3,'3333333333','wewe','wew','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',0,3),(4,'0603108770','sdsd','sdd','e10adc3949ba59abbe56e057f20f883e','sdds',1,1),(6,'4444244444','2323','2323','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',1,4),(7,'0602567802','dsd','sdsd','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',0,4),(25,'0600034202','sdsd','Perez','8b522136773385655e6140faeaac1e4e','lajane2020@hotmail.com',1,4),(26,'0600034201','sdsd','Perez','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',0,4),(27,'6666666666','sdsd','Perez','e10adc3949ba59abbe56e057f20f883e','lajane2020@hotmail.com',0,4),(28,'0603718571','Juan122','Perez','202cb962ac59075b964b07152d234b70','lajane2020@hotmail.com',0,1),(29,'0603718572','Fabian','Villa','8e57010f041a36616c747808e9bfa2dd','efaby10@hotmail.com',0,4),(30,'0603718578','Fabian','Villa','e10adc3949ba59abbe56e057f20f883e','efaby10@hotmail.com',0,3),(31,'0601815327','Estudiante','estudiante','4870f6e049592a12e88534e668fd72c6','mail@mail.com',0,4);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -689,4 +689,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-13 12:31:32
+-- Dump completed on 2017-01-18  2:32:15

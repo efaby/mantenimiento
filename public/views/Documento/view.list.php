@@ -4,7 +4,7 @@
 <!-- Main row -->
 <div class="row">
 	<div class="col-lg-12">
-    	<h1 class="page-header">Documentos a Generar</h1>
+    	<h1 class="page-header">Gesti&oacute;n de documentos</h1>
    	</div>
 </div>
 <?php if (isset($_SESSION['message'])&& ($_SESSION['message'] != '')):?>
@@ -20,7 +20,7 @@
     <thead>
 	    <tr>
 	    	<th>ID</th>
-		    <th>Laboratorio</th>
+		    <th>Lab/CSin/Tall</th>
 		    <th>Nombre Activo</th>
 		    <th style="text-align: center; width: 20%">Acciones</th>
 	    </tr>

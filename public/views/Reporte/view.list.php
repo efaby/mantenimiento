@@ -19,7 +19,7 @@
     <thead>
 	    <tr>
 	    	<th>ID</th>
-	    	<th>Laboratorio</th>
+	    	<th>Lab/CSin/Tall</th>
 		    <th>Activo Físico</th>
 		    <th>Orden</th>
 		    <th>Tiempo Mantenimiento</th>

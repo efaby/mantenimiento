@@ -1,0 +1,17 @@
+[23-Jan-2017 16:05:32 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/jwebldco/public_html/mantenimiento/public/views/Novedad/view.ingreso.php on line 38
+[25-Jan-2017 12:11:56 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/jwebldco/public_html/mantenimiento/public/views/Novedad/view.ingreso.php on line 38
+[25-Jan-2017 12:15:06 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/jwebldco/public_html/mantenimiento/public/views/Novedad/view.ingreso.php on line 38
+[25-Jan-2017 12:15:10 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/jwebldco/public_html/mantenimiento/public/views/Novedad/view.ingreso.php on line 38
+[25-Jan-2017 12:15:13 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/jwebldco/public_html/mantenimiento/public/views/Novedad/view.ingreso.php on line 38
+[25-Jan-2017 18:13:53 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/jwebldco/public_html/mantenimiento/public/views/Novedad/view.ingreso.php on line 38
+[25-Jan-2017 18:14:04 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/jwebldco/public_html/mantenimiento/public/views/Novedad/view.ingreso.php on line 38
+[26-Jan-2017 20:48:22 America/New_York] PHP Fatal error:  Class 'SeguridadController' not found in /home/jwebldco/public_html/mantenimiento/index.php on line 29
+[26-Jan-2017 20:57:11 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/jwebldco/public_html/mantenimiento/public/views/Novedad/view.ingreso.php on line 38
+[26-Jan-2017 21:01:06 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/jwebldco/public_html/mantenimiento/public/views/Novedad/view.ingreso.php on line 38
+[26-Jan-2017 21:04:38 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/jwebldco/public_html/mantenimiento/public/views/Novedad/view.ingreso.php on line 38
+[26-Jan-2017 21:21:13 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/jwebldco/public_html/mantenimiento/public/views/Novedad/view.ingreso.php on line 38
+[30-Jan-2017 16:42:55 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/jwebldco/public_html/mantenimiento/public/views/Novedad/view.ingreso.php on line 38
+[30-Jan-2017 16:58:21 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/jwebldco/public_html/mantenimiento/public/views/Novedad/view.ingreso.php on line 38
+[30-Jan-2017 17:07:07 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/jwebldco/public_html/mantenimiento/public/views/Novedad/view.ingreso.php on line 38
+[30-Jan-2017 17:22:54 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/jwebldco/public_html/mantenimiento/public/views/Novedad/view.ingreso.php on line 38
+[30-Jan-2017 17:28:51 America/New_York] PHP Warning:  Invalid argument supplied for foreach() in /home/jwebldco/public_html/mantenimiento/public/views/Novedad/view.ingreso.php on line 38

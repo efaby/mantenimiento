@@ -26,7 +26,7 @@
 	    	<th>ID</th>
 		    <th>Nombre</th>
 		    <th>Paralelo</th>
-		    <th>Laboratorio</th>
+		    <th>Lab/CSin/Tall</th>
 		    <th>Activo Físico</th>	
 		    <th>Fecha de Práctica</th>
 		    <th>Hora de Inicio</th>	 	    

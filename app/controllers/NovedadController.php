@@ -8,7 +8,12 @@ class NovedadController {
 	
 	public function ingreso(){
 		$model = new NovedadModel();	
-		$laboratorios = $model->getLaboratorios($_SESSION['SESSION_USER']->id);				
+		$usuario = 0;
+		if($_SESSION['SESSION_USER']->tipo == 2){
+			$usuario = $_SESSION['SESSION_USER']->id;
+		}
+
+		$laboratorios = $model->getLaboratorios($usuario);				
 		$message = "";
 		require_once PATH_VIEWS."/Novedad/view.ingreso.php";
 	}
@@ -32,11 +37,13 @@ class NovedadController {
 		$novedad ['solucion'] = $_POST ['solucion'];
 		$novedad ['es_estudiante'] = 0;
 		$novedad ['activo_fisico_id'] = $_POST ['activo_fisico_id'];
-		$novedad ['usuario_registra'] = $_SESSION['SESSION_USER']->id; 
-		$novedad ['tecnico_asigna'] = $_SESSION['SESSION_USER']->id;
+		$novedad ['usuario_registra'] = $_SESSION['SESSION_USER']->id;
+		$model = new NovedadModel(); 
+		$tecnico = $model->getEmailByIdActivo($_POST ['activo_fisico_id']);
+		$novedad ['tecnico_asigna'] = $tecnico->id;
 		$novedad ['fecha_ingreso'] = date('Y-m-d');
 		
-		$model = new NovedadModel();
+		
 		try {
 			$datos = $model->saveNovedad( $novedad );
 			$_SESSION ['message'] = "Datos almacenados correctamente.";

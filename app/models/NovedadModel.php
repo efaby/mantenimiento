@@ -47,8 +47,8 @@ class NovedadModel {
 
 	public function getLaboratorios($usuario){
 		$model = new BaseModel();	
-		$sql = "select l.id, l.nombre from laboratorio as l where l.eliminado = 0 and l.usuario_id = ?";		
-		return $model->execSql($sql, array($usuario),true);
+		$sql = "select l.id, l.nombre from laboratorio as l where l.eliminado = 0 and (l.usuario_id = ? or 0 = ?)";		
+		return $model->execSql($sql, array($usuario,$usuario),true);
 	}
 	
 	public function getMaquinas($laboratorio){
@@ -90,5 +90,13 @@ class NovedadModel {
 	
 	}
 	
+	public function getEmailByIdActivo($id){
+		$model = new BaseModel();
+		$sql = "select u.id, u.nombres, u.apellidos, u.email from usuario as u
+				inner join laboratorio as l on l.usuario_id
+				inner join activo_fisico as a on a.laboratorio_id = l.id
+				where a.id = ".$id;
+		return $model->execSql($sql, array());
+	}
 	
 }

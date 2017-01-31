@@ -20,7 +20,7 @@
     <thead>
 	    <tr>
 	    	<th>ID</th>
-	    	<th>Laboratorio</th>
+	    	<th>Lab/CSin/Tall</th>
 	    	<th>Activo</th>
 		    <th>Práctica</th>
 		    <th>Docente</th>

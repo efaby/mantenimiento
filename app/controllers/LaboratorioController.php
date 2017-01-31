@@ -16,11 +16,20 @@ class LaboratorioController {
 		$item = $model->getLaboratorio();	
 		$docentes = $model->getDocentes();
 		$tecnicos = $model->getTecnicos();
-		$message = "";
-		require_once PATH_VIEWS."/Laboratorio/view.form.php";
+
+		if(count($docentes)>0){
+			$message = "";
+			require_once PATH_VIEWS."/Laboratorio/view.form.php";
+		} else {
+			$_SESSION ['message'] = "No existen docentes ingresados. Por favor ingrese Docentes.";
+			header ( "Location: ../listar/" );
+		}
+		
 	}
 	
 	public function guardar() {
+	
+
 
 		$laboratorio ['id'] = $_POST ['id'];
 		$laboratorio ['nombre'] = $_POST ['nombre'];
@@ -30,7 +39,7 @@ class LaboratorioController {
 		$laboratorio ['generalidades'] = $this->dataready($_POST ['generalidades']);
 		$laboratorio ['seguridad'] = $this->dataready($_POST ['seguridad']);
 		$laboratorio ['usuario_id'] = $_POST ['usuario_id'];
-		if((isset($_FILES['nomenglatura_url']) && $_FILES['noomenglatura_url']['name']!='')||(isset($_FILES['nomenglatura_url1']) && $_FILES['nomenglatura_url1']['name']!='')){
+		if((isset($_FILES['nomenglatura_url']) && $_FILES['nomenglatura_url']['name']!='')||(isset($_FILES['nomenglatura_url1']) && $_FILES['nomenglatura_url1']['name']!='')){
 			$laboratorio ['nomenglatura_url'] = $this->uploadFile('lab','laboratorios',$_FILES['nomenglatura_url'], $_POST['filename1'],$_FILES['nomenglatura_url1']);
 		}
 		

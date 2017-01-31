@@ -146,6 +146,7 @@ class PracticaController {
 		$model = new PracticaModel();
 		try {
 			$datos = $model->savePracticaEvaluacion( $practica );
+			/*
 			if($_POST['opcion']==1){
 				
 				$tecnico = $model->getEmailByIdActivo($_POST ['activo_fisico_id']);
@@ -175,7 +176,7 @@ class PracticaController {
 				$log = new AuditoriaModel();
 				$log->saveAuditoria($_SESSION['SESSION_USER']->nombres." ".$_SESSION['SESSION_USER']->apellidos, $_SESSION['SESSION_USER']->tipo_nombre,'Registro una Novedad "'.$_POST ['problema'].'"');
 			
-			}
+			} */
 			
 			$duracion =  explode(':', $_POST ['duracion_practica']);
 			$duracion = (int)$duracion[0] + ((int)$duracion[1]/60) + ((int)$duracion[1]/3600);

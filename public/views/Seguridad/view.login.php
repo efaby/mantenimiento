@@ -74,7 +74,7 @@
 				<span id="mensajeValidacion"></span>
 			</div> 
     <div class="footer">
-    <!--LOGIN BUTTON--><input type="submit" name="submit" value="INGRESAR" class="btn-primary btn" style="float: right" /><!--END LOGIN BUTTON-->
+    <!--LOGIN BUTTON--><input type="submit" name="submit" value="Iniciar Sesi&oacute;n" class="btn-primary btn" style="float: right" /><!--END LOGIN BUTTON-->
     </div>
     <!--END FOOTER-->
 
@@ -120,26 +120,26 @@
 								},
 								fields: {			
 									username: {
-										message: 'El Usuario no es vÃ¡lido',
+										message: 'El Usuario no es válido',
 										validators: {
 													notEmpty: {
-														message: 'El Usuario no puede ser vacÃ­o.'
+														message: 'El Usuario no puede ser vacío.'
 													},					
 													regexp: {
 														regexp: /^[a-zA-ZÃ¡Ã©Ã­Ã³ÃºÃ�Ã‰Ã�Ã“ÃšÃ±Ã‘0-9-_ \.]+$/,
-														message: 'Ingrese un Usuario vÃ¡lido.'
+														message: 'Ingrese un Usuario válido.'
 													}
 												}
 											},	
 									password: {
-										message: 'La ContraseÃ±a no es vÃ¡lida',
+										message: 'La Contraseña no es válida',
 										validators: {
 											notEmpty: {
-												message: 'La ContraseÃ±a no puede ser vacÃ­a.'
+												message: 'La Contraseña no puede ser vacía.'
 											},					
 											regexp: {
 												regexp: /^[a-zA-ZÃ¡Ã©Ã­Ã³ÃºÃ�Ã‰Ã�Ã“ÃšÃ±Ã‘0-9-_ \.]+$/,
-												message: 'Ingrese una ContraseÃ±a vÃ¡lida.'
+												message: 'Ingrese una Contraseña válida.'
 											}
 										}
 									},

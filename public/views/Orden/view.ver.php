@@ -1,6 +1,6 @@
 	<div class="row">
 	<div class="form-group  col-sm-12">
-		<label class="control-label">Laboratorio</label>
+		<label class="control-label">Lab/CSin/Tall</label>
 		<div id="texto"> <?php echo $item->laboratorio; ?></div>
 	</div>
 	<div class="form-group  col-sm-12">

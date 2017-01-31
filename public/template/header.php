@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
+<head><meta http-equiv="Content-Type" content="text/html; charset=euc-jp">
+    
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="<?php echo PATH_IMAGES.'/favicon.ico'?>" />
@@ -83,7 +83,7 @@
                     <li><a href="../../Seguridad/cambiarContrasena/"><i class="fa fa-gear fa-fw"></i> Contraseña</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="../../Seguridad/cerrarSesion/"><i class="fa fa-sign-out fa-fw"></i> Salir</a>
+                    <li><a href="../../Seguridad/cerrarSesion/"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesi&oacute;n</a>
                     </li>
                 </ul>
             </li>

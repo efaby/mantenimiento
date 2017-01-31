@@ -28,7 +28,7 @@
 	    	<th>ID</th>
 		    <th>Código</th>
 		    <th>Nombre Activo</th>
-		    <th>Laboratorio</th>
+		    <th>Lab/CSin/Tall</th>
 		    <th style="text-align: center; width: 20%">Acciones</th>
 	    </tr>
     </thead>

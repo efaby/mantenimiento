@@ -13,7 +13,7 @@
 
 		<label class="control-label">Práctica</label>
 		<div id="texto"> <?php echo $item->nombre; ?></div>
-		<label class="control-label">Laboratorio</label>
+		<label class="control-label">Lab/CSin/Tall</label>
 		<div id="texto"> <?php echo $item->laboratorio; ?></div>
 		<label class="control-label">Activo Físico</label>
 		<div id="texto"> <?php echo $item->maquina; ?></div>
@@ -137,29 +137,8 @@ $(document).ready(function(){
 				<label class="control-label">Archivo Práctica</label> 
 					<input type='file' name='url' id="url" class="file">	
 			</div>
-			<div class="form-group col-sm-12">
-		<label class="control-label">Desea registar alguna novedad</label>
-		<select id="opcion" name="opcion">
-		<option value="0">No</option>
-		<option value="1">Si</option>
-		</select>
-	</div>
-			<div id="novedad" style="display: none;">
-			<div class="form-group col-sm-12">
-		<label class="control-label">Problema</label>
-		<textarea name='problema' id='problema' class='form-control' ></textarea>	
-	</div>
-	
-	<div class="form-group col-sm-12">
-		<label class="control-label">Causa</label>
-		<textarea name='causa' id='causa' class='form-control' ></textarea>		
-	</div>
-	
-	<div class="form-group col-sm-12">
-		<label class="control-label">Solución</label>
-		<textarea name='solucion' id='solucion' class='form-control' ></textarea>		
-	</div>
-			</div>
+		
+			
 			
 				<div class="form-group">
 	<input type='hidden' name='id' class='form-control' value="<?php echo $practica; ?>">
@@ -170,19 +149,7 @@ $(document).ready(function(){
 			</form>
 	<script type="text/javascript">
 	$(document).ready(function(){
-		$('#opcion').on('change', function() {
-			  if( this.value == 1){
-				  $('#novedad').css({ display: "block" });
-				  $('#problema').val('');
-				  $('#causa').val('');
-			  } else {
-				  $('#novedad').css({ display: "none" });
-				  $('#problema').val('-');
-				  $('#causa').val('-');
-				  $('#frmItem').formValidation('revalidateField', 'problema');
-				  $('#frmItem').formValidation('revalidateField', 'causa');
-			  }
-			});
+		
 
 		$('#frmItem').formValidation({
 	    	message: 'This value is not valid',
@@ -201,39 +168,8 @@ $(document).ready(function(){
 		                }
 					}
 				},
-				problema: {
-					message: 'El Problema no es válido',
-					validators: {	
-						notEmpty: {
-							message: 'El Problema no puede ser vacío.'
-						},												
-								regexp: {
-									regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-]+$/,
-									message: 'Ingrese un problema válido.'
-								}
-							}
-						},	
-						causa: {
-							message: 'La Causa no es válida',
-							validators: {	
-								notEmpty: {
-									message: 'La Causa no puede ser vacía.'
-								},												
-										regexp: {
-											regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-]+$/,
-											message: 'Ingrese una Causa válida.'
-										}
-									}
-								},
-								solucion: {
-									message: 'La Solución no es válido',
-									validators: {												
-												regexp: {
-													regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \.\,\_\-]+$/,
-													message: 'Ingrese una Solución válida.'
-												}
-											}
-										},
+					
+					
 				
 			}
 		});

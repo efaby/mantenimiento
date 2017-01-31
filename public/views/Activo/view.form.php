@@ -211,7 +211,7 @@
 		</div>	
 		<div class="form-group  col-sm-12">
 		<div class="form-group  col-sm-6">
-		<label class="control-label">Laboratorio</label>
+		<label class="control-label">Laboratorio/Centro de Simulación/Talleres</label>
 		<select class='form-control' name="laboratorio_id">
 			<option value="" >Seleccione</option>
 		<?php foreach ($laboratorios as $dato) { ?>
